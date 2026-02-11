@@ -1,8 +1,8 @@
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
-import CoursesSection from '@/components/CoursesSection';
 import TargetSection from '@/components/TargetSection';
 import PresentationSection from '@/components/PresentationSection';
+import CoursesSection from '@/components/CoursesSection';
 import HowItWorksSection from '@/components/HowItWorksSection';
 import StatsSection from '@/components/StatsSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
@@ -16,8 +16,8 @@ export default function Home() {
     <main className="min-h-screen">
       <Navigation />
       <Hero />
-      <PresentationSection />
       <TargetSection />
+      <PresentationSection />
       <HowItWorksSection />
       <CoursesSection />
       <StatsSection />

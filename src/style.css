@@ -165,7 +165,7 @@ header {
 
 /* Hero Section */
 .hero-main-container {
-    padding-top: 12rem;
+    padding-top: 14rem;
     position: relative;
     z-index: 1;
     background: var(--white);
@@ -432,6 +432,10 @@ header {
     align-items: center;
 }
 
+.presentation-grid .presentation-image {
+    order: -1;
+}
+
 .presentation-content h3 {
     font-size: 2rem;
     color: var(--primary);
@@ -443,6 +447,17 @@ header {
     color: var(--text-gray);
     line-height: 1.8;
     margin-bottom: 1.5rem;
+}
+
+.presentation-image {
+    text-align: center;
+}
+
+.presentation-image img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 2rem;
 }
 
 .presentation-features {

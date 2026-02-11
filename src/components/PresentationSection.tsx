@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Globe, Smartphone, Award, Zap } from 'lucide-react';
 
 export default function PresentationSection() {
@@ -34,15 +35,14 @@ export default function PresentationSection() {
             </div>
           </div>
           <div className="presentation-image">
-            <div className="hero-img" style={{ background: 'linear-gradient(135deg, var(--primary-light) 0%, var(--secondary-light) 100%)', padding: '4rem', borderRadius: '2rem' }}>
-              <div style={{ textAlign: 'center' }}>
-                <div style={{ width: '120px', height: '120px', background: 'var(--primary)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 2rem' }}>
-                  <Globe size={60} color="white" />
-                </div>
-                <h4 style={{ fontSize: '2rem', color: 'var(--text-dark)', marginBottom: '1rem' }}>Win Academy</h4>
-                <p style={{ color: 'var(--text-gray)', fontSize: '1.4rem' }}>L'éducation numérique accessible à tous</p>
-              </div>
-            </div>
+            <Image
+              src="/images/win-mission.png"
+              alt="Win Academy - Mission"
+              width={600}
+              height={500}
+              className="w-full h-auto"
+              priority
+            />
           </div>
         </div>
       </div>

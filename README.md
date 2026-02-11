@@ -91,4 +91,4 @@ npm start
 
 ## Licence
 
-MIT
+Nathan VOGLOSSOU

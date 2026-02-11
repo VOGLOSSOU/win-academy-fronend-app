@@ -362,61 +362,60 @@ header {
     gap: 1rem;
 }
 
-/* For Who Section */
-.for-who-section {
+/* Target Section */
+.target-section {
     padding: 8rem 0;
+    background: var(--bg-light);
 }
 
-.for-who-container {
+.target-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: center;
-}
-
-.for-who-content {
-    padding: 2rem;
-}
-
-.target-groups {
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-}
-
-.target-item {
-    display: flex;
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
-    align-items: flex-start;
 }
 
-.target-icon {
-    width: 5rem;
-    height: 5rem;
+.target-card {
+    background: var(--white);
+    padding: 3rem 2rem;
+    border-radius: 1.5rem;
+    text-align: center;
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.target-card:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+}
+
+.target-card .target-icon {
+    width: 7rem;
+    height: 7rem;
+    border-radius: 50%;
+    background: var(--primary-light);
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 1.2rem;
-    background: var(--primary-light);
+    margin: 0 auto 1.5rem;
     color: var(--primary);
-    flex-shrink: 0;
 }
 
-.target-icon ion-icon {
-    font-size: 2.5rem;
-}
-
-.target-text h4 {
-    font-size: 1.8rem;
+.target-card .target-title {
+    font-size: 1.6rem;
     font-weight: 600;
     color: var(--text-dark);
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
-.target-text p {
+.target-card .target-description {
     color: var(--text-gray);
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     line-height: 1.6;
+}
+
+/* Old Target Section Styles - to be removed */
+.for-who-section {
+    display: none;
 }
 
 /* Presentation Section */
@@ -432,6 +431,10 @@ header {
     align-items: center;
 }
 
+.presentation-grid .presentation-image {
+    order: -1;
+}
+
 .presentation-content h3 {
     font-size: 2rem;
     color: var(--primary);
@@ -443,6 +446,17 @@ header {
     color: var(--text-gray);
     line-height: 1.8;
     margin-bottom: 1.5rem;
+}
+
+.presentation-image {
+    text-align: center;
+}
+
+.presentation-image img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 2rem;
 }
 
 .presentation-features {
@@ -985,6 +999,10 @@ footer {
     .footer-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+    
+    .target-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 768px) {
@@ -1101,6 +1119,14 @@ footer {
     .footer-legal {
         flex-wrap: wrap;
         justify-content: center;
+    }
+    
+    .target-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .target-card {
+        padding: 2rem;
     }
 }
 

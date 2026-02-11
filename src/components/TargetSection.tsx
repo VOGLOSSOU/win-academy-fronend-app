@@ -27,27 +27,23 @@ const targets = [
 
 export default function TargetSection() {
   return (
-    <section className="for-who-section" id="for-who">
+    <section className="target-section" id="cible">
       <div className="container mx-auto px-4">
-        <div className="for-who-container">
-          <div className="for-who-content">
-            <h2 className="section-title-main">Pour qui est faite Win Academy ?</h2>
-            <p className="section-subtitle">Notre plateforme s'adresse à tous ceux qui veulent apprendre et évoluer</p>
-            
-            <div className="target-groups">
-              {targets.map((target, index) => (
-                <div key={index} className="target-item">
-                  <div className="target-icon">
-                    <target.icon size={28} />
-                  </div>
-                  <div className="target-text">
-                    <h4>{target.title}</h4>
-                    <p>{target.description}</p>
-                  </div>
-                </div>
-              ))}
+        <div className="section-header">
+          <h2 className="section-title-main">Pour qui est faite Win Academy ?</h2>
+          <p className="section-subtitle">Notre plateforme s'adresse à tous ceux qui veulent apprendre et évoluer</p>
+        </div>
+        
+        <div className="target-grid">
+          {targets.map((target, index) => (
+            <div key={index} className="target-card">
+              <div className="target-icon">
+                <target.icon size={32} />
+              </div>
+              <h4 className="target-title">{target.title}</h4>
+              <p className="target-description">{target.description}</p>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
