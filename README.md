@@ -2,24 +2,24 @@
 
 **Win Academy** est une plateforme EdTech béninoise qui démocratise l'accès à l'éducation numérique pour les élèves des zones défavorisées.
 
-## 🎯 Mission
+##  Mission
 
 Notre mission est de permettre aux élèves du Nord Bénin et des zones reculées de la capitale d'acquérir des compétences numériques essentielles, même avec une connexion internet limitée.
 
-## 📱 Caractéristiques principales
+##  Caractéristiques principales
 
 - **Optimisé pour faible connexion** : Fonctionne même avec un débit internet limité
 - **Mobile-first** : Accessible principalement sur smartphone
 - **Certifications reconnues** : Attestations avec QR code pour valider les compétences
 - **Parcours structurés** : Modules progressifs avec évaluations
 
-## 🏫 Public cible
+##  Public cible
 
 - Élèves du Nord Bénin et zones rurales
 - Populations des zones reculées de la capitale
 - Jeunes souhaitant acquérir des compétences digitales professionnelles
 
-## 🛠️ Stack Technique
+##  Stack Technique
 
 - **Framework:** Next.js 14 (React)
 - **Langage:** TypeScript
@@ -28,7 +28,7 @@ Notre mission est de permettre aux élèves du Nord Bénin et des zones reculée
 - **Requêtes API:** TanStack Query
 - **Icônes:** Lucide React
 
-## 📦 Installation
+##  Installation
 
 1. Cloner le projet
 2. Installer les dépendances :
@@ -46,7 +46,7 @@ NEXT_PUBLIC_API_URL=http://localhost:3000/api
 npm run dev
 ```
 
-## 📁 Structure du Projet
+##  Structure du Projet
 
 ```
 src/
@@ -74,7 +74,7 @@ src/
 └── utils/                  # Utilitaires
 ```
 
-## ✨ Fonctionnalités
+##  Fonctionnalités
 
 - [x] Page d'accueil avec Hero
 - [x] Section "Pour qui" (cible)
@@ -94,7 +94,7 @@ src/
 - [ ] Authentification complète
 - [ ] PWA avec mise en cache
 
-## 📜 Commandes
+##  Commandes
 
 ```bash
 # Développement
@@ -118,6 +118,6 @@ npm start
 - PWA avec mise en cache
 - Optimisé pour faible connexion
 
-## 📝 Licence
+##  Licence
 
 Nathan VOGLOSSOU
