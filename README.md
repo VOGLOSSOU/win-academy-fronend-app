@@ -1,8 +1,25 @@
 # Win Academy
 
-Plateforme de formation en ligne pour développer vos compétences et faire évoluer votre carrière.
+**Win Academy** est une plateforme EdTech béninoise qui démocratise l'accès à l'éducation numérique pour les élèves des zones défavorisées.
 
-## Stack Technique
+## 🎯 Mission
+
+Notre mission est de permettre aux élèves du Nord Bénin et des zones reculées de la capitale d'acquérir des compétences numériques essentielles, même avec une connexion internet limitée.
+
+## 📱 Caractéristiques principales
+
+- **Optimisé pour faible connexion** : Fonctionne même avec un débit internet limité
+- **Mobile-first** : Accessible principalement sur smartphone
+- **Certifications reconnues** : Attestations avec QR code pour valider les compétences
+- **Parcours structurés** : Modules progressifs avec évaluations
+
+## 🏫 Public cible
+
+- Élèves du Nord Bénin et zones rurales
+- Populations des zones reculées de la capitale
+- Jeunes souhaitant acquérir des compétences digitales professionnelles
+
+## 🛠️ Stack Technique
 
 - **Framework:** Next.js 14 (React)
 - **Langage:** TypeScript
@@ -11,7 +28,7 @@ Plateforme de formation en ligne pour développer vos compétences et faire évo
 - **Requêtes API:** TanStack Query
 - **Icônes:** Lucide React
 
-## Installation
+## 📦 Installation
 
 1. Cloner le projet
 2. Installer les dépendances :
@@ -29,7 +46,7 @@ NEXT_PUBLIC_API_URL=http://localhost:3000/api
 npm run dev
 ```
 
-## Structure du Projet
+## 📁 Structure du Projet
 
 ```
 src/
@@ -44,6 +61,12 @@ src/
 │   ├── Hero.tsx
 │   ├── CoursesSection.tsx
 │   ├── TargetSection.tsx
+│   ├── PresentationSection.tsx
+│   ├── HowItWorksSection.tsx
+│   ├── StatsSection.tsx
+│   ├── TestimonialsSection.tsx
+│   ├── FAQSection.tsx
+│   ├── PartnersSection.tsx
 │   ├── CTASection.tsx
 │   └── Footer.tsx
 ├── store/                  # Stores Zustand
@@ -51,11 +74,17 @@ src/
 └── utils/                  # Utilitaires
 ```
 
-## Fonctionnalités
+## ✨ Fonctionnalités
 
 - [x] Page d'accueil avec Hero
-- [x] Section formations
-- [x] Section "Pour qui"
+- [x] Section "Pour qui" (cible)
+- [x] Section Présentation (mission)
+- [x] Section Fonctionnement
+- [x] Section Formations
+- [x] Section Statistiques
+- [x] Section Témoignages
+- [x] Section FAQ
+- [x] Section Partenaires
 - [x] Call To Action
 - [x] Footer complet
 - [x] Page connexion
@@ -63,9 +92,9 @@ src/
 - [ ] Page À propos détaillée
 - [ ] Page formations avec catégories
 - [ ] Authentification complète
-- [ ] PWA
+- [ ] PWA avec mise en cache
 
-## Commandes
+## 📜 Commandes
 
 ```bash
 # Développement
@@ -81,7 +110,7 @@ npm run lint
 npm start
 ```
 
-## Performance
+## ⚡ Performance
 
 - Lazy loading des images
 - Code splitting automatique
@@ -89,6 +118,6 @@ npm start
 - PWA avec mise en cache
 - Optimisé pour faible connexion
 
-## Licence
+## 📝 Licence
 
 Nathan VOGLOSSOU

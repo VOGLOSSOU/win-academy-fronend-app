@@ -6,9 +6,9 @@ import { Globe, Smartphone, Award, Zap } from 'lucide-react';
 export default function PresentationSection() {
   const features = [
     { icon: Globe, text: 'Accessible partout au Bénin' },
-    { icon: Smartphone, text: 'Optimisé pour mobile' },
-    { icon: Award, text: 'Attestations certifiées' },
-    { icon: Zap, text: 'Connexion faible débit' },
+    { icon: Smartphone, text: 'Optimisé pour mobile et faible connexion' },
+    { icon: Award, text: 'Attestations avec QR code' },
+    { icon: Zap, text: 'Chargement rapide même avec peu de données' },
   ];
 
   return (
@@ -18,10 +18,10 @@ export default function PresentationSection() {
           <div className="presentation-content">
             <h3>Notre Mission</h3>
             <p>
-              Win Academy est une plateforme EdTech béninoise de formation en ligne dédiée à la maîtrise du digital, pensée spécifiquement pour les réalités locales, notamment les zones à faible débit internet.
+              Win Academy démocratise l'accès à l'éducation numérique pour les élèves du Nord Bénin et des zones reculées. Notre objectif est de permettre à chacun d'acquérir des compétences digitales essentielles.
             </p>
             <p>
-              Ce n'est pas simplement un site de cours. C'est une infrastructure éducative numérique adaptée au contexte africain, permettant à tout jeune béninois d'accéder à des formations structurées et certifiantes.
+              Ce n'est pas simplement un site de cours. C'est une infrastructure éducative pensée pour les réalités béninoises, offrant des formations structurées et certifiantes accessibles même avec une connexion limitée.
             </p>
             <div className="presentation-features">
               {features.map((feature, index) => (

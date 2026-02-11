@@ -19,23 +19,23 @@ export default function Hero() {
                 height={24} 
                 className="w-6 h-6"
               />
-              <span>La plateforme d'apprentissage la plus fiable</span>
+              <span>L'éducation numérique accessible à tous</span>
             </div>
             <h1 className="section-heading mb-6">
-              Développez vos compétences et faites évoluer votre carrière
+              Formez-vous au numérique
             </h1>
             <p className="section-description mb-8">
-              Rejoignez des milliers d'apprenants qui transforment leur avenir grâce à nos formations de qualité.
+              Win Academy démocratise l'accès à l'éducation numérique pour les élèves du Nord Bénin et des zones reculées. Formez-vous même avec une connexion limitée.
             </p>
             <div className="flex items-center gap-4">
               <Link href="/inscription" className="btn-primary">
-                Rejoindre gratuitement
+                Commencer gratuitement
               </Link>
               <Link href="/formations" className="flex items-center gap-3 text-gray-600 hover:text-primary transition-colors ml-3">
                 <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-white">
                   <Play size={24} fill="currentColor" />
                 </div>
-                <span className="font-medium">Voir la démo</span>
+                <span className="font-medium">Voir nos formations</span>
               </Link>
             </div>
           </div>
@@ -44,7 +44,7 @@ export default function Hero() {
           <div className="relative animate-slide-up">
             <Image
               src="/images/hero-img.png"
-              alt="Hero Image"
+              alt="Élèves béninois apprenant le numérique"
               width={500}
               height={400}
               className="w-full h-auto"

@@ -1,27 +1,27 @@
 'use client';
 
-import { School, Briefcase, Sparkles, Users } from 'lucide-react';
+import { School, MapPin, Users, GraduationCap } from 'lucide-react';
 
 const targets = [
   {
     icon: School,
-    title: 'Les étudiants',
-    description: 'Complétez votre formation académique avec des compétences pratiques recherchées sur le marché.',
+    title: 'Élèves du secondaire',
+    description: 'Préparez-vous au monde numérique dès maintenant et développez des compétences recherchées.',
   },
   {
-    icon: Briefcase,
-    title: 'Les professionnels',
-    description: 'Mettez à jour vos compétences ou faites une reconversion professionnelle dans le numérique.',
-  },
-  {
-    icon: Sparkles,
-    title: 'Les entrepreneurs',
-    description: 'Acquérez les compétences techniques pour développer votre projet ou votre entreprise.',
+    icon: MapPin,
+    title: 'Zones rurales',
+    description: 'Suivez des formations de qualité depuis chez vous, même avec une connexion limitée.',
   },
   {
     icon: Users,
-    title: 'Les curieux',
-    description: 'Démarrez une nouvelle passion ou explorez de nouveaux domaines à votre rythme.',
+    title: 'Familles à revenus modestes',
+    description: 'Accédez à une éducation numérique de qualité sans frais élevés.',
+  },
+  {
+    icon: GraduationCap,
+    title: 'Jeunes diplômés',
+    description: 'Complétez votre formation académique avec des compétences pratiques pour le marché du travail.',
   },
 ];
 
@@ -31,7 +31,7 @@ export default function TargetSection() {
       <div className="container mx-auto px-4">
         <div className="section-header">
           <h2 className="section-title-main">Pour qui est faite Win Academy ?</h2>
-          <p className="section-subtitle">Notre plateforme s'adresse à tous ceux qui veulent apprendre et évoluer</p>
+          <p className="section-subtitle">Notre plateforme est spécialement conçue pour les élèves des zones défavorisées du Bénin</p>
         </div>
         
         <div className="target-grid">
