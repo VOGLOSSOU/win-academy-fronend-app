@@ -134,7 +134,7 @@ export default function FormationsPage() {
       <Navigation />
       <main className="min-h-screen">
         {/* Hero Section */}
-        <section className="pt-32 pb-16 bg-light">
+        <section className="pt-56 pb-16 bg-light">
           <div className="container mx-auto px-4">
             <div className="text-center max-w-3xl mx-auto">
               <h1 className="section-title-main mb-6">Nos Formations</h1>

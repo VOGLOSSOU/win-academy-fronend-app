@@ -56,6 +56,15 @@
   .pt-32 {
     padding-top: 8rem;
   }
+  .pt-40 {
+    padding-top: 10rem;
+  }
+  .pt-48 {
+    padding-top: 12rem;
+  }
+  .pt-56 {
+    padding-top: 14rem;
+  }
   .pb-16 {
     padding-bottom: 4rem;
   }
