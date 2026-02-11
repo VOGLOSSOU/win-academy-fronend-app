@@ -11,15 +11,15 @@
 
 :root {
     --nav-shadow: 0 0.5rem 4rem rgba(0, 0, 0, 0.05);
-    --primary: rgba(117, 79, 254, 1);
-    --primary-light: rgba(117, 79, 254, 0.1);
-    --secondary: #29baf9;
-    --text-dark: #121212;
-    --text-dark-light: #030303;
-    --text-light: #2f2f2f;
-    --text-gray: #666;
-    --white: #fff;
-    --bg-light: #f8f9fa;
+    --primary: #1877F2;
+    --primary-light: rgba(24, 119, 242, 0.1);
+    --secondary: #42b72a;
+    --text-dark: #1c1e21;
+    --text-dark-light: #000000;
+    --text-light: #4b4f56;
+    --text-gray: #606770;
+    --white: #ffffff;
+    --bg-light: #f0f2f5;
 }
 
 html {
@@ -764,7 +764,7 @@ header {
 /* CTA Section */
 .cta-section {
     padding: 8rem 0;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    background: var(--primary);
 }
 
 .cta-container {
