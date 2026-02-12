@@ -247,6 +247,29 @@
   }
 }
 
+/* Responsive for inscription and connexion pages */
+@media (max-width: 768px) {
+  .text-5xl {
+    font-size: 2.5rem !important;
+  }
+  .text-2xl {
+    font-size: 1.5rem !important;
+  }
+  .p-12 {
+    padding: 2rem !important;
+  }
+  .py-6 {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+  .gap-8 {
+    gap: 2rem !important;
+  }
+  .max-w-4xl {
+    max-width: 100% !important;
+  }
+}
+
 :root {
   --font-poppins: 'Poppins', sans-serif;
 }
