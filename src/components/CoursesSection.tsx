@@ -3,72 +3,78 @@
 import Link from 'next/link';
 import { 
   Code, Smartphone, BarChart3, Briefcase, 
-  Palette, Cloud, ArrowRight 
+  Palette, Cloud, ArrowRight, Target, Leaf, Heart, Sparkles
 } from 'lucide-react';
 
-const courses = [
-  {
-    icon: Code,
-    title: 'Développement Web',
-    description: 'Apprenez HTML, CSS, JavaScript et les frameworks modernes pour créer des sites web performants.',
-    href: '/formations/developpement-web',
-  },
-  {
-    icon: Smartphone,
-    title: 'Développement Mobile',
-    description: 'Maîtrisez React Native et Flutter pour créer des applications mobiles natives.',
-    href: '/formations/developpement-mobile',
-  },
-  {
-    icon: BarChart3,
-    title: 'Data Science',
-    description: 'Analysez des données avec Python, Machine Learning et IA pour des décisions éclairées.',
-    href: '/formations/data-science',
-  },
+const categories = [
   {
     icon: Briefcase,
-    title: 'Marketing Digital',
-    description: 'Apprenez le SEO, les réseaux sociaux et la publicité en ligne pour booster votre entreprise.',
-    href: '/formations/marketing-digital',
+    title: 'Formations Digitales',
+    description: 'Marketing digital, Community management, IA et outils modernes',
+    href: '/formations?category=digital',
+    color: 'blue',
   },
   {
-    icon: Palette,
-    title: 'Design Graphique',
-    description: 'Maîtrisez Photoshop, Illustrator et Figma pour créer des designs professionnels.',
-    href: '/formations/design-graphique',
+    icon: Target,
+    title: 'Entrepreneuriat & Business',
+    description: 'Création d\'entreprise, Gestion financière, E-commerce',
+    href: '/formations?category=entrepreneuriat',
+    color: 'green',
   },
   {
-    icon: Cloud,
-    title: 'Cloud & DevOps',
-    description: 'Deployez et gérez vos applications avec AWS, Azure et les pratiques DevOps.',
-    href: '/formations/cloud-devops',
+    icon: Leaf,
+    title: 'Agribusiness',
+    description: 'Transformation agroalimentaire, Commercialisation, Gestion agricole',
+    href: '/formations?category=agribusiness',
+    color: 'emerald',
+  },
+  {
+    icon: Heart,
+    title: 'Leadership & Développement',
+    description: 'Prise de parole, Confiance en soi, Productivité',
+    href: '/formations?category=leadership',
+    color: 'rose',
   },
 ];
 
 export default function CoursesSection() {
   return (
-    <section className="courses-section" id="courses">
+    <section className="py-16 bg-light" id="formations">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="section-header">
-          <h2 className="section-title-main">Nos Cours Populaires</h2>
-          <p className="section-subtitle">Découvrez nos formations les plus appréciées par nos étudiants</p>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-dark mb-4">
+            Nos Formations
+          </h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Des formations adaptées aux réalités béninoises pour développer vos compétences et créer des revenus
+          </p>
         </div>
 
-        {/* Courses Grid */}
-        <div className="courses-grid">
-          {courses.map((course, index) => (
-            <div key={index} className="course-card">
-              <div className="course-icon">
-                <course.icon size={32} />
+        {/* Categories Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {categories.map((category, index) => (
+            <div key={index} className="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition-shadow">
+              <div className={`w-14 h-14 rounded-xl bg-${category.color}-100 flex items-center justify-center mb-4`}>
+                <category.icon className={`text-${category.color}-600`} size={28} />
               </div>
-              <h3 className="course-title">{course.title}</h3>
-              <p className="course-description">{course.description}</p>
-              <Link href={course.href} className="course-link">
-                Voir le cours <ArrowRight size={18} />
+              <h3 className="text-xl font-bold text-dark mb-2">{category.title}</h3>
+              <p className="text-gray-600 mb-4 text-sm">{category.description}</p>
+              <Link 
+                href={category.href} 
+                className={`inline-flex items-center gap-2 text-${category.color}-600 font-medium hover:underline`}
+              >
+                Découvrir <ArrowRight size={18} />
               </Link>
             </div>
           ))}
+        </div>
+
+        {/* CTA */}
+        <div className="text-center mt-10">
+          <Link href="/formations" className="btn-primary">
+            Voir toutes les formations
+          </Link>
         </div>
       </div>
     </section>

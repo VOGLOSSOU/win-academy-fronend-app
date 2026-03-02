@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Play, CheckCircle } from 'lucide-react';
+import { Play, CheckCircle, ArrowRight } from 'lucide-react';
 
 export default function Hero() {
   return (
@@ -22,21 +22,35 @@ export default function Hero() {
               <span>L'éducation numérique accessible à tous</span>
             </div>
             <h1 className="section-heading mb-6">
-              Formez-vous au numérique
+              Formez-vous aujourd'hui. Gagnez demain !
             </h1>
             <p className="section-description mb-8">
-              Win Academy démocratise l'accès à l'éducation numérique pour les élèves du Nord Bénin et des zones reculées. Formez-vous même avec une connexion limitée.
+              Plateforme de formation pour la jeunesse Béninoise
             </p>
-            <div className="flex items-center gap-4">
-              <Link href="/inscription" className="btn-primary">
-                Commencer gratuitement
+            <div className="flex flex-wrap items-center gap-4">
+              <Link href="/formations" className="btn-primary">
+                Découvrir les formations
               </Link>
-              <Link href="/formations" className="flex items-center gap-3 text-gray-600 hover:text-primary transition-colors ml-3">
-                <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-white">
-                  <Play size={24} fill="currentColor" />
-                </div>
-                <span className="font-medium">Voir nos formations</span>
+              <Link href="/certifications" className="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors font-medium">
+                Voir les certifications
+                <ArrowRight size={20} />
               </Link>
+            </div>
+            
+            {/* Stats */}
+            <div className="flex flex-wrap gap-8 mt-10 pt-8 border-t">
+              <div>
+                <p className="text-3xl font-bold text-primary">5,000+</p>
+                <p className="text-gray-600">Apprenants</p>
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-primary">13</p>
+                <p className="text-gray-600">Formations</p>
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-primary">12</p>
+                <p className="text-gray-600">Certifications</p>
+              </div>
             </div>
           </div>
 
