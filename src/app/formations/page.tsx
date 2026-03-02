@@ -489,7 +489,7 @@ export default function FormationsPage() {
 
         {/* Free Formations Banner */}
         {activeCategory === 'all' && (
-          <section className="py-8 bg-gradient-to-r from-green-500 to-emerald-600">
+          <section className="py-8 bg-gradient-to-r from-primary to-blue-600">
             <div className="container mx-auto px-4">
               <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="flex items-center gap-4">
@@ -545,7 +545,7 @@ export default function FormationsPage() {
                       </div>
                     )}
                     {formation.isFree && (
-                      <div className="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                      <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
                         <DollarSign size={14} />
                         Gratuit
                       </div>
@@ -592,7 +592,7 @@ export default function FormationsPage() {
                     <div className="flex items-center justify-between pt-4 border-t">
                       <div>
                         {formation.isFree ? (
-                          <span className="text-2xl font-bold text-green-600">Gratuit</span>
+                          <span className="text-2xl font-bold text-primary">Gratuit</span>
                         ) : (
                           <span className="text-2xl font-bold text-primary">{formation.price.toLocaleString()} Fcfa</span>
                         )}

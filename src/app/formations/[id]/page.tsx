@@ -520,7 +520,7 @@ export default function FormationDetailPage() {
                     {formation.level}
                   </span>
                   {formation.isFree && (
-                    <span className="px-3 py-1 bg-green-500 text-white rounded-full text-sm font-medium">
+                    <span className="px-3 py-1 bg-primary text-white rounded-full text-sm font-medium">
                       Gratuit
                     </span>
                   )}
@@ -554,7 +554,7 @@ export default function FormationDetailPage() {
 
                 <Link 
                   href="/inscription" 
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary font-bold rounded-full hover:bg-gray-100 transition-colors"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white font-bold rounded-full hover:bg-primary/90"
                 >
                   S'inscrire maintenant
                   <ChevronRight size={20} />
@@ -707,7 +707,7 @@ export default function FormationDetailPage() {
                     {formation.isFree ? (
                       <Link 
                         href="/inscription" 
-                        className="flex items-center justify-center gap-2 w-full py-4 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 transition-colors"
+                        className="flex items-center justify-center gap-2 w-full py-4 bg-primary text-white font-bold rounded-full hover:bg-primary/90 transition-colors"
                       >
                         Commencer gratuitement
                         <Play size={20} />
