@@ -53,7 +53,7 @@ export default function Navigation() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="nav_menu active md:hidden">
+          <div className="nav_menu active md:hidden" style={{ backgroundColor: '#1877F2' }}>
             {navLinks.map((link) => (
               <Link
                 key={link.href}

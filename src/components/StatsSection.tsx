@@ -11,16 +11,16 @@ export default function StatsSection() {
   ];
 
   return (
-    <section className="stats-section" id="statistiques">
+    <section className="py-8 bg-white" id="statistiques">
       <div className="container mx-auto px-4">
-        <div className="stats-grid">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
-            <div key={index} className="stat-box">
-              <div className="stat-icon">
-                <stat.icon size={32} />
+            <div key={index} className="text-center">
+              <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-blue-100 flex items-center justify-center">
+                <stat.icon className="text-primary" size={28} />
               </div>
-              <div className="stat-value">{stat.value}</div>
-              <div className="stat-label">{stat.label}</div>
+              <div className="text-3xl md:text-4xl font-bold text-dark">{stat.value}</div>
+              <div className="text-gray-600 mt-1">{stat.label}</div>
             </div>
           ))}
         </div>

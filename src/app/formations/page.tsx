@@ -564,10 +564,10 @@ export default function FormationsPage() {
                     </div>
 
                     <h3 className="text-xl font-bold text-dark mb-2">{formation.title}</h3>
-                    <p className="text-gray-600 mb-4 text-sm line-clamp-2">{formation.description}</p>
+                    <p className="text-gray-600 mb-4 text-base line-clamp-2">{formation.description}</p>
 
                     {/* Meta */}
-                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                    <div className="flex items-center gap-4 text-base text-gray-500 mb-4">
                       <div className="flex items-center gap-1">
                         <Clock size={16} />
                         <span>{formation.duration}</span>
@@ -579,7 +579,7 @@ export default function FormationsPage() {
                     </div>
 
                     {/* Instructor & Certificate */}
-                    <div className="flex items-center justify-between text-sm mb-4">
+                    <div className="flex items-center justify-between text-base mb-4">
                       <span className="text-gray-600">Par {formation.instructor}</span>
                       {formation.hasCertificate && (
                         <span className="flex items-center gap-1 text-green-600">
@@ -625,10 +625,10 @@ export default function FormationsPage() {
         <PartnersSection />
 
         {/* CTA Section */}
-        <section className="py-16 bg-light">
+        <section className="py-16 bg-white">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="section-title-main mb-4">Vous ne savez pas par où commencer ?</h2>
-            <p className="section-description mb-8 max-w-2xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-dark mb-4">Vous ne savez pas par où commencer ?</h2>
+            <p className="text-2xl text-gray-600 mb-8 max-w-2xl mx-auto">
               Nos conseillers pédagogiques sont là pour vous guider vers la formation 
               qui correspond le mieux à vos objectifs.
             </p>

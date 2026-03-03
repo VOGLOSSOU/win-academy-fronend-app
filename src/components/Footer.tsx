@@ -8,25 +8,29 @@ export default function Footer() {
 
   const footerLinks = {
     formations: [
-      { href: '/formations/developpement-web', label: 'Développement Web' },
-      { href: '/formations/developpement-mobile', label: 'Développement Mobile' },
-      { href: '/formations/data-science', label: 'Data Science' },
-      { href: '/formations/marketing-digital', label: 'Marketing Digital' },
-      { href: '/formations/design-graphique', label: 'Design Graphique' },
-      { href: '/formations/cloud-devops', label: 'Cloud & DevOps' },
+      { href: '/formations?category=digital', label: 'Formations Digitales' },
+      { href: '/formations?category=entrepreneuriat', label: 'Entrepreneuriat & Business' },
+      { href: '/formations?category=agribusiness', label: 'Agribusiness & Transformation' },
+      { href: '/formations?category=leadership', label: 'Leadership & Développement Personnel' },
+    ],
+    certifications: [
+      { href: '/certifications?category=digital', label: 'Certifications Digitales' },
+      { href: '/certifications?category=entrepreneuriat', label: 'Entrepreneuriat & Business' },
+      { href: '/certifications?category=agribusiness', label: 'Agribusiness' },
+      { href: '/certifications?category=leadership', label: 'Leadership' },
     ],
     legal: [
       { href: '/mentions-legales', label: 'Mentions légales' },
       { href: '/politique-confidentialite', label: 'Politique de confidentialité' },
       { href: '/conditions-utilisation', label: "Conditions d'utilisation" },
-      { href: '/faq', label: 'FAQ' },
+      { href: '/a-propos#faq', label: 'FAQ' },
     ],
   };
 
   return (
     <footer className="bg-dark text-white pt-16 pb-8">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           {/* Brand */}
           <div>
             <Link href="/" className="flex items-center gap-2 mb-6">
@@ -59,6 +63,20 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-6">Nos Formations</h4>
             <ul className="space-y-4">
               {footerLinks.formations.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-gray-400 hover:text-primary transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Certifications */}
+          <div>
+            <h4 className="text-lg font-semibold mb-6">Nos Certifications</h4>
+            <ul className="space-y-4">
+              {footerLinks.certifications.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="text-gray-400 hover:text-primary transition-colors">
                     {link.label}
