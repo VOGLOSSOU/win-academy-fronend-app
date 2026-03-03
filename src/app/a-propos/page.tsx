@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import FAQSection from '@/components/FAQSection';
 import { Award, Heart, Target, Zap, Globe, Users, Smartphone } from 'lucide-react';
 
 export default function AProposPage() {
@@ -211,6 +212,9 @@ export default function AProposPage() {
             </div>
           </div>
         </section>
+
+        {/* FAQ Section */}
+        <FAQSection />
 
         {/* Call to Action */}
         <section className="py-16 bg-primary">

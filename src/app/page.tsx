@@ -4,7 +4,6 @@ import TargetSection from '@/components/TargetSection';
 import PresentationSection from '@/components/PresentationSection';
 import HowItWorksSection from '@/components/HowItWorksSection';
 import StatsSection from '@/components/StatsSection';
-import FAQSection from '@/components/FAQSection';
 import Footer from '@/components/Footer';
 
 export default function Home() {
@@ -16,7 +15,6 @@ export default function Home() {
       <PresentationSection />
       <HowItWorksSection />
       <StatsSection />
-      <FAQSection />
       <Footer />
     </main>
   );

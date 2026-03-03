@@ -18,7 +18,7 @@
 
  - la section " apprenant formés ... " peut aussi être envoyé sur la page formations 
 
- - la faq est à déplacer vers la page à-propos 
+ - la faq est à déplacer vers la page à-propos ( fait )
 
  - la section " ils nous font confiance " est à envoyer sur la page " partenanires " 
  avec aussi la section qui la suit " vous voulez devenir partenaire ? " 
