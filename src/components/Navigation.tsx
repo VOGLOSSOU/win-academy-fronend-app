@@ -16,7 +16,7 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header>
+    <header className="bg-primary">
       <nav className="container mx-auto px-4 py-4">
         <div className="navigation">
           {/* Logo */}
@@ -30,7 +30,7 @@ export default function Navigation() {
           <ul className="nav_menu">
             {navLinks.map((link) => (
               <li key={link.href} className="nav_list">
-                <Link href={link.href} className="nav_link">
+                <Link href={link.href} className="nav_link text-white">
                   {link.label}
                 </Link>
               </li>
@@ -39,7 +39,7 @@ export default function Navigation() {
 
           {/* Actions */}
           <div className="nav_right">
-            <Link href="/connexion" className="btn-login">
+            <Link href="/connexion" className="btn-login bg-white text-primary">
               <User size={20} />
             </Link>
             <button
@@ -58,7 +58,7 @@ export default function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="nav_link"
+                className="nav_link text-white"
                 onClick={() => setIsOpen(false)}
               >
                 {link.label}

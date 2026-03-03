@@ -90,9 +90,7 @@ header {
     top: 0;
     left: 0;
     right: 0;
-    background: var(--primary-lighter);
     z-index: 1000;
-    border-bottom: 2px solid var(--primary);
 }
 
 .navigation {
@@ -130,13 +128,13 @@ header {
 }
 
 .nav_link {
-    color: var(--text-dark);
+    color: var(--white);
     font-weight: 500;
     transition: color 0.3s ease;
 }
 
 .nav_link:hover {
-    color: var(--primary);
+    color: var(--gray-200);
 }
 
 .nav_right {
@@ -198,6 +196,7 @@ header {
 .mobile_menu_toggle {
     cursor: pointer;
     display: none;
+    color: var(--white);
 }
 
 .menu_toggle_icon {
@@ -1093,7 +1092,7 @@ footer {
         position: absolute;
         top: 7rem;
         width: 100%;
-        background: #fff;
+        background: var(--primary);
         height: calc(100vh - 7rem);
         align-items: flex-start;
         flex-direction: column;
@@ -1110,6 +1109,10 @@ footer {
     
     .nav_list {
         margin: 0;
+    }
+    
+    .nav_link {
+        color: var(--white);
     }
     
     .hero-container {
