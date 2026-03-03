@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import BackToTop from '@/components/BackToTop';
 
 export const metadata: Metadata = {
   title: 'Wurami E-Learning - Apprenez et évoluez',
@@ -20,6 +21,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         {children}
+        <BackToTop />
       </body>
     </html>
   );
