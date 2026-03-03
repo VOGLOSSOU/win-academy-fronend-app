@@ -63,8 +63,8 @@ export default function PartnersSection() {
           <h2 className="text-3xl md:text-4xl font-bold text-dark mb-4">
             Ils nous font confiance
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            WIN ACADEMY collabore avec des institutions éducatives, des entreprises et des organisations engagées pour l'employabilité et l'inclusion numérique des jeunes
+          <p className="text-2xl text-gray-600 max-w-2xl mx-auto">
+            Wurami E-Learning collabore avec des institutions éducatives, des entreprises et des organisations engagées pour l'employabilité et l'inclusion numérique des jeunes
           </p>
         </div>
 
@@ -161,7 +161,7 @@ export default function PartnersSection() {
             Vous souhaitez devenir partenaire ?
           </h3>
           <p className="text-white/90 mb-6 max-w-xl mx-auto">
-            Rejoignez WIN ACADEMY pour contribuer à l'autonomisation des jeunes et au développement numérique du Benin
+                        Rejoignez Wurami E-Learning pour contribuer à l'autonomisation des jeunes et au développement numérique du Benin
           </p>
           <Link 
             href="/inscription" 

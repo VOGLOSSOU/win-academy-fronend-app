@@ -7,7 +7,6 @@ import HowItWorksSection from '@/components/HowItWorksSection';
 import StatsSection from '@/components/StatsSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import FAQSection from '@/components/FAQSection';
-import PartnersSection from '@/components/PartnersSection';
 import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 
@@ -23,7 +22,6 @@ export default function Home() {
       <StatsSection />
       <TestimonialsSection />
       <FAQSection />
-      <PartnersSection />
       <CTASection />
       <Footer />
     </main>
