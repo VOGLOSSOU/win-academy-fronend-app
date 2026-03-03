@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import PartnersSection from '@/components/PartnersSection';
 import { 
   Search, 
   Clock, 
@@ -619,6 +620,9 @@ export default function FormationsPage() {
             )}
           </div>
         </section>
+
+        {/* Testimonials Section */}
+        <PartnersSection />
 
         {/* CTA Section */}
         <section className="py-16 bg-light">

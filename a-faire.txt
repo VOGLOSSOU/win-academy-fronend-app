@@ -8,10 +8,11 @@
 
 - supprimer la section "nos formations " de la page d' acceuil ( fait )
 
-- réduire la taille de la section qui présente les chiffres sur la page d' acceuil
+- réduire la taille de la section qui présente les chiffres sur la page d' acceuil ( fait ) 
 
 - renommer la section " ils nous font confiance " en " découvrez les témoignages
- de ceux qui ont changé leur vie avec wurami ", déplacer ça sur  la page " formations " complètement en bas 
+ de ceux qui ont changé leur vie avec wurami ", déplacer ça sur  la page 
+ " formations " complètement en bas ( fait ) 
 
  - enlever les ( " ) de l' arrière plan des cartes de témoignages 
 
