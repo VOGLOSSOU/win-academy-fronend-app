@@ -35,7 +35,20 @@ body {
 }
 
 ::-webkit-scrollbar {
-    width: 0;
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #1565c0;
 }
 
 .container {
