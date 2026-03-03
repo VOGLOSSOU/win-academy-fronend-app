@@ -4,9 +4,9 @@
 
 - proposition de logo pour remplacer le w qui est au niveau du header 
 
-- créer une page partenaire ( à inclure dans le header )
+- créer une page partenaire ( à inclure dans le header ) ( fait ) 
 
-- supprimer la section "nos formations " de la page d' acceuil
+- supprimer la section "nos formations " de la page d' acceuil ( fait )
 
 - réduire la taille de la section qui présente les chiffres sur la page d' acceuil
 
