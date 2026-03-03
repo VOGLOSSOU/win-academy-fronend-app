@@ -69,7 +69,7 @@ export default function InscriptionPage() {
             <div className="bg-white rounded-3xl shadow-2xl p-12">
               <div className="text-center mb-12">
                 <h1 className="text-5xl font-bold text-dark mb-4">Créer un compte</h1>
-                <p className="text-gray-600 text-2xl">Rejoignez Win Academy aujourd'hui</p>
+                <p className="text-gray-600 text-2xl">Rejoignez Wurami E-Learning aujourd'hui</p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-8">

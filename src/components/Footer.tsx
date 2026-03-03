@@ -33,7 +33,7 @@ export default function Footer() {
               <div className="logo">
                 <span>W</span>
               </div>
-              <span className="text-xl font-bold">Win Academy</span>
+              <span className="text-xl font-bold">Wurami E-Learning</span>
             </Link>
             <p className="text-gray-400 mb-6">
               La plateforme EdTech béninoise dédiée à la maîtrise du digital, accessible même avec une connexion modeste.
@@ -119,7 +119,7 @@ export default function Footer() {
         <div className="border-t border-white/10 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm">
-              © {currentYear} Win Academy. Tous droits réservés.
+              © {currentYear} Wurami E-Learning. Tous droits réservés.
             </p>
             <div className="flex gap-6 flex-wrap justify-center">
               {footerLinks.legal.map((link) => (

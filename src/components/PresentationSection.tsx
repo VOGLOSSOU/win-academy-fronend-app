@@ -18,7 +18,7 @@ export default function PresentationSection() {
           <div className="presentation-content">
             <h3>Notre Mission</h3>
             <p>
-              Win Academy démocratise l'accès à l'éducation numérique pour les élèves du Nord Bénin et des zones reculées. Notre objectif est de permettre à chacun d'acquérir des compétences digitales essentielles.
+              Wurami E-Learning démocratise l'accès à l'éducation numérique pour les élèves du Nord Bénin et des zones reculées. Notre objectif est de permettre à chacun d'acquérir des compétences digitales essentielles.
             </p>
             <p>
               Ce n'est pas simplement un site de cours. C'est une infrastructure éducative pensée pour les réalités béninoises, offrant des formations structurées et certifiantes accessibles même avec une connexion limitée.
@@ -37,7 +37,7 @@ export default function PresentationSection() {
           <div className="presentation-image">
             <Image
               src="/images/win-mission.png"
-              alt="Win Academy - Mission"
+              alt="Wurami E-Learning - Mission"
               width={600}
               height={500}
               className="w-full h-auto"

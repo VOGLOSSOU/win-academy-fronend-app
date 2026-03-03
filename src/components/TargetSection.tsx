@@ -30,7 +30,7 @@ export default function TargetSection() {
     <section className="target-section" id="cible">
       <div className="container mx-auto px-4">
         <div className="section-header">
-          <h2 className="section-title-main">Pour qui est faite Win Academy ?</h2>
+          <h2 className="section-title-main">Pour qui est faite Wurami E-Learning ?</h2>
           <p className="section-subtitle">Notre plateforme est spécialement conçue pour les élèves des zones défavorisées du Bénin</p>
         </div>
         

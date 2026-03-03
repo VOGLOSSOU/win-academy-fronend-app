@@ -708,7 +708,7 @@ export default function FormationDetailClient() {
               Prêt à commencer votre transformation ?
             </h2>
             <p className="text-xl text-white/90 mb-8">
-              Rejoignez {formation.students}+ apprenants qui font déjà confiance à Win Academy
+              Rejoignez {formation.students}+ apprenants qui font déjà confiance à Wurami E-Learning
             </p>
             <button className="bg-white text-primary px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-colors">
               {formation.isFree ? 'Commencer gratuitement' : 'S\'inscrire maintenant'}

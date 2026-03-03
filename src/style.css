@@ -13,6 +13,7 @@
     --nav-shadow: 0 0.5rem 4rem rgba(0, 0, 0, 0.05);
     --primary: #1877F2;
     --primary-light: rgba(24, 119, 242, 0.1);
+    --primary-lighter: #b3d4fc;
     --secondary: #42b72a;
     --text-dark: #1c1e21;
     --text-dark-light: #000000;
@@ -45,13 +46,14 @@ body {
 
 /* Header & Navigation */
 header {
-    box-shadow: var(--nav-shadow);
+    box-shadow: none;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    background: var(--white);
+    background: var(--primary-lighter);
     z-index: 1000;
+    border-bottom: 2px solid var(--primary);
 }
 
 .navigation {
@@ -164,6 +166,37 @@ header {
 }
 
 /* Hero Section */
+.hero-section {
+    position: relative;
+    padding-top: 14rem;
+    padding-bottom: 4rem;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/images/hero-background.jpg');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+.hero-background::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+}
+
 .hero-main-container {
     padding-top: 14rem;
     position: relative;
@@ -188,23 +221,31 @@ header {
     font-size: 1.4rem;
 }
 
+.section-title-alt {
+    color: var(--white);
+    font-weight: 500;
+    font-size: 1.4rem;
+    opacity: 0.9;
+}
+
 .section-title img {
     width: 2rem;
     height: 2rem;
 }
 
 .section-heading {
-    font-size: 5rem;
-    line-height: 6rem;
-    color: var(--text-dark);
+    font-size: 3.5rem;
+    line-height: 1.15;
+    color: var(--white);
     font-weight: bold;
     padding: 1.5rem 0;
 }
 
 .section-description {
-    color: var(--text-light);
+    color: var(--white);
     font-size: 1.8rem;
     padding-bottom: 2rem;
+    opacity: 0.95;
 }
 
 .btn-primary {
@@ -1040,8 +1081,7 @@ footer {
     }
     
     .section-heading {
-        font-size: 3.5rem;
-        line-height: 4.5rem;
+        font-size: 3rem;
     }
     
     .section-description {
@@ -1121,8 +1161,7 @@ footer {
 
 @media (max-width: 480px) {
     .section-heading {
-        font-size: 2.8rem;
-        line-height: 3.5rem;
+        font-size: 2.5rem;
     }
     
     .btn-primary {

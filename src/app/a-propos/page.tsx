@@ -36,7 +36,7 @@ export default function AProposPage() {
       image: '/images/team-1.png',
     },
     {
-      name: 'Équipe Win Academy',
+      name: 'Équipe Wurami',
       role: 'Éducateurs & Développeurs',
       image: '/images/team-2.png',
     },
@@ -50,9 +50,9 @@ export default function AProposPage() {
         <section className="pt-56 pb-16 bg-light">
           <div className="container mx-auto px-4">
             <div className="text-center max-w-3xl mx-auto">
-              <h1 className="section-title-main mb-6">À propos de Win Academy</h1>
-              <p className="section-description">
-                Win Academy démocratise l'accès à l'éducation numérique pour les élèves des zones défavorisées du Bénin.
+              <h1 className="section-title-main mb-6 text-dark">À propos de Wurami E-Learning</h1>
+              <p className="section-description text-gray-600">
+                Wurami E-Learning démocratise l'accès à l'éducation numérique pour les élèves des zones défavorisées du Bénin.
               </p>
             </div>
           </div>
@@ -65,7 +65,7 @@ export default function AProposPage() {
               <div className="presentation-content">
                 <h3 className="text-2xl font-bold mb-4">Notre Mission</h3>
                 <p className="mb-4">
-                  Win Academy est une plateforme EdTech béninoise née d'une conviction simple : 
+                  Wurami E-Learning est une plateforme EdTech béninoise née d'une conviction simple : 
                   chaque jeune béninois, où qu'il soit, mérite accès à une éducation numérique de qualité.
                 </p>
                 <p className="mb-4">
@@ -81,7 +81,7 @@ export default function AProposPage() {
               <div className="presentation-image">
                 <Image
                   src="/images/win-mission.png"
-                  alt="Win Academy Mission"
+                  alt="Wurami E-Learning Mission"
                   width={600}
                   height={500}
                   className="w-full h-auto rounded-2xl"
@@ -91,11 +91,11 @@ export default function AProposPage() {
           </div>
         </section>
 
-        {/* Pourquoi Win Academy */}
+        {/* Pourquoi Wurami E-Learning */}
         <section className="py-16 bg-light">
           <div className="container mx-auto px-4">
             <div className="section-header">
-              <h2 className="section-title-main">Pourquoi Win Academy ?</h2>
+              <h2 className="section-title-main">Pourquoi Wurami E-Learning ?</h2>
               <p className="section-subtitle">Une approche pensée pour les réalités béninoises</p>
             </div>
 
@@ -172,7 +172,7 @@ export default function AProposPage() {
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="section-title-main mb-6">Notre Histoire</h2>
               <p className="text-gray-600 mb-4">
-                Win Academy est née de la rencontre entre deux constats :
+                Wurami E-Learning est née de la rencontre entre deux constats :
               </p>
               <p className="text-gray-600 mb-4">
                 D'une part, le potentiel immense des jeunes béninois, plein d'ambitions et de talents. 
@@ -181,7 +181,7 @@ export default function AProposPage() {
                 et peu de repères dans le monde numérique.
               </p>
               <p className="text-gray-600 mb-4">
-                Face à ces défis, nous avons décidé d'agir. En créant Win Academy, 
+                Face à ces défis, nous avons décidé d'agir. En créant Wurami E-Learning, 
                 notre ambition est de lever ces barrières et de donner à chaque jeune 
                 les clés pour réussir dans l'économie numérique de demain.
               </p>
@@ -215,7 +215,7 @@ export default function AProposPage() {
         {/* Call to Action */}
         <section className="py-16 bg-primary">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">Rejoignez l'aventure Win Academy</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">Rejoignez l'aventure Wurami E-Learning</h2>
             <p className="text-white/80 mb-8 max-w-2xl mx-auto">
               Vous voulez faire partie de notre mission ? Inscrivez-vous dès maintenant 
               et apprenez les compétences numériques qui changeront votre avenir.

@@ -1,6 +1,6 @@
-# Win Academy
+# Wurami E-Learning
 
-**Win Academy** est une plateforme EdTech béninoise qui démocratise l'accès à l'éducation numérique pour les élèves des zones défavorisées.
+**Wurami E-Learning** est une plateforme EdTech béninoise qui démocratise l'accès à l'éducation numérique pour les élèves des zones défavorisées.
 
 ##  Mission
 

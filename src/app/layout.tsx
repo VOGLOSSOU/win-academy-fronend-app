@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Win Academy - Apprenez et évoluez',
-  description: 'Win Academy est une plateforme de formation en ligne qui vous aide à développer vos compétences et à faire évoluer votre carrière.',
+  title: 'Wurami E-Learning - Apprenez et évoluez',
+  description: 'Wurami E-Learning est une plateforme de formation en ligne qui vous aide à développer vos compétences et à faire évoluer votre carrière.',
   manifest: '/manifest.json',
 };
 

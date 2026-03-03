@@ -5,7 +5,7 @@ import { ChevronDown } from 'lucide-react';
 
 const faqs = [
   {
-    question: 'Comment m\'inscrire sur Win Academy ?',
+    question: 'Comment m\'inscrire sur Wurami E-Learning ?',
     answer: 'L\'inscription est simple et gratuite. Cliquez sur le bouton "S\'inscrire" en haut à droite, remplissez le formulaire avec vos informations personnelles et validez votre compte.',
   },
   {
@@ -18,7 +18,7 @@ const faqs = [
   },
   {
     question: 'Quel est le coût des formations ?',
-    answer: 'Win Academy propose des formations gratuites et payantes. Nous voulons rendre l\'éducation numérique accessible à tous les jeunes béninois.',
+    answer: 'Wurami E-Learning propose des formations gratuites et payantes. Nous voulons rendre l\'éducation numérique accessible à tous les jeunes béninois.',
   },
   {
     question: 'Puis-je suivre les cours sur mobile ?',
@@ -34,7 +34,7 @@ export default function FAQSection() {
       <div className="container mx-auto px-4">
         <div className="section-header">
           <h2 className="section-title-main">Questions Fréquentes</h2>
-          <p className="section-subtitle">Tout ce que vous devez savoir sur Win Academy</p>
+          <p className="section-subtitle">Tout ce que vous devez savoir sur Wurami E-Learning</p>
         </div>
         
         <div className="faq-list">

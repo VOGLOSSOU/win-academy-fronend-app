@@ -367,7 +367,7 @@ export default function CertificationsPage() {
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-dark mb-4">Pourquoi obtenir une certification ?</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Les certifications Win Academy sont reconnues par les employeurs et vous aident à vous démarquer
+                Les certifications Wurami E-Learning sont reconnues par les employeurs et vous aident à vous démarquer
               </p>
             </div>
 
@@ -396,7 +396,7 @@ export default function CertificationsPage() {
                 </div>
                 <h3 className="text-xl font-bold text-dark mb-2">Certificat signé</h3>
                 <p className="text-gray-600">
-                  Recevez un certificat authentique signé par Win Academy, vérifiable en ligne
+                  Recevez un certificat authentique signé par Wurami E-Learning, vérifiable en ligne
                 </p>
               </div>
             </div>
