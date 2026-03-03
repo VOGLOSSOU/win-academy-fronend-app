@@ -384,13 +384,13 @@ export default function FormationsPage() {
       <Navigation />
       <main className="min-h-screen bg-light">
         {/* Hero Section */}
-        <section className="pt-56 pb-16 bg-primary">
+        <section className="pt-56 pb-16 bg-light">
           <div className="container mx-auto px-4">
             <div className="text-center max-w-3xl mx-auto">
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+              <h1 className="text-5xl md:text-6xl font-bold text-dark mb-4">
                 Développez des compétences qui vous rapportent
               </h1>
-              <p className="text-xl text-white/90 mb-8">
+              <p className="text-2xl text-gray-600 mb-8">
                 Choisissez une formation adaptée à votre niveau et transformez vos ambitions en revenus concrets
               </p>
               
@@ -402,7 +402,7 @@ export default function FormationsPage() {
                   placeholder="Rechercher une formation..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-4 rounded-full border-0 focus:outline-none focus:ring-4 focus:ring-white/30 text-dark"
+                  className="w-full pl-12 pr-4 py-4 rounded-full border-2 border-gray-200 focus:outline-none focus:border-primary text-dark"
                 />
               </div>
             </div>
