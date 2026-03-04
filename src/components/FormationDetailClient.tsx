@@ -7,7 +7,7 @@ import {
   Play, Clock, Users, Award, CheckCircle, Star, ChevronDown, ChevronUp,
   FileText, Download, MessageCircle, Share2, Heart, ArrowLeft, Calendar,
   Languages, Laptop, Briefcase, Sparkles, GraduationCap, Target,
-  Accessibility, PiggyBank, TrendingUp, Rocket, PenTool, Code, UserCheck
+  Accessibility, PiggyBank, TrendingUp, Rocket, PenTool, Code, UserCheck, Mail
 } from 'lucide-react';
 
 const formations = [
@@ -421,7 +421,7 @@ const formations = [
       { title: 'Se repérer sur une boîte mail', lessons: 1, duration: '30min' },
       { title: 'Règles de sécurité', lessons: 1, duration: '30min' },
     ],
-    pdfUrl: '/Je-communique-par-mail.pdf'
+    pdfUrl: '/formations/je-communique-par-mail'
   },
 ];
 
@@ -502,7 +502,7 @@ export default function FormationDetailClient() {
                   className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-colors"
                   onClick={() => {
                     if (formation.pdfUrl) {
-                      window.open(formation.pdfUrl, '_blank');
+                      window.location.href = formation.pdfUrl;
                     }
                   }}
                 >

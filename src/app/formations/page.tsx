@@ -368,7 +368,7 @@ export default function FormationsPage() {
       skills: ['Boîte mail', 'Sécurité email', 'Communication'],
       icon: Mail,
       features: ['Cours PDF', 'Bien détaillé', 'Gratuit', 'Accessible à tous'],
-      pdfUrl: '/Je-communique-par-mail.pdf'
+      pdfUrl: '/formations/je-communique-par-mail'
     },
   ];
 
@@ -500,13 +500,21 @@ export default function FormationsPage() {
                         <span className="text-2xl font-bold text-blue-600">{formation.price.toLocaleString()} XOF</span>
                       )}
                     </div>
-                    <Link 
-                      href={formation.pdfUrl ? formation.pdfUrl : `/formations/${formation.id}`}
-                      target={formation.pdfUrl ? '_blank' : '_self'}
-                      className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                    >
-                      {formation.pdfUrl ? 'Lire le PDF' : 'Voir plus'}
-                    </Link>
+                    {formation.pdfUrl ? (
+                      <button 
+                        onClick={() => window.location.href = formation.pdfUrl}
+                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                      >
+                        Lire le PDF
+                      </button>
+                    ) : (
+                      <Link 
+                        href={`/formations/${formation.id}`}
+                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                      >
+                        Voir plus
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>
