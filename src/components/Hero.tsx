@@ -30,10 +30,10 @@ export default function Hero() {
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link href="/formations" className="btn-primary">
-                Découvrir les formations
+                Commencer gratuitement
               </Link>
               <Link href="/certifications" className="flex items-center gap-2 text-white hover:text-gray-200 transition-colors font-medium">
-                Voir les certifications
+                Voir les cours
                 <ArrowRight size={20} />
               </Link>
             </div>
