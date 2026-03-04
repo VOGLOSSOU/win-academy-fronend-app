@@ -22,11 +22,12 @@ export default function ConnexionPage() {
     e.preventDefault();
     setError('');
     
-    try {
-      await login(email, password);
+    const result = await login(email, password);
+    
+    if (result.success) {
       router.push('/');
-    } catch (err) {
-      setError('Email ou mot de passe incorrect');
+    } else {
+      setError(result.error || 'Email ou mot de passe incorrect');
     }
   };
 

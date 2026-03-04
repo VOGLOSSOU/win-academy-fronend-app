@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, User } from 'lucide-react';
+import { Menu, X, User, LogOut } from 'lucide-react';
+import { useAuthStore } from '@/store/authStore';
 
 const navLinks = [
   { href: '/', label: 'Accueil' },
@@ -14,6 +15,16 @@ const navLinks = [
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, isAuthenticated, logout, checkAuth } = useAuthStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  const handleLogout = () => {
+    logout();
+    window.location.href = '/';
+  };
 
   return (
     <header className="bg-primary">
@@ -39,9 +50,23 @@ export default function Navigation() {
 
           {/* Actions */}
           <div className="nav_right">
-            <Link href="/connexion" className="btn-login bg-white text-primary">
-              <User size={20} />
-            </Link>
+            {isAuthenticated && user ? (
+              <div className="flex items-center gap-4">
+                <Link href="/dashboard" className="bg-white text-primary px-4 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors">
+                  {user.firstName}
+                </Link>
+                <button 
+                  onClick={handleLogout}
+                  className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors flex items-center gap-2"
+                >
+                  <LogOut size={20} />
+                </button>
+              </div>
+            ) : (
+              <Link href="/connexion" className="btn-login bg-white text-primary">
+                <User size={20} />
+              </Link>
+            )}
             <button
               className="mobile_menu_toggle"
               onClick={() => setIsOpen(!isOpen)}
@@ -64,6 +89,34 @@ export default function Navigation() {
                 {link.label}
               </Link>
             ))}
+            {isAuthenticated && user ? (
+              <>
+                <Link
+                  href="/dashboard"
+                  className="nav_link text-white"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Mon Dashboard
+                </Link>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setIsOpen(false);
+                  }}
+                  className="nav_link text-white text-left w-full"
+                >
+                  Déconnexion
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/connexion"
+                className="nav_link text-white"
+                onClick={() => setIsOpen(false)}
+              >
+                Connexion
+              </Link>
+            )}
           </div>
         )}
       </nav>

@@ -42,11 +42,18 @@ export default function InscriptionPage() {
       return;
     }
 
-    try {
-      await register({ ...formData, id: '' });
+    const result = await register({ 
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      phone: formData.phone,
+      password: formData.password,
+    });
+    
+    if (result.success) {
       router.push('/');
-    } catch (err) {
-      setError('Une erreur est survenue lors de l\'inscription');
+    } else {
+      setError(result.error || 'Une erreur est survenue lors de l\'inscription');
     }
   };
 
