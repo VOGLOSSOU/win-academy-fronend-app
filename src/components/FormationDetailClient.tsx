@@ -392,6 +392,37 @@ const formations = [
       { title: 'Prospection et négociation', lessons: 5, duration: '5h' },
     ]
   },
+  // JE COMMUNIQUE PAR MAIL
+  {
+    id: 12,
+    title: 'Je communique par mail',
+    category: 'techniques',
+    subcategory: 'Communication',
+    description: 'Apprenez à utiliser efficacement votre boîte mail pour communiquer.',
+    longDescription: 'Ce cours dispensé par EMMAUS CONNECT vous apprendre à vous repérer sur une boîte mail et à appliquer les règles de sécurité concernant les mails. Le cours est bien détaillé et accessible à tous.',
+    duration: 'Variable',
+    durationType: 'courte',
+    students: 0,
+    level: 'Tous niveaux',
+    price: 0,
+    isFree: true,
+    instructor: 'EMMAUS CONNECT',
+    hasCertificate: false,
+    rating: 5.0,
+    badge: 'Nouveau',
+    objectives: [
+      'Se repérer sur une boîte mail',
+      'Appliquer les règles de sécurité concernant les mails'
+    ],
+    skills: ['Boîte mail', 'Sécurité email', 'Communication'],
+    icon: Mail,
+    features: ['Cours PDF', 'Bien détaillé', 'Gratuit', 'Accessible à tous'],
+    modules: [
+      { title: 'Se repérer sur une boîte mail', lessons: 1, duration: '30min' },
+      { title: 'Règles de sécurité', lessons: 1, duration: '30min' },
+    ],
+    pdfUrl: '/Je-communique-par-mail.pdf'
+  },
 ];
 
 export default function FormationDetailClient() {
@@ -467,8 +498,15 @@ export default function FormationDetailClient() {
                 ) : (
                   <span className="text-4xl font-bold">{formation.price.toLocaleString()} XOF</span>
                 )}
-                <button className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-colors">
-                  {formation.isFree ? 'Commencer maintenant' : 'S\'inscrire'}
+                <button 
+                  className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-colors"
+                  onClick={() => {
+                    if (formation.pdfUrl) {
+                      window.open(formation.pdfUrl, '_blank');
+                    }
+                  }}
+                >
+                  {formation.pdfUrl ? 'Lire le PDF' : formation.isFree ? 'Commencer maintenant' : 'S\'inscrire'}
                 </button>
                 <button 
                   onClick={() => setIsFavorite(!isFavorite)}

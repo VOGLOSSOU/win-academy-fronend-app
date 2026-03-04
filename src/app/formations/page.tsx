@@ -345,6 +345,31 @@ export default function FormationsPage() {
       icon: Rocket,
       features: ['Clarifier son positionnement', 'Construire un CV stratégique', 'Maîtriser l\'entretien', 'Développer un réseau', 'Décrocher son premier contrat']
     },
+    // JE COMMUNIQUE PAR MAIL
+    {
+      id: 12,
+      title: 'Je communique par mail',
+      category: 'techniques',
+      subcategory: 'Communication',
+      description: 'Apprenez à utiliser efficacement votre boîte mail pour communiquer.',
+      duration: 'Variable',
+      durationType: 'courte',
+      students: 0,
+      level: 'Tous niveaux',
+      price: 0,
+      isFree: true,
+      instructor: 'EMMAUS CONNECT',
+      hasCertificate: false,
+      badge: 'Nouveau',
+      objectives: [
+        'Se repérer sur une boîte mail',
+        'Appliquer les règles de sécurité concernant les mails'
+      ],
+      skills: ['Boîte mail', 'Sécurité email', 'Communication'],
+      icon: Mail,
+      features: ['Cours PDF', 'Bien détaillé', 'Gratuit', 'Accessible à tous'],
+      pdfUrl: '/Je-communique-par-mail.pdf'
+    },
   ];
 
   const filteredFormations = formations.filter(formation => {
@@ -476,10 +501,11 @@ export default function FormationsPage() {
                       )}
                     </div>
                     <Link 
-                      href={`/formations/${formation.id}`}
+                      href={formation.pdfUrl ? formation.pdfUrl : `/formations/${formation.id}`}
+                      target={formation.pdfUrl ? '_blank' : '_self'}
                       className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                     >
-                      Voir plus
+                      {formation.pdfUrl ? 'Lire le PDF' : 'Voir plus'}
                     </Link>
                   </div>
                 </div>
