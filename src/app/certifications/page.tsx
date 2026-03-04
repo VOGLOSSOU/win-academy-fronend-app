@@ -158,11 +158,11 @@ export default function CertificationsPage() {
       <Navigation />
       
       {/* Hero */}
-      <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-16">
+      <section className="pt-56 pb-16 bg-light">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Nos Certifications</h1>
-            <p className="text-xl text-blue-100 mb-8">
+            <h1 className="text-5xl md:text-6xl font-bold text-dark mb-6">Nos Certifications</h1>
+            <p className="text-2xl text-gray-600 mb-8">
               Validez vos compétences et booster votre carrière avec nos certifications reconnues
             </p>
             
@@ -173,7 +173,7 @@ export default function CertificationsPage() {
                 placeholder="Rechercher une certification..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                className="w-full pl-12 pr-4 py-4 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300"
               />
             </div>
           </div>
