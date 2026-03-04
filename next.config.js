@@ -6,6 +6,16 @@ const nextConfig = {
     unoptimized: true,
     domains: ['localhost'],
     formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
   },
   experimental: {
     optimizePackageImports: ['lucide-react'],

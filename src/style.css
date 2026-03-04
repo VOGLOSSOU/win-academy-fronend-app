@@ -808,6 +808,78 @@ header {
     line-height: 1.7;
 }
 
+/* Target Section */
+.target-section {
+    padding: 6rem 0;
+    background: linear-gradient(180deg, #f8fafc 0%, #fff 100%);
+}
+
+.target-alternating {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Image Float Animation */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-15px) rotate(1deg);
+    }
+}
+
+@keyframes float-reverse {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(15px) rotate(-1deg);
+    }
+}
+
+.image-float-container {
+    animation: float 4s ease-in-out infinite;
+}
+
+.image-float-container:nth-child(even) {
+    animation: float-reverse 4s ease-in-out infinite;
+}
+
+.image-wrapper {
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.image-wrapper:hover {
+    transform: scale(1.05);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.image-float-container:hover {
+    animation-play-state: paused;
+}
+
+/* Target Text Content */
+.target-text-content {
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem 3rem;
+    margin: 1rem;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 1rem;
+}
+
+.target-text-content p {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: #4b5563;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    line-height: 1.8;
+}
+
 /* Partners Section */
 .partners-section {
     padding: 6rem 0;
