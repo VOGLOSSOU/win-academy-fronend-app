@@ -1,23 +1,29 @@
 'use client';
 
 import Link from 'next/link';
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
     formations: [
-      { href: '/formations?category=digital', label: 'Formations Digitales' },
-      { href: '/formations?category=entrepreneuriat', label: 'Entrepreneuriat & Business' },
-      { href: '/formations?category=agribusiness', label: 'Agribusiness & Transformation' },
-      { href: '/formations?category=leadership', label: 'Leadership & Développement Personnel' },
+      { href: '/formations?category=anglais', label: 'Anglais' },
+      { href: '/formations?category=techniques', label: 'Compétences Techniques' },
+      { href: '/formations?category=employabilite', label: 'Employabilité' },
+      { href: '/formations?category=stem', label: 'STEM' },
+      { href: '/formations?category=inclusion', label: 'Inclusion' },
+      { href: '/formations?category=communaute', label: 'Éducation Communautaire' },
+      { href: '/formations?category=ope', label: 'Programme OPE' },
     ],
     certifications: [
-      { href: '/certifications?category=digital', label: 'Certifications Digitales' },
-      { href: '/certifications?category=entrepreneuriat', label: 'Entrepreneuriat & Business' },
-      { href: '/certifications?category=agribusiness', label: 'Agribusiness' },
-      { href: '/certifications?category=leadership', label: 'Leadership' },
+      { href: '/certifications?category=anglais', label: 'Certification Anglais' },
+      { href: '/certifications?category=techniques', label: 'Compétences Techniques' },
+      { href: '/certifications?category=employabilite', label: 'Employabilité' },
+      { href: '/certifications?category=stem', label: 'STEM' },
+      { href: '/certifications?category=inclusion', label: 'Inclusion' },
+      { href: '/certifications?category=communaute', label: 'Éducation Communautaire' },
+      { href: '/certifications?category=ope', label: 'Programme OPE' },
     ],
     legal: [
       { href: '/mentions-legales', label: 'Mentions légales' },
@@ -42,20 +48,6 @@ export default function Footer() {
             <p className="text-gray-400 mb-6">
               La plateforme EdTech béninoise dédiée à la maîtrise du digital, accessible même avec une connexion modeste.
             </p>
-            <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
-                <Facebook size={20} />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
-                <Twitter size={20} />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
-                <Instagram size={20} />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
-                <Linkedin size={20} />
-              </a>
-            </div>
           </div>
 
           {/* Formations */}
