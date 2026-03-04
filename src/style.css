@@ -211,6 +211,7 @@ header {
     min-height: 100vh;
     display: flex;
     align-items: center;
+    overflow: hidden;
 }
 
 .hero-background {
@@ -225,6 +226,33 @@ header {
     z-index: -1;
 }
 
+/* Modern overlay with film effect */
+.hero-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.03) 2px,
+            rgba(0, 0, 0, 0.03) 4px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.03) 2px,
+            rgba(0, 0, 0, 0.03) 4px
+        );
+    z-index: 1;
+    pointer-events: none;
+}
+
 .hero-background::after {
     content: '';
     position: absolute;
@@ -232,7 +260,68 @@ header {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.9) 100%);
+    background: 
+        radial-gradient(ellipse at center, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.88) 50%, rgba(0, 0, 0, 0.95) 100%),
+        linear-gradient(
+            135deg, 
+            rgba(0, 0, 0, 0.95) 0%, 
+            rgba(0, 0, 0, 0.90) 50%,
+            rgba(0, 0, 0, 0.95) 100%
+        );
+    z-index: 0;
+}
+
+/* Hero content animations */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(59, 130, 246, 0.8);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.animate-slide-up {
+    animation: slideInUp 0.8s ease-out forwards;
+}
+
+.animate-slide-up-delay-1 {
+    animation: slideInUp 0.8s ease-out 0.2s forwards;
+    opacity: 0;
+}
+
+.animate-slide-up-delay-2 {
+    animation: slideInUp 0.8s ease-out 0.4s forwards;
+    opacity: 0;
+}
+
+.animate-slide-up-delay-3 {
+    animation: slideInUp 0.8s ease-out 0.6s forwards;
+    opacity: 0;
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
 }
 
 .hero-main-container {
@@ -272,11 +361,12 @@ header {
 }
 
 .section-heading {
-    font-size: 3.5rem;
-    line-height: 1.15;
+    font-size: 4rem;
+    line-height: 1.1;
     color: var(--white);
-    font-weight: bold;
+    font-weight: 800;
     padding: 1.5rem 0;
+    letter-spacing: -0.02em;
 }
 
 .section-description {
@@ -288,18 +378,22 @@ header {
 
 .btn-primary {
     display: inline-flex;
-    background: var(--primary);
-    padding: 0.7rem 2rem;
-    border-radius: 2rem;
-    font-weight: 500;
+    align-items: center;
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    padding: 1rem 2.5rem;
+    border-radius: 3rem;
+    font-weight: 600;
+    font-size: 1.1rem;
     color: var(--white);
     transition: all 0.3s ease;
-    border: 2px solid var(--primary);
+    border: none;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
 }
 
 .btn-primary:hover {
-    background: transparent;
-    color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.6);
+    background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
 }
 
 .btn-none {
@@ -1193,7 +1287,7 @@ footer {
     }
     
     .section-heading {
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
     
     .section-description {
