@@ -4,429 +4,308 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import { 
-  Award, 
-  CheckCircle, 
-  Clock, 
-  Users, 
-  FileText, 
-  Download,
-  Share2,
-  ChevronRight,
-  Shield,
-  GraduationCap,
-  Briefcase,
-  Leaf,
-  Heart
-} from 'lucide-react';
+import { Search, Clock, Users, Award, CheckCircle, ArrowRight } from 'lucide-react';
+
+const certifications = [
+  {
+    id: 1,
+    title: 'Certification Anglais Professionnel',
+    category: 'anglais',
+    description: 'Maîtrisez l\'anglais professionnel pour communiquer avec confiance en milieu professionnel.',
+    duration: '8 semaines',
+    students: 850,
+    price: 35000,
+    skills: ['Grammaire professionnelle', 'Vocabulaire business', 'Expression orale', 'Anglais écrit']
+  },
+  {
+    id: 2,
+    title: 'Certification Compétences Numériques',
+    category: 'techniques',
+    description: 'Validez vos compétences en bureautique et outils numériques.',
+    duration: '4 semaines',
+    students: 1100,
+    price: 25000,
+    skills: ['Word', 'Excel', 'PowerPoint', 'Navigation sécurisée']
+  },
+  {
+    id: 3,
+    title: 'Certification Marketing Digital',
+    category: 'employabilite',
+    description: 'Devenez un expert du marketing digital et créez votre présence en ligne.',
+    duration: '10 semaines',
+    students: 720,
+    price: 45000,
+    skills: ['SEO', 'Google Ads', 'Analytics', 'Email Marketing']
+  },
+  {
+    id: 4,
+    title: 'Certification Développement Professionnel',
+    category: 'employabilite',
+    description: 'Maîtrisez les compétences transversales pour réussir votre carrière.',
+    duration: '4 semaines',
+    students: 950,
+    price: 15000,
+    skills: ['CV', 'Entretien', 'Soft skills', 'Communication']
+  },
+  {
+    id: 5,
+    title: 'Certification STEM',
+    category: 'stem',
+    description: 'Développez vos compétences en sciences, technologie, ingénierie et mathématiques.',
+    duration: '12 semaines',
+    students: 450,
+    price: 40000,
+    skills: ['Sciences', 'Technologie', 'Ingénierie', 'Mathématiques']
+  },
+  {
+    id: 6,
+    title: 'Certification Inclusion & Accessibilité',
+    category: 'inclusion',
+    description: 'Apprenez à rendre le numérique accessible à tous.',
+    duration: 'Flexible',
+    students: 320,
+    price: 0,
+    skills: ['Accessibilité', 'Adaptation', 'Inclusion', 'Apprentissage hybride']
+  },
+  {
+    id: 7,
+    title: 'Certification Finance Personnelle',
+    category: 'communaute',
+    description: 'Gérez vos finances personnelles et строите votre avenir financier.',
+    duration: '6 semaines',
+    students: 580,
+    price: 20000,
+    skills: ['Budget', 'Épargne', 'Investissement', 'Planification']
+  },
+  {
+    id: 8,
+    title: 'Certification Entrepreneuriat',
+    category: 'communaute',
+    description: 'Lancez et gérez votre propre entreprise avec succès.',
+    duration: '8 semaines',
+    students: 420,
+    price: 35000,
+    skills: ['Création d\'entreprise', 'Gestion de projet', 'Levée de fonds', 'Business plan']
+  },
+  {
+    id: 9,
+    title: 'Certification Programme OPE',
+    category: 'ope',
+    description: 'Obtenez votre premier emploi avec ce programme complet.',
+    duration: '10 semaines',
+    students: 890,
+    price: 45000,
+    skills: ['Positionnement', 'CV', 'Entretien', 'Réseau professionnel']
+  },
+  {
+    id: 10,
+    title: 'Certification Design & Rédaction Web',
+    category: 'techniques',
+    description: 'Créez des visuels professionnels et rédigez pour le web.',
+    duration: '6 semaines',
+    students: 680,
+    price: 30000,
+    skills: ['Graphisme', 'Canva', 'Rédaction web', 'Outils digitaux']
+  },
+  {
+    id: 11,
+    title: 'Certification UX/UI Design',
+    category: 'employabilite',
+    description: 'Maîtrisez les fondamentaux de l\'expérience utilisateur et du design d\'interface.',
+    duration: '8 semaines',
+    students: 540,
+    price: 40000,
+    skills: ['Figma', 'Recherche utilisateur', 'Wireframing', 'Prototypage']
+  },
+  {
+    id: 12,
+    title: 'Certification Leadership',
+    category: 'leadership',
+    description: 'Développez vos compétences de leader et管理的能力.',
+    duration: '6 semaines',
+    students: 380,
+    price: 25000,
+    skills: ['Management', 'Communication', 'Gestion d\'équipe', 'Prise de décision']
+  },
+];
 
 export default function CertificationsPage() {
   const [activeCategory, setActiveCategory] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const categories = [
     { id: 'all', name: 'Toutes les certifications' },
-    { id: 'digital', name: 'Digitales' },
-    { id: 'entrepreneuriat', name: 'Entrepreneuriat & Business' },
-    { id: 'agribusiness', name: 'Agribusiness' },
+    { id: 'anglais', name: 'Anglais' },
+    { id: 'techniques', name: 'Compétences Techniques' },
+    { id: 'employabilite', name: 'Employabilité' },
+    { id: 'stem', name: 'STEM' },
+    { id: 'inclusion', name: 'Inclusion' },
+    { id: 'communaute', name: 'Éducation Communautaire' },
+    { id: 'ope', name: 'Programme OPE' },
     { id: 'leadership', name: 'Leadership' },
   ];
 
-  const certifications = [
-    // Digitales
-    {
-      id: 1,
-      title: 'Certification en Marketing Digital',
-      category: 'digital',
-      level: 'Débutant',
-      duration: '8 semaines',
-      students: 850,
-      price: 35000,
-      skills: ['SEO', 'Google Ads', 'Analytics', 'Email Marketing'],
-      evaluation: 'Projet pratique + Quiz',
-      format: 'En ligne',
-      badge: 'La plus demandée',
-    },
-    {
-      id: 2,
-      title: 'Certification en Community Management',
-      category: 'digital',
-      level: 'Débutant',
-      duration: '6 semaines',
-      students: 620,
-      price: 28000,
-      skills: ['Gestion des réseaux sociaux', 'Contenu', 'Engagement'],
-      evaluation: 'Portfolio de contenu',
-      format: 'En ligne',
-      badge: null,
-    },
-    {
-      id: 3,
-      title: 'Certification en Compétences Numériques Professionnelles',
-      category: 'digital',
-      level: 'Débutant',
-      duration: '10 semaines',
-      students: 980,
-      price: 45000,
-      skills: ['Word', 'Excel', 'PowerPoint', 'Google Workspace'],
-      evaluation: 'Tests pratiques',
-      format: 'En ligne',
-      badge: 'Référencée',
-    },
-    {
-      id: 4,
-      title: 'Certification en Intelligence Artificielle & Outils Modernes',
-      category: 'digital',
-      level: 'Intermédiaire',
-      duration: '6 semaines',
-      students: 420,
-      price: 40000,
-      skills: ['IA', 'ChatGPT', 'Automatisation', 'Productivité'],
-      evaluation: 'Projet pratique',
-      format: 'En ligne',
-      badge: 'Nouvelle',
-    },
-    // Entrepreneuriat
-    {
-      id: 5,
-      title: 'Certification en Rédaction de Projet à Fort Impact',
-      category: 'entrepreneuriat',
-      level: 'Intermédiaire',
-      duration: '8 semaines',
-      students: 380,
-      price: 50000,
-      skills: ['Business Plan', 'Pitch Deck', 'Étude de marché'],
-      evaluation: 'Projet complet',
-      format: 'En ligne + Accompagnement',
-      badge: null,
-    },
-    {
-      id: 6,
-      title: 'Certification en Lever de Fonds pour un Projet',
-      category: 'entrepreneuriat',
-      level: 'Avancé',
-      duration: '6 semaines',
-      students: 180,
-      price: 55000,
-      skills: ['Investisseurs', 'Pitch', 'Négociation', 'Due diligence'],
-      evaluation: 'Simulation de levée',
-      format: 'En ligne + Atelier',
-      badge: null,
-    },
-    {
-      id: 7,
-      title: 'Certification en Business Model & Plan d\'Action',
-      category: 'entrepreneuriat',
-      level: 'Débutant',
-      duration: '10 semaines',
-      students: 520,
-      price: 45000,
-      skills: ['Business Model Canvas', 'Stratégie', 'Plan d\'action'],
-      evaluation: 'Business Model complet',
-      format: 'En ligne',
-      badge: 'La plus suivie',
-    },
-    // Agribusiness
-    {
-      id: 8,
-      title: 'Certification en Commercialisation Agricole',
-      category: 'agribusiness',
-      level: 'Débutant',
-      duration: '6 semaines',
-      students: 290,
-      price: 35000,
-      skills: ['Marketing agricole', 'Négociation', 'Distribution'],
-      evaluation: 'Plan commercial',
-      format: 'En ligne',
-      badge: null,
-    },
-    {
-      id: 9,
-      title: 'Certification en Gestion d\'Activité Agricole',
-      category: 'agribusiness',
-      level: 'Intermédiaire',
-      duration: '8 semaines',
-      students: 210,
-      price: 40000,
-      skills: ['Planification', 'Gestion intrants', 'Rentabilité'],
-      evaluation: 'Plan de gestion',
-      format: 'En ligne',
-      badge: null,
-    },
-    // Leadership
-    {
-      id: 10,
-      title: 'Certification en Leadership & Management Personnel',
-      category: 'leadership',
-      level: 'Tous niveaux',
-      duration: '8 semaines',
-      students: 450,
-      price: 38000,
-      skills: ['Leadership', 'Management', 'Prise de décision'],
-      evaluation: 'Projet + Assessment',
-      format: 'En ligne',
-      badge: 'La plus suivie',
-    },
-    {
-      id: 11,
-      title: 'Certification en Prise de Parole & Communication',
-      category: 'leadership',
-      level: 'Tous niveaux',
-      duration: '4 semaines',
-      students: 380,
-      price: 25000,
-      skills: ['Rhétorique', 'Gestuelle', 'Expression orale'],
-      evaluation: 'Exposé enregistré',
-      format: 'En ligne',
-      badge: null,
-    },
-    {
-      id: 12,
-      title: 'Certification en Discipline & Productivité',
-      category: 'leadership',
-      level: 'Débutant',
-      duration: '4 semaines',
-      students: 520,
-      price: 20000,
-      skills: ['Time management', 'Productivité', 'Focus'],
-      evaluation: 'Plan d\'action',
-      format: 'En ligne',
-      badge: 'Très demandée',
-    },
-  ];
-
-  const filteredCertifications = certifications.filter(cert => 
-    activeCategory === 'all' || cert.category === activeCategory
-  );
-
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case 'digital': return <Briefcase size={24} />;
-      case 'entrepreneuriat': return <Briefcase size={24} />;
-      case 'agribusiness': return <Leaf size={24} />;
-      case 'leadership': return <Heart size={24} />;
-      default: return <Award size={24} />;
-    }
-  };
+  const filteredCertifications = certifications.filter(cert => {
+    const matchesCategory = activeCategory === 'all' || cert.category === activeCategory;
+    const matchesSearch = searchQuery === '' || 
+      cert.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      cert.description.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <>
       <Navigation />
-      <main className="min-h-screen bg-light">
-        {/* Hero Section */}
-        <section className="pt-56 pb-16 bg-light">
-          <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto">
-              <h1 className="text-5xl md:text-6xl font-bold text-dark mb-4">
-                Obtenez une certification reconnue et valorisez votre profil
-              </h1>
-              <p className="text-2xl text-gray-600 mb-8">
-                Nos certifications attestent de compétences pratiques, directement applicables dans le monde professionnel et entrepreneurial
-              </p>
-              
-              <div className="flex flex-wrap justify-center gap-8 text-gray-600">
-                <div className="flex items-center gap-2">
-                  <Users size={24} />
-                  <span className="font-bold text-2xl text-primary">5,000+</span>
-                  <span>Certifiés</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Award size={24} />
-                  <span className="font-bold text-2xl text-primary">12</span>
-                  <span>Certifications</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Shield size={24} />
-                  <span className="font-bold text-2xl text-primary">100%</span>
-                  <span>Reconnues</span>
-                </div>
-              </div>
+      
+      {/* Hero */}
+      <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">Nos Certifications</h1>
+            <p className="text-xl text-blue-100 mb-8">
+              Validez vos compétences et booster votre carrière avec nos certifications reconnues
+            </p>
+            
+            <div className="relative max-w-xl mx-auto">
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+              <input
+                type="text"
+                placeholder="Rechercher une certification..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-12 pr-4 py-4 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-300"
+              />
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Categories */}
-        <section className="py-8 bg-white border-b sticky top-20 z-40">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-wrap justify-center gap-4">
-              {categories.map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => setActiveCategory(category.id)}
-                  className={`px-6 py-2 rounded-full font-medium transition-colors ${
-                    activeCategory === category.id
-                      ? 'bg-primary text-white'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                  }`}
-                >
-                  {category.name}
-                </button>
-              ))}
-            </div>
+      {/* Categories */}
+      <section className="py-8 bg-white border-b">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-wrap gap-3 justify-center">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id)}
+                className={`px-5 py-2 rounded-full font-medium transition-all ${
+                  activeCategory === cat.id
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-blue-50 hover:text-blue-600'
+                }`}
+              >
+                {cat.name}
+              </button>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Certifications Grid */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredCertifications.map((cert) => (
-                <div key={cert.id} className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                  {/* Header */}
-                  <div className="bg-gradient-to-r from-primary to-blue-500 p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white">
-                        {getCategoryIcon(cert.category)}
-                      </div>
-                      {cert.badge && (
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                          cert.badge === 'La plus suivie' ? 'bg-yellow-500 text-white' :
-                          cert.badge === 'Très demandée' ? 'bg-orange-500 text-white' :
-                          'bg-green-500 text-white'
-                        }`}>
-                          {cert.badge}
-                        </span>
+      {/* Certifications Grid */}
+      <section className="py-16 bg-light">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredCertifications.map((cert) => (
+              <div key={cert.id} className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all overflow-hidden">
+                <div className="p-6">
+                  <div className="flex items-center gap-2 text-sm text-blue-600 mb-2">
+                    <Award size={16} />
+                    <span>{categories.find(c => c.id === cert.category)?.name}</span>
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-dark mb-2">
+                    {cert.title}
+                  </h3>
+                  
+                  <p className="text-gray-600 text-sm mb-4">
+                    {cert.description}
+                  </p>
+                  
+                  {/* Skills */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {cert.skills.slice(0, 3).map((skill, idx) => (
+                      <span key={idx} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  {/* Meta */}
+                  <div className="flex items-center justify-between text-sm text-gray-500 mb-4 pt-4 border-t">
+                    <div className="flex items-center gap-1">
+                      <Clock size={16} />
+                      <span>{cert.duration}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Users size={16} />
+                      <span>{cert.students}</span>
+                    </div>
+                  </div>
+                  
+                  {/* Price & CTA */}
+                  <div className="flex items-center justify-between">
+                    <div>
+                      {cert.price === 0 ? (
+                        <span className="text-2xl font-bold text-green-600">Gratuit</span>
+                      ) : (
+                        <span className="text-2xl font-bold text-blue-600">{cert.price.toLocaleString()} XOF</span>
                       )}
                     </div>
-                    <h3 className="text-xl font-bold text-white">{cert.title}</h3>
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-6">
-                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                      <div className="flex items-center gap-1">
-                        <Clock size={16} />
-                        <span>{cert.duration}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <GraduationCap size={16} />
-                        <span>{cert.level}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Users size={16} />
-                        <span>{cert.students}</span>
-                      </div>
-                    </div>
-
-                    <div className="mb-4">
-                      <p className="text-sm text-gray-500 mb-2">Compétences validées :</p>
-                      <div className="flex flex-wrap gap-2">
-                        {cert.skills.slice(0, 3).map((skill, index) => (
-                          <span key={index} className="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">
-                            {skill}
-                          </span>
-                        ))}
-                        {cert.skills.length > 3 && (
-                          <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">
-                            +{cert.skills.length - 3}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="space-y-2 text-sm text-gray-600 mb-4">
-                      <div className="flex items-center gap-2">
-                        <FileText size={16} className="text-primary" />
-                        <span>Évaluation: {cert.evaluation}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Shield size={16} className="text-primary" />
-                        <span>Format: {cert.format}</span>
-                      </div>
-                    </div>
-
-                    <div className="pt-4 border-t flex items-center justify-between">
-                      <div>
-                        <span className="text-2xl font-bold text-primary">{cert.price.toLocaleString()} Fcfa</span>
-                      </div>
-                      <Link
-                        href={`/formations/${cert.id}`}
-                        className="flex items-center gap-2 px-4 py-2 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors"
-                      >
-                        Passer la certification
-                        <ChevronRight size={18} />
-                      </Link>
-                    </div>
+                    <Link 
+                      href={`/formations/${cert.id}`}
+                      className="flex items-center gap-2 text-blue-600 font-medium hover:underline"
+                    >
+                      Détails <ArrowRight size={18} />
+                    </Link>
                   </div>
                 </div>
-              ))}
-            </div>
-
-            {filteredCertifications.length === 0 && (
-              <div className="text-center py-16">
-                <Award size={64} className="mx-auto text-gray-300 mb-4" />
-                <h3 className="text-xl font-semibold text-dark mb-2">Aucune certification trouvée</h3>
-                <p className="text-gray-600">Essayez avec une autre catégorie.</p>
               </div>
-            )}
+            ))}
           </div>
-        </section>
-
-        {/* Why Certify */}
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-dark mb-4">Pourquoi obtenir une certification ?</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Les certifications Wurami E-Learning sont reconnues par les employeurs et vous aident à vous démarquer
-              </p>
+          
+          {filteredCertifications.length === 0 && (
+            <div className="text-center py-16">
+              <p className="text-gray-500 text-lg">Aucune certification ne correspond a votre recherche.</p>
             </div>
+          )}
+        </div>
+      </section>
 
+      {/* Why Certify */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-12">Pourquoi obtenir une certification ?</h2>
+            
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center p-6">
-                <div className="w-16 h-16 mx-auto rounded-full bg-primary-light flex items-center justify-center mb-4">
-                  <Shield className="text-primary" size={32} />
+              <div className="text-center">
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Award className="text-blue-600" size={32} />
                 </div>
-                <h3 className="text-xl font-bold text-dark mb-2">Reconnue professionnellement</h3>
-                <p className="text-gray-600">
-                  Nos certifications sont reconnues par les entreprises et organisations au Bénin et en Afrique de l'Ouest
-                </p>
+                <h3 className="text-xl font-bold mb-2">Reconnaissance</h3>
+                <p className="text-gray-600">Nos certifications sont reconnues par les employeurs au Benin</p>
               </div>
-              <div className="text-center p-6">
-                <div className="w-16 h-16 mx-auto rounded-full bg-primary-light flex items-center justify-center mb-4">
-                  <Award className="text-primary" size={32} />
+              
+              <div className="text-center">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="text-green-600" size={32} />
                 </div>
-                <h3 className="text-xl font-bold text-dark mb-2">Badge numérique</h3>
-                <p className="text-gray-600">
-                  Téléchargez votre badge numérique et partagez-le sur LinkedIn et vos réseaux professionnels
-                </p>
+                <h3 className="text-xl font-bold mb-2">Compétences validées</h3>
+                <p className="text-gray-600">Démontrez vos compétences aux employeurs potentiels</p>
               </div>
-              <div className="text-center p-6">
-                <div className="w-16 h-16 mx-auto rounded-full bg-primary-light flex items-center justify-center mb-4">
-                  <FileText className="text-primary" size={32} />
+              
+              <div className="text-center">
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Users className="text-purple-600" size={32} />
                 </div>
-                <h3 className="text-xl font-bold text-dark mb-2">Certificat signé</h3>
-                <p className="text-gray-600">
-                  Recevez un certificat authentique signé par Wurami E-Learning, vérifiable en ligne
-                </p>
+                <h3 className="text-xl font-bold mb-2">Carrière accelerée</h3>
+                <p className="text-gray-600">Augmentez vos chances d'embauche et d'évolution</p>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* CTA */}
-        <section className="py-16 bg-primary">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">Prêt à obtenir votre certification ?</h2>
-            <p className="text-white/90 mb-8 max-w-2xl mx-auto">
-              Inscrivez-vous à une formation et passez la certification pour valoriser votre profil professionnel
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link 
-                href="/formations" 
-                className="px-8 py-4 bg-white text-primary font-bold rounded-full hover:bg-gray-100 transition-colors"
-              >
-                Voir les formations
-              </Link>
-              <Link 
-                href="/inscription" 
-                className="px-8 py-4 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-primary transition-colors"
-              >
-                S'inscrire
-              </Link>
-            </div>
-          </div>
-        </section>
-      </main>
       <Footer />
     </>
   );
