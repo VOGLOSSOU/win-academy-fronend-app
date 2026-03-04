@@ -428,40 +428,40 @@ export default function FormationsPage() {
                 </div>
                 
                 <div className="p-6">
-                  <div className="flex items-center gap-2 text-sm text-blue-600 mb-2">
-                    <formation.icon size={16} />
+                  <div className="flex items-center gap-2 text-lg font-medium text-blue-600 mb-3">
+                    <formation.icon size={20} />
                     <span>{formation.subcategory}</span>
                   </div>
                   
-                  <h3 className="text-xl font-bold text-dark mb-2 group-hover:text-blue-600 transition-colors">
+                  <h3 className="text-2xl font-bold text-dark mb-3 group-hover:text-blue-600 transition-colors">
                     {formation.title}
                   </h3>
                   
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                  <p className="text-gray-600 text-lg mb-5 line-clamp-3">
                     {formation.description}
                   </p>
                   
                   {/* Features */}
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-2 mb-5">
                     {formation.features.slice(0, 3).map((feature, idx) => (
-                      <span key={idx} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
+                      <span key={idx} className="text-sm bg-gray-100 text-gray-600 px-3 py-1.5 rounded-lg">
                         {feature}
                       </span>
                     ))}
                   </div>
                   
                   {/* Meta */}
-                  <div className="flex items-center justify-between text-sm text-gray-500 mb-4 pt-4 border-t">
-                    <div className="flex items-center gap-1">
-                      <Clock size={16} />
+                  <div className="flex items-center justify-between text-lg text-gray-500 mb-5 pt-4 border-t">
+                    <div className="flex items-center gap-2">
+                      <Clock size={20} />
                       <span>{formation.duration}</span>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <Users size={16} />
+                    <div className="flex items-center gap-2">
+                      <Users size={20} />
                       <span>{formation.students} eleves</span>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <Award size={16} />
+                    <div className="flex items-center gap-2">
+                      <Award size={20} />
                       <span>{formation.level}</span>
                     </div>
                   </div>

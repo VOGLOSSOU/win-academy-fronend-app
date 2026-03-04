@@ -208,36 +208,36 @@ export default function CertificationsPage() {
             {filteredCertifications.map((cert) => (
               <div key={cert.id} className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all overflow-hidden">
                 <div className="p-6">
-                  <div className="flex items-center gap-2 text-sm text-blue-600 mb-2">
-                    <Award size={16} />
+                  <div className="flex items-center gap-2 text-lg font-medium text-blue-600 mb-3">
+                    <Award size={20} />
                     <span>{categories.find(c => c.id === cert.category)?.name}</span>
                   </div>
                   
-                  <h3 className="text-xl font-bold text-dark mb-2">
+                  <h3 className="text-2xl font-bold text-dark mb-3">
                     {cert.title}
                   </h3>
                   
-                  <p className="text-gray-600 text-sm mb-4">
+                  <p className="text-gray-600 text-lg mb-5">
                     {cert.description}
                   </p>
                   
                   {/* Skills */}
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-2 mb-5">
                     {cert.skills.slice(0, 3).map((skill, idx) => (
-                      <span key={idx} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
+                      <span key={idx} className="text-sm bg-gray-100 text-gray-600 px-3 py-1.5 rounded-lg">
                         {skill}
                       </span>
                     ))}
                   </div>
                   
                   {/* Meta */}
-                  <div className="flex items-center justify-between text-sm text-gray-500 mb-4 pt-4 border-t">
-                    <div className="flex items-center gap-1">
-                      <Clock size={16} />
+                  <div className="flex items-center justify-between text-lg text-gray-500 mb-5 pt-4 border-t">
+                    <div className="flex items-center gap-2">
+                      <Clock size={20} />
                       <span>{cert.duration}</span>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <Users size={16} />
+                    <div className="flex items-center gap-2">
+                      <Users size={20} />
                       <span>{cert.students}</span>
                     </div>
                   </div>
