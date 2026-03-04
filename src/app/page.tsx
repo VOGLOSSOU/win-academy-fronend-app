@@ -5,7 +5,6 @@ import PresentationSection from '@/components/PresentationSection';
 import HowItWorksSection from '@/components/HowItWorksSection';
 import StatsSection from '@/components/StatsSection';
 import Footer from '@/components/Footer';
-import PartnersSection from '@/components/PartnersSection';
 
 export default function Home() {
   return (
@@ -16,7 +15,6 @@ export default function Home() {
       <PresentationSection />
       <HowItWorksSection />
       <StatsSection />
-      <PartnersSection />
       <Footer />
     </main>
   );

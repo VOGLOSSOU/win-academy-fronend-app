@@ -60,10 +60,7 @@ export default function PartnersSection() {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-dark mb-4">
-            Découvrez les témoignages de ceux qui ont changé leur vie avec Wurami E-Learning
-          </h2>
-          <p className="text-3xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-2xl md:text-3xl text-gray-600 max-w-3xl mx-auto">
             Wurami E-Learning collabore avec des institutions éducatives, des entreprises et des organisations engagées pour l'employabilité et l'inclusion numérique des jeunes
           </p>
         </div>

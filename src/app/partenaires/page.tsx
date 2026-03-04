@@ -19,10 +19,7 @@ export default function PartenairesPage() {
                   <Handshake size={40} className="text-primary" />
                 </div>
               </div>
-              <h1 className="text-5xl md:text-6xl font-bold text-dark mb-4">
-                Nos Partenaires
-              </h1>
-              <p className="text-2xl text-gray-600">
+              <p className="text-3xl md:text-4xl text-gray-600">
                 Nous collaborons avec des organisations engagées pour démocratiser l'éducation numérique au Benin
               </p>
             </div>
