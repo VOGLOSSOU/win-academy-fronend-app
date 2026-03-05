@@ -1,10 +1,66 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import FAQSection from '@/components/FAQSection';
-import { Award, Heart, Target, Zap, Globe, Users, Smartphone } from 'lucide-react';
+import { Award, Heart, Target, Zap, Globe, Users, Smartphone, MapPin } from 'lucide-react';
+
+// Données des activités avec animations
+const activities = [
+  {
+    image: '/images/eleves-entrain-de-suivre-une-formation-avec-ordinateur.jpg',
+    title: 'Formation digitale sur mesure',
+    description: 'Nos élèves adolescents suivent une formation aux compétences digitales avec des ordinateurs mis à leur disposition par Wurami. Vêtus de leur tenue kaki, ils s\'immergent dans l\'apprentissage du numérique.',
+  },
+  {
+    image: '/images/photo-du-personnel-avec-des-gens-sur-une-lagune-dans-un-bateau.jpg',
+    title: 'L\'équipe Wurami au cœur des territoires',
+    description: 'L\'équipe Wurami en compagnie de jeunes bénéficie des programmes de Wurami, sur une pirogue, en pleine exploration des villages lacustres pour atteindre les zones les plus reculées.',
+  },
+  {
+    image: '/images/photo-d-eleve-sur-un-village-lacustre.jpg',
+    title: 'L\'apprentissage en action',
+    description: 'Des élèves en tenue kaki, photographiés à l\'entrée de leur salle de formation, après une séance de formation animée par Wurami dans un village lacustre.',
+  },
+];
+
+// Composant avec animation au scroll
+function AnimatedSection({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => setIsVisible(true), delay);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, [delay]);
+
+  return (
+    <div
+      ref={ref}
+      className={`transition-all duration-1000 ease-out transform ${
+        isVisible
+          ? 'opacity-100 translate-y-0'
+          : 'opacity-0 translate-y-16'
+      }`}
+    >
+      {children}
+    </div>
+  );
+}
 
 export default function AProposPage() {
   const values = [
@@ -190,6 +246,54 @@ export default function AProposPage() {
                 Aujourd'hui, nous sommes fiers de proposer une plateforme conçue 
                 par des Béninois, pour les Béninois.
               </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Nos Activités */}
+        <section className="py-20 bg-light">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-dark mb-4">Nos Activités sur le Terrain</h2>
+              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                Découvrez comment Wurami E-Learning agit au quotidien pour atteindre les jeunes dans les zones les plus reculées du Bénin
+              </p>
+            </div>
+
+            <div className="space-y-16">
+              {activities.map((activity, index) => (
+                <AnimatedSection key={index} delay={index * 200}>
+                  <div className={`flex flex-col ${index % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 md:gap-16`}>
+                    {/* Image */}
+                    <div className="w-full md:w-1/2">
+                      <div className="relative rounded-3xl overflow-hidden shadow-2xl group">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <Image
+                          src={activity.image}
+                          alt={activity.title}
+                          width={600}
+                          height={400}
+                          className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="w-full md:w-1/2">
+                      <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-full mb-4">
+                        <MapPin className="text-primary" size={16} />
+                        <span className="text-primary font-medium text-sm">Activité {index + 1}</span>
+                      </div>
+                      <h3 className="text-2xl md:text-3xl font-bold text-dark mb-4">
+                        {activity.title}
+                      </h3>
+                      <p className="text-lg text-gray-600 leading-relaxed">
+                        {activity.description}
+                      </p>
+                    </div>
+                  </div>
+                </AnimatedSection>
+              ))}
             </div>
           </div>
         </section>
