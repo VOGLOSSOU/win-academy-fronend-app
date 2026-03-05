@@ -19,12 +19,9 @@ export default function Hero() {
             </div>
             
             {/* Main Title */}
-            <h1 className="animate-slide-up-delay-1 section-heading mb-8 text-5xl md:text-7xl font-bold leading-tight">
+            <h1 className="animate-slide-up-delay-1 section-heading mb-8 text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
               <span className="text-white">Apprenez des compétences </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">qui vous serviront</span>
-              <br />
-              <span className="text-white">pour </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">toujours</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">qui vous seront toujours utiles</span>
               <span className="text-white"> !</span>
             </h1>
             
