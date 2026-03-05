@@ -11,7 +11,7 @@ export default function Hero() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid md:grid-cols-1 gap-12 items-center">
           {/* Content - Centered with animations */}
-          <div className="text-center max-w-4xl mx-auto">
+          <div className="text-center max-w-6xl mx-auto">
             {/* Badge */}
             <div className="animate-slide-up mb-6 inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
@@ -19,15 +19,18 @@ export default function Hero() {
             </div>
             
             {/* Main Title */}
-            <h1 className="animate-slide-up-delay-1 section-heading mb-8 text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
-              <span className="text-white">Apprenez des compétences </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">qui vous seront toujours utiles</span>
+            <h1 className="animate-slide-up-delay-1 section-heading mb-8 text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <span className="text-white">Transformez votre avenir grâce aux </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">compétences numériques d'aujourd'hui</span>
+              <br />
+              <span className="text-white">avec </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">WURAMI Innovative Hub</span>
               <span className="text-white"> !</span>
             </h1>
             
             {/* Description */}
-            <p className="animate-slide-up-delay-2 section-description mb-10 text-xl md:text-2xl text-white/80 font-light max-w-2xl mx-auto">
-              Plateforme de formation pour la jeunesse Béninoise
+            <p className="animate-slide-up-delay-2 section-description mb-10 text-xl md:text-2xl text-white/80 font-light max-w-4xl mx-auto">
+              La plateforme qui rend l'apprentissage accessible, inclusif et concret
             </p>
             
             {/* Buttons */}
