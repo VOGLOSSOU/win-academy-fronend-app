@@ -16,8 +16,8 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <head>
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="theme-color" content="#754efe" />
+        <link rel="icon" href="/images/Logo wurami.png" type="image/png" />
+        <meta name="theme-color" content="#1877F2" />
       </head>
       <body className="antialiased">
         {children}

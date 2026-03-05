@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { Mail, Phone, MapPin } from 'lucide-react';
 
 export default function Footer() {
@@ -40,10 +41,13 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <Link href="/" className="flex items-center gap-2 mb-6">
-              <div className="logo">
-                <span>W</span>
-              </div>
-              <span className="text-xl font-bold">Wurami E-Learning</span>
+              <Image
+                src="/images/Logo wurami.png"
+                alt="Wurami E-Learning"
+                width={100}
+                height={40}
+                className="h-auto w-auto"
+              />
             </Link>
             <p className="text-gray-400 mb-6">
               La plateforme EdTech béninoise dédiée à la maîtrise du digital, accessible même avec une connexion modeste.
