@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import FAQSection from '@/components/FAQSection';
-import { Award, Heart, Target, Zap, Globe, Users, Smartphone, MapPin } from 'lucide-react';
+import { Award, Heart, Target, Zap, Globe, Users, Smartphone } from 'lucide-react';
 
 // Données des activités avec animations
 const activities = [
@@ -280,14 +280,10 @@ export default function AProposPage() {
 
                     {/* Content */}
                     <div className="w-full md:w-1/2">
-                      <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-full mb-4">
-                        <MapPin className="text-primary" size={16} />
-                        <span className="text-primary font-medium text-sm">Activité {index + 1}</span>
-                      </div>
-                      <h3 className="text-2xl md:text-3xl font-bold text-dark mb-4">
+                      <h3 className="text-4xl md:text-5xl font-bold text-dark mb-6">
                         {activity.title}
                       </h3>
-                      <p className="text-lg text-gray-600 leading-relaxed">
+                      <p className="text-2xl md:text-3xl text-gray-600 leading-relaxed">
                         {activity.description}
                       </p>
                     </div>
