@@ -36,9 +36,9 @@ export default function Navigation() {
             <Image
               src="/images/Logo wurami.png"
               alt="Wurami E-Learning"
-              width={140}
-              height={50}
-              className="h-14 w-auto"
+              width={380}
+              height={200}
+              className="h-16 w-auto"
             />
           </Link>
 
