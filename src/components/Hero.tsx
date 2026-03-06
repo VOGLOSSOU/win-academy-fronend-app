@@ -21,10 +21,10 @@ export default function Hero() {
             {/* Main Title */}
             <h1 className="animate-slide-up-delay-1 section-heading mb-8 text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
               <span className="text-white">Transformez votre avenir grâce aux </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">compétences numériques d'aujourd'hui</span>
+              <span className="text-blue-400 font-bold">compétences numériques d'aujourd'hui</span>
               <br />
               <span className="text-white">avec </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">WURAMI Innovative Hub</span>
+              <span className="text-orange-500 font-bold">WURAMI Innovative Hub</span>
               <span className="text-white"> !</span>
             </h1>
             
