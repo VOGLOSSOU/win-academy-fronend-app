@@ -43,7 +43,7 @@ export default function Footer() {
             <Link href="/" className="flex items-center gap-2 mb-6">
               <Image
                 src="/images/Logo wurami.png"
-                alt="Wurami E-Learning"
+                alt="Wurami Innovative Hub"
                 width={100}
                 height={40}
                 className="h-auto w-auto"
@@ -138,7 +138,7 @@ export default function Footer() {
         <div className="border-t border-white/10 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm">
-              © {currentYear} Wurami E-Learning. Tous droits réservés.
+              © {currentYear} Wurami Innovative Hub. Tous droits réservés.
             </p>
             <div className="flex gap-6 flex-wrap justify-center">
               {footerLinks.legal.map((link) => (

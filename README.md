@@ -1,6 +1,6 @@
-# Wurami E-Learning
+# Wurami Innovative Hub
 
-**Wurami E-Learning** est une plateforme EdTech béninoise qui démocratise l'accès à l'éducation numérique pour les élèves des zones défavorisées.
+**Wurami Innovative Hub** est une plateforme EdTech béninoise qui démocratise l'accès à l'éducation numérique pour les élèves des zones défavorisées.
 
 ##  Mission
 

@@ -35,7 +35,7 @@ export default function Navigation() {
           <Link href="/" className="nav_left">
             <Image
               src="/images/Logo wurami.png"
-              alt="Wurami E-Learning"
+              alt="Wurami Innovative Hub"
               width={900}
               height={620}
               className="h-20 w-auto"

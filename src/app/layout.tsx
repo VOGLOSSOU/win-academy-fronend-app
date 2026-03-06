@@ -3,8 +3,8 @@ import './globals.css';
 import BackToTop from '@/components/BackToTop';
 
 export const metadata: Metadata = {
-  title: 'Wurami E-Learning - Apprenez et évoluez',
-  description: 'Wurami E-Learning est une plateforme de formation en ligne qui vous aide à développer vos compétences et à faire évoluer votre carrière.',
+  title: 'Wurami Innovative Hub - Apprenez et évoluez',
+  description: 'Wurami Innovative Hub est une plateforme de formation en ligne qui vous aide à développer vos compétences et à faire évoluer votre carrière.',
   manifest: '/manifest.json',
 };
 

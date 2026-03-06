@@ -61,7 +61,7 @@ export default function PartnersSection() {
         {/* Header */}
         <div className="text-center mb-12">
           <p className="text-2xl md:text-3xl text-gray-600 max-w-3xl mx-auto">
-            Wurami E-Learning collabore avec des institutions éducatives, des entreprises et des organisations engagées pour l'employabilité et l'inclusion numérique des jeunes
+            Wurami Innovative Hub collabore avec des institutions éducatives, des entreprises et des organisations engagées pour l'employabilité et l'inclusion numérique des jeunes
           </p>
         </div>
 
@@ -158,7 +158,7 @@ export default function PartnersSection() {
             Vous souhaitez devenir partenaire ?
           </h3>
           <p className="text-white/90 mb-6 max-w-xl mx-auto">
-                        Rejoignez Wurami E-Learning pour contribuer à l'autonomisation des jeunes et au développement numérique du Benin
+                        Rejoignez Wurami Innovative Hub pour contribuer à l'autonomisation des jeunes et au développement numérique du Benin
           </p>
           <Link 
             href="/inscription" 

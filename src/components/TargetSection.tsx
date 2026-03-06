@@ -8,19 +8,19 @@ const targets = [
   {
     icon: Users,
     title: 'Jeunes éloignés du numérique',
-    description: "Chez Wurami E-Learning, nous savons que les jeunes de plus de 15 ans dans les zones rurales et éloignées du Benin n'ont pas accès aux opportunités qu'offre le numérique. Notre plateforme comble ce fossé en leur offrant des formations de qualité, accessibles même avec une connexion limitées. Nous permettons à ces jeunes de développer des compétences digitales qui transformeront leur avenir et celui de leur communauté.",
+    description: "Chez Wurami Innovative Hub, nous savons que les jeunes de plus de 15 ans dans les zones rurales et éloignées du Benin n'ont pas accès aux opportunités qu'offre le numérique. Notre plateforme comble ce fossé en leur offrant des formations de qualité, accessibles même avec une connexion limitées. Nous permettons à ces jeunes de développer des compétences digitales qui transformeront leur avenir et celui de leur communauté.",
     image: '/images/jeunes-éloignes-du-numérique.jpg',
   },
   {
     icon: Accessibility,
     title: 'Personnes en situation de handicap',
-    description: "Wurami E-Learning s'engage à rendre le numérique accessible à tous. Les personnes en situation de handicap méritent les mêmes opportunités de formation et d'évolution professionnelle. Nos formations sont conçues pour être inclusives, avec des contenus adaptés et des technologies d'assistance. Nous aidons ces personnes à acquérir des compétences numériques qui peuvent transformer leur carrière et leur independence.",
+    description: "Wurami Innovative Hub s'engage à rendre le numérique accessible à tous. Les personnes en situation de handicap méritent les mêmes opportunités de formation et d'évolution professionnelle. Nos formations sont conçues pour être inclusives, avec des contenus adaptés et des technologies d'assistance. Nous aidons ces personnes à acquérir des compétences numériques qui peuvent transformer leur carrière et leur independence.",
     image: '/images/personnes-en-situation-de-handicap.jpg',
   },
   {
     icon: GraduationCap,
     title: 'Étudiants et jeunes diplômés',
-    description: "Les étudiants et jeunes diplômés du Benin font face à un marché du travail de plus en plus compétitif. Wurami E-Learning leurs propose des formations adaptées aux réalités du terrain, qui complètent leur parcours académique et leurs rendent véritablement employables. Nos programmes leur permettent de monter en compétence rapidement et d'acquérir une expérience pratique qui fait la différence sur le marché de l'emploi.",
+    description: "Les étudiants et jeunes diplômés du Benin font face à un marché du travail de plus en plus compétitif. Wurami Innovative Hub leurs propose des formations adaptées aux réalités du terrain, qui complètent leur parcours académique et leurs rendent véritablement employables. Nos programmes leur permettent de monter en compétence rapidement et d'acquérir une expérience pratique qui fait la différence sur le marché de l'emploi.",
     image: '/images/etudiants-et-jeunes-diplômes.jpg',
   },
 ];
@@ -73,7 +73,7 @@ export default function TargetSection() {
     <section className="target-section" id="cible">
       <div className="container mx-auto px-4">
         <div className="section-header text-center mb-16 md:mb-20">
-          <h2 className="section-title-main">Pour qui est faite Wurami E-Learning ?</h2>
+          <h2 className="section-title-main">Pour qui est faite Wurami Innovative Hub ?</h2>
           <p className="section-subtitle mt-4">Une plateforme conçue pour tous ceux qui veulent maîtriser le numérique au Benin</p>
         </div>
         

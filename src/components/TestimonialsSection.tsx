@@ -8,7 +8,7 @@ const testimonials = [
     role: 'Développeuse Web',
     company: 'Freelance',
     course: 'Développement Web',
-    text: 'Wurami E-Learning m\'a permis de lancer ma carrière de développeuse en seulement 6 mois. Les cours sont clairs et adaptés à notre contexte béninois. Aujourd\'hui, je travaille pour des clients internationaux.',
+    text: 'Wurami Innovative Hub m\'a permis de lancer ma carrière de développeuse en seulement 6 mois. Les cours sont clairs et adaptés à notre contexte béninois. Aujourd\'hui, je travaille pour des clients internationaux.',
     initials: 'MK',
   },
   {
@@ -24,7 +24,7 @@ const testimonials = [
     role: 'Data Analyst',
     company: 'Banque Atlantique',
     course: 'Data Science',
-    text: 'Les formateurs sont compétents et le système d\'attestation avec QR code m\'a beaucoup aidée à trouver un emploi. Je recommande Wurami E-Learning à tous les jeunes béninois qui veulent évoluer.',
+    text: 'Les formateurs sont compétents et le système d\'attestation avec QR code m\'a beaucoup aidée à trouver un emploi. Je recommande Wurami Innovative Hub à tous les jeunes béninois qui veulent évoluer.',
     initials: 'AM',
   },
   {
@@ -47,7 +47,7 @@ export default function TestimonialsSection() {
             Ils nous font confiance
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Découvrez les témoignages de ceux qui ont transformé leur vie avec Wurami E-Learning
+            Découvrez les témoignages de ceux qui ont transformé leur vie avec Wurami Innovative Hub
           </p>
         </div>
         
