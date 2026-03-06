@@ -119,15 +119,15 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-6">Contact</h4>
             <ul className="space-y-4">
               <li className="flex items-center gap-3 text-gray-400">
-                <MapPin size={20} className="text-primary" />
+                <MapPin size={20} className="text-white" />
                 <span>Bénin</span>
               </li>
               <li className="flex items-center gap-3 text-gray-400">
-                <Phone size={20} className="text-primary" />
+                <Phone size={20} className="text-white" />
                 <span>+229 01 60 89 08 08</span>
               </li>
               <li className="flex items-center gap-3 text-gray-400">
-                <Mail size={20} className="text-primary" />
+                <Mail size={20} className="text-white" />
                 <span>wuramiteam@gmail.com</span>
               </li>
             </ul>
