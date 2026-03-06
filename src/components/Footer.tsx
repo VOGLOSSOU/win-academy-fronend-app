@@ -120,15 +120,15 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex items-center gap-3 text-gray-400">
                 <MapPin size={20} className="text-primary" />
-                <span>Cotonou, Bénin</span>
+                <span>Bénin</span>
               </li>
               <li className="flex items-center gap-3 text-gray-400">
                 <Phone size={20} className="text-primary" />
-                <span>01 60 89 08 08</span>
+                <span>+229 01 60 89 08 08</span>
               </li>
               <li className="flex items-center gap-3 text-gray-400">
                 <Mail size={20} className="text-primary" />
-                <span>wuramteam@gmail.com</span>
+                <span>wuramiteam@gmail.com</span>
               </li>
             </ul>
           </div>
