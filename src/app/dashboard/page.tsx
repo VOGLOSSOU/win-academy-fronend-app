@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import { useAuthStore } from '@/store/authStore';
 import {
   BookOpen,
   Clock,
@@ -118,6 +119,7 @@ const userData = {
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState('overview');
+  const { user } = useAuthStore();
 
   return (
     <>
@@ -130,12 +132,12 @@ export default function DashboardPage() {
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 rounded-full bg-primary-light flex items-center justify-center overflow-hidden">
                   <span className="text-primary font-bold text-2xl">
-                    {userData.firstName[0]}{userData.lastName[0]}
+                    {user?.firstName?.[0]}{user?.lastName?.[0]}
                   </span>
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold text-dark">
-                    Bonjour, {userData.firstName} 👋
+                    Bonjour, {user?.firstName} 👋
                   </h1>
                   <p className="text-gray-600">
                     Bienvenue sur votre espace d'apprentissage
