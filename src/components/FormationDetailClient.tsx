@@ -24,14 +24,26 @@ export default function FormationDetailClient({ formationId: propId }: Formation
   const [loading, setLoading] = useState(true);
   const [activeModule, setActiveModule] = useState<number | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isEnrolled, setIsEnrolled] = useState(false);
+  const [enrollmentId, setEnrollmentId] = useState<string | null>(null);
   const { user } = useAuthStore();
 
   useEffect(() => {
-    const fetchFormation = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true);
         const data = await formationsApi.getById(formationId);
         setFormation(data);
+
+        // Vérifier si l'utilisateur est inscrit
+        if (user) {
+          const enrollments = await enrollmentsApi.getMine();
+          const enrollment = enrollments.find((e) => e.formationId === formationId);
+          if (enrollment) {
+            setIsEnrolled(true);
+            setEnrollmentId(enrollment.id);
+          }
+        }
       } catch (error) {
         console.error('Failed to fetch formation:', error);
         toast.error('Erreur lors du chargement de la formation');
@@ -41,29 +53,35 @@ export default function FormationDetailClient({ formationId: propId }: Formation
     };
 
     if (formationId) {
-      fetchFormation();
+      fetchData();
     }
-  }, [formationId]);
+  }, [formationId, user]);
 
   const handleEnroll = async () => {
     if (!user) {
       toast.error('Veuillez vous connecter pour vous inscrire');
       return;
     }
-    
+
     if (!formation) return;
 
-    if (formation.pdfUrl) {
-      window.open(formation.pdfUrl, '_blank');
-      toast.success('Ouverture du document PDF !');
+    if (isEnrolled) {
+      // Déjà inscrit → rediriger vers le cours (premier contenu du premier module)
+      const firstContent = formation.modules?.[0]?.contents?.[0];
+      if (firstContent) {
+        window.location.href = `/cours/${firstContent.id}`;
+      }
       return;
     }
 
     try {
-      await enrollmentsApi.create(formation.id);
-      toast.success('Inscription réussie !');
+      const enrollment = await enrollmentsApi.create(formation.id);
+      setIsEnrolled(true);
+      setEnrollmentId(enrollment.id);
+      toast.success('Inscription réussie ! Bonne formation 🎉');
     } catch (error: any) {
       if (error.status === 409) {
+        setIsEnrolled(true);
         toast.success('Vous êtes déjà inscrit !');
       } else {
         toast.error(error.message || "Erreur lors de l'inscription");
@@ -141,11 +159,11 @@ export default function FormationDetailClient({ formationId: propId }: Formation
                 ) : (
                   <span className="text-4xl font-bold">{formation.price.toLocaleString()} XOF</span>
                 )}
-                <button 
+                <button
                   className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-colors"
                   onClick={handleEnroll}
                 >
-                  {formation.pdfUrl ? 'Lire le PDF' : formation.price === 0 ? 'Commencer maintenant' : 'S\'inscrire'}
+                  {isEnrolled ? 'Continuer la formation' : formation.price === 0 ? 'Commencer maintenant' : 'S\'inscrire'}
                 </button>
                 <button 
                   onClick={() => setIsFavorite(!isFavorite)}
@@ -197,43 +215,57 @@ export default function FormationDetailClient({ formationId: propId }: Formation
             
             {/* Programme */}
             <div className="bg-white rounded-2xl p-8 shadow-md">
-              <h2 className="text-2xl font-bold mb-6">Programme de la formation</h2>
-              <div className="space-y-4">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold">Programme de la formation</h2>
+                <span className="text-sm text-gray-500">{formation.modules.length} modules</span>
+              </div>
+              <div className="space-y-3">
                 {formation.modules.map((module, index) => (
                   <div key={module.id || index} className="border border-gray-200 rounded-xl overflow-hidden">
                     <button
-                      onClick={() => setActiveModule(activeModule === index ? null : index)}
-                      className="w-full p-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                      onClick={() => isEnrolled ? setActiveModule(activeModule === index ? null : index) : undefined}
+                      className={`w-full p-4 flex items-center justify-between transition-colors ${isEnrolled ? 'hover:bg-gray-50 cursor-pointer' : 'cursor-default'}`}
                     >
                       <div className="flex items-center gap-4">
-                        <span className="w-10 h-10 bg-blue-600 text-white rounded-lg flex items-center justify-center font-bold">
+                        <span className="w-10 h-10 bg-blue-600 text-white rounded-lg flex items-center justify-center font-bold flex-shrink-0">
                           {index + 1}
                         </span>
-                        <span className="font-semibold text-gray-800">{module.title}</span>
+                        <span className="font-semibold text-gray-800 text-left">{module.title}</span>
                       </div>
-                      <div className="flex items-center gap-4">
-                        <span className="text-gray-500">{module.contents?.length || 0} leçons</span>
-                        {activeModule === index ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                      <div className="flex items-center gap-3 flex-shrink-0 ml-4">
+                        <span className="text-gray-400 text-sm">{module.contents?.length || 0} leçons</span>
+                        {isEnrolled && (
+                          activeModule === index ? <ChevronUp size={18} className="text-gray-400" /> : <ChevronDown size={18} className="text-gray-400" />
+                        )}
                       </div>
                     </button>
-                    {activeModule === index && (
-                      <div className="p-4 bg-gray-50 border-t border-gray-200">
-                        <p className="text-gray-600">{module.description || "Détails du module à découvrir dans le cours."}</p>
-                        {module.contents && module.contents.length > 0 && (
-                          <ul className="mt-4 space-y-2">
-                            {module.contents.map((content) => (
-                              <li key={content.id} className="flex items-center gap-2 text-sm text-gray-700">
-                                <Play size={14} className="text-blue-600" />
-                                {content.title}
-                              </li>
-                            ))}
-                          </ul>
-                        )}
+
+                    {/* Contenus : uniquement si inscrit ET module ouvert */}
+                    {isEnrolled && activeModule === index && module.contents && module.contents.length > 0 && (
+                      <div className="border-t border-gray-100 bg-gray-50">
+                        <ul className="py-2">
+                          {module.contents.map((content) => (
+                            <li key={content.id} className="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-100 transition-colors">
+                              <Play size={13} className="text-blue-500 flex-shrink-0" />
+                              <span className="text-sm text-gray-700">{content.title}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     )}
                   </div>
                 ))}
               </div>
+
+              {/* Message si non inscrit */}
+              {!isEnrolled && (
+                <div className="mt-4 p-4 bg-blue-50 rounded-xl flex items-center gap-3">
+                  <BookOpen size={20} className="text-blue-500 flex-shrink-0" />
+                  <p className="text-sm text-blue-700">
+                    Inscrivez-vous pour accéder au détail des leçons de chaque module.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
           
