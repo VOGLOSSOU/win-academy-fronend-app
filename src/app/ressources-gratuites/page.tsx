@@ -2,14 +2,48 @@
 
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import { FileText, Download, BookOpen, ExternalLink } from 'lucide-react';
+import { FileText, Download, BookOpen, ExternalLink, GraduationCap, Laptop, Mail } from 'lucide-react';
+
+// Fonction pour obtenir l'icône selon la catégorie
+const getCategoryIcon = (categorie: string) => {
+  switch (categorie.toLowerCase()) {
+    case 'anglais':
+      return GraduationCap;
+    case 'informatique':
+      return Laptop;
+    case 'communication':
+      return Mail;
+    default:
+      return BookOpen;
+  }
+};
 
 const ressources = [
   {
     id: 1,
+    titre: 'Formation Anglais Wurami Premium',
+    description:
+      'Maîtrisez l\'anglais professionnel avec ce parcours complet conçu par Wurami. Idéal pour les débutants qui souhaitent acquirez des compétences solides en anglais des affaires.',
+    auteur: 'WURAMI INNOVATIVE HUB',
+    format: 'PDF',
+    pdfUrl: '/Formation_Anglais_Wurami_Premium.pdf',
+    categorie: 'Anglais',
+  },
+  {
+    id: 2,
+    titre: 'Premiers pas sur ordinateur',
+    description:
+      'Support d\'animation pédagogique pour les formateurs. Apprenez les bases de l\'informatique : souris, navigation internet, création de documents.',
+    auteur: 'WURAMI INNOVATIVE HUB',
+    format: 'PDF',
+    pdfUrl: '/Premiers pas sur ordinateur (support d\'animation).pdf',
+    categorie: 'Informatique',
+  },
+  {
+    id: 3,
     titre: 'Je communique par mail',
     description:
-      'Un guide pratique complet pour maîtriser la communication professionnelle par email : structurer ses messages, adopter le bon ton, éviter les erreurs courantes et gagner en efficacité au quotidien.',
+      'Guide pratique pour maîtriser la communication professionnelle par email : structurer ses messages, adopter le bon ton et éviter les erreurs courantes.',
     auteur: 'EMMAUS CONNECT',
     format: 'PDF',
     pdfUrl: '/Je-communique-par-mail.pdf',
@@ -22,7 +56,7 @@ export default function RessourcesGratuitesPage() {
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navigation />
 
-      {/* Hero — fond avec image */}
+      {/* Hero */}
       <section className="pt-56 pb-28 relative overflow-hidden">
         <div 
           className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
@@ -41,85 +75,85 @@ export default function RessourcesGratuitesPage() {
             Ressources Gratuites
           </h1>
           <p className="text-white/90 text-2xl md:text-3xl max-w-2xl mx-auto leading-relaxed drop-shadow-md">
-            Des guides et supports pédagogiques <span className="text-yellow-300 font-bold">100% gratuits</span> pour développer vos compétences à votre rythme.
+            Des guides et supports pédagogiques <span className="text-yellow-300 font-bold">100% gratuits</span> pour développer vos compétences.
           </p>
         </div>
       </section>
 
-      {/* Contenu */}
-      <main className="flex-1 max-w-5xl mx-auto w-full px-6 py-16">
-        <p className="text-gray-500 text-2xl mb-10 font-medium">
-          {ressources.length} ressource{ressources.length > 1 ? 's' : ''} disponible{ressources.length > 1 ? 's' : ''}
-        </p>
-
-        <div className="grid gap-8">
-          {ressources.map((ressource) => (
-            <div
-              key={ressource.id}
-              className="bg-white rounded-3xl shadow-lg border-2 border-gray-100 p-10 flex flex-col md:flex-row md:items-center gap-10"
-            >
-              {/* Icône */}
-              <div className="flex-shrink-0">
-                <div className="w-28 h-28 bg-primary/10 rounded-2xl flex items-center justify-center">
-                  <FileText className="w-14 h-14 text-primary" />
-                </div>
-              </div>
-
-              {/* Infos */}
-              <div className="flex-1 min-w-0">
-                <div className="flex flex-wrap items-center gap-3 mb-5">
-                  <span className="text-xl font-bold text-primary bg-primary/10 px-4 py-2 rounded-full">
-                    {ressource.categorie}
-                  </span>
-                  <span className="text-xl font-bold text-green-700 bg-green-100 px-4 py-2 rounded-full">
-                    Gratuit
-                  </span>
-                  <span className="text-xl text-gray-400 uppercase tracking-wide font-semibold">
-                    {ressource.format}
-                  </span>
-                </div>
-                <h2 className="text-4xl font-bold text-dark mb-5">
-                  {ressource.titre}
-                </h2>
-                <p className="text-gray-600 text-2xl mb-5 leading-relaxed">
-                  {ressource.description}
-                </p>
-                <p className="text-xl text-gray-400">
-                  Par <span className="font-bold text-gray-700">{ressource.auteur}</span>
-                </p>
-              </div>
-
-              {/* Actions */}
-              <div className="flex flex-col gap-4 flex-shrink-0">
-                <a
-                  href={ressource.pdfUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 px-8 py-5 bg-primary text-white rounded-2xl font-bold hover:bg-primary/90 transition-colors text-xl"
-                >
-                  <ExternalLink className="w-6 h-6" />
-                  Lire
-                </a>
-                <a
-                  href={ressource.pdfUrl}
-                  download
-                  className="flex items-center gap-3 px-8 py-5 border-3 border-primary text-primary rounded-2xl font-bold hover:bg-blue-50 transition-colors text-xl"
-                >
-                  <Download className="w-6 h-6" />
-                  Télécharger
-                </a>
-              </div>
-            </div>
-          ))}
+      {/* Contenu - Cartes carrées alignées */}
+      <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-16">
+        <div className="text-center mb-12">
+          <p className="text-gray-500 text-2xl font-medium">
+            {ressources.length} ressources disponibles
+          </p>
         </div>
 
-        {/* Placeholder futures ressources */}
-        <div className="mt-16 text-center py-16 border-3 border-dashed border-gray-300 rounded-3xl">
-          <BookOpen className="w-16 h-16 text-gray-300 mx-auto mb-6" />
-          <p className="text-gray-500 text-2xl font-bold">D'autres ressources arrivent bientôt</p>
-          <p className="text-gray-400 text-xl mt-3">
-            Revenez régulièrement pour découvrir de nouveaux contenus gratuits.
-          </p>
+        {/* Grille de cartes carrées - même hauteur */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {ressources.map((ressource) => {
+            const CategoryIcon = getCategoryIcon(ressource.categorie);
+            
+            return (
+              <div
+                key={ressource.id}
+                className="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6 flex flex-col h-full"
+              >
+                {/* Icône en haut */}
+                <div className="text-center mb-4">
+                  <div className="w-20 h-20 mx-auto bg-blue-600 rounded-xl flex items-center justify-center mb-3">
+                    <CategoryIcon className="w-10 h-10 text-white" />
+                  </div>
+                  <div className="flex justify-center gap-2">
+                    <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-base font-bold">
+                      {ressource.categorie}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Titre */}
+                <h2 className="text-2xl font-bold text-dark mb-3 text-center">
+                  {ressource.titre}
+                </h2>
+
+                {/* Description */}
+                <p className="text-gray-600 text-lg mb-4 leading-relaxed text-center flex-1">
+                  {ressource.description}
+                </p>
+
+                {/* Auteur */}
+                <p className="text-center text-gray-500 text-base mb-4">
+                  Par <span className="font-bold text-gray-700">{ressource.auteur}</span>
+                </p>
+
+                {/* Boutons */}
+                <div className="flex gap-3 mt-auto">
+                  <a
+                    href={ressource.pdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-colors text-lg"
+                  >
+                    <ExternalLink className="w-5 h-5" />
+                    Lire
+                  </a>
+                  <a
+                    href={ressource.pdfUrl}
+                    download
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3 border-2 border-blue-600 text-blue-600 rounded-xl font-bold hover:bg-blue-50 transition-colors text-lg"
+                  >
+                    <Download className="w-5 h-5" />
+                    Télécharger
+                  </a>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Placeholder */}
+        <div className="mt-16 text-center py-12 border-3 border-dashed border-gray-300 rounded-2xl">
+          <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+          <p className="text-gray-500 text-xl font-bold">D'autres ressources arrivent bientôt</p>
         </div>
       </main>
 

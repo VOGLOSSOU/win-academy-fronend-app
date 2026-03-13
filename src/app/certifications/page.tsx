@@ -1,10 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import { Search, Clock, Users, Award, CheckCircle, ArrowRight } from 'lucide-react';
+import { Search, Clock, Users, Award, CheckCircle, ArrowRight, X, Mail, Phone } from 'lucide-react';
 
 const certifications = [
   {
@@ -132,6 +131,7 @@ const certifications = [
 export default function CertificationsPage() {
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
   const categories = [
     { id: 'all', name: 'Toutes les certifications' },
@@ -251,12 +251,12 @@ export default function CertificationsPage() {
                         <span className="text-2xl font-bold text-blue-600">{cert.price.toLocaleString()} XOF</span>
                       )}
                     </div>
-                    <Link 
-                      href={`/formations/${cert.id}`}
-                      className="flex items-center gap-2 text-blue-600 font-medium hover:underline"
+                    <button 
+                      onClick={() => setShowModal(true)}
+                      className="flex items-center gap-2 text-blue-600 font-medium hover:underline cursor-pointer"
                     >
                       Détails <ArrowRight size={18} />
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -307,6 +307,68 @@ export default function CertificationsPage() {
       </section>
 
       <Footer />
+
+      {/* Modal - Information */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          {/* Overlay */}
+          <div 
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() => setShowModal(false)}
+          />
+          
+          {/* Modal Content */}
+          <div className="relative bg-white rounded-3xl shadow-2xl max-w-lg w-full p-10 text-center">
+            <button 
+              onClick={() => setShowModal(false)}
+              className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
+            >
+              <X size={24} className="text-gray-500" />
+            </button>
+            
+            {/* Icon */}
+            <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Award className="w-12 h-12 text-blue-600" />
+            </div>
+            
+            <h2 className="text-3xl font-bold text-dark mb-4">
+              Certification Disponible
+            </h2>
+            
+            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+              Cette certification est disponible uniquement en <span className="font-bold text-blue-600">accompagnement personnalisé</span>.
+            </p>
+            
+            <div className="bg-blue-50 rounded-2xl p-6 mb-6">
+              <p className="text-lg text-gray-700 mb-4 font-semibold">
+                Contactez-nous pour plus d'informations :
+              </p>
+              
+              <div className="space-y-4">
+                <a 
+                  href="mailto:wuramiteam@gmail.com"
+                  className="flex items-center justify-center gap-3 text-xl text-blue-600 hover:text-blue-700 font-bold"
+                >
+                  <Mail className="w-6 h-6" />
+                  wuramiteam@gmail.com
+                </a>
+                
+                <a 
+                  href="tel:+2290160890808"
+                  className="flex items-center justify-center gap-3 text-xl text-blue-600 hover:text-blue-700 font-bold"
+                >
+                  <Phone className="w-6 h-6" />
+                  +229 01 60 89 08 08
+                </a>
+              </div>
+            </div>
+            
+            <p className="text-lg text-gray-500">
+              Notre équipe vous répondra dans les plus brefs délais !
+            </p>
+          </div>
+        </div>
+      )}
     </>
   );
 }
