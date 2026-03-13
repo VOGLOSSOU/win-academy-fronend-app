@@ -9,6 +9,7 @@ import { useAuthStore } from '@/store/authStore';
 const navLinks = [
   { href: '/', label: 'Accueil' },
   { href: '/formations', label: 'Formations' },
+  { href: '/ressources-gratuites', label: 'Ressources Gratuites' },
   { href: '/certifications', label: 'Certifications' },
   { href: '/partenaires', label: 'Partenaires' },
   { href: '/a-propos', label: 'À propos' },

@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -lah /home/nathan-voglossou/win-academy/public/*.pdf)"
+    ]
+  }
+}

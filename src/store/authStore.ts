@@ -32,7 +32,14 @@ export const useAuthStore = create<AuthState>()(
         set({ isLoading: true });
         try {
           const data = await authApi.login(email, password);
-          saveTokens(data.accessToken, data.refreshToken);
+          // Stocker le token accessToken (obligatoire)
+          if (data.accessToken) {
+            localStorage.setItem('accessToken', data.accessToken);
+          }
+          // Stocker le refreshToken si présent (optionnel selon API)
+          if (data.refreshToken) {
+            localStorage.setItem('refreshToken', data.refreshToken);
+          }
           set({ user: data.user, isAuthenticated: true, isLoading: false });
           return { success: true };
         } catch (err) {
@@ -47,7 +54,14 @@ export const useAuthStore = create<AuthState>()(
         set({ isLoading: true });
         try {
           const data = await authApi.register(userData);
-          saveTokens(data.accessToken, data.refreshToken);
+          // Stocker le token accessToken (obligatoire)
+          if (data.accessToken) {
+            localStorage.setItem('accessToken', data.accessToken);
+          }
+          // Stocker le refreshToken si présent (optionnel selon API)
+          if (data.refreshToken) {
+            localStorage.setItem('refreshToken', data.refreshToken);
+          }
           set({ user: data.user, isAuthenticated: true, isLoading: false });
           return { success: true };
         } catch (err) {

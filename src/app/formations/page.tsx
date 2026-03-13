@@ -1,408 +1,104 @@
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import PartnersSection from '@/components/PartnersSection';
-import { 
-  Search, 
-  Clock, 
-  Users, 
-  BookOpen, 
-  ChevronRight, 
-  Play,
-  Filter,
-  Star,
+import { formationsApi, categoriesApi, type Formation, type Category } from '@/lib/api';
+import {
+  Search,
+  Clock,
+  Users,
   Award,
-  DollarSign,
-  Sparkles,
-  Languages,
-  Laptop,
-  Briefcase,
-  Heart,
-  GraduationCap,
-  Target,
-  Globe,
-  Mic,
-  PenTool,
-  Headphones,
-  Code,
-  FileText,
-  Mail,
-  Presentation,
-  UserCheck,
-  Calendar,
-  Rocket,
-  Banknote,
-  UsersRound,
-  Accessibility,
-  Wifi,
-  Download,
-  Building2,
-  PiggyBank,
-  TrendingUp,
-  UserPlus
+  BookOpen,
+  Loader2,
 } from 'lucide-react';
 
 export default function FormationsPage() {
+  const [formations, setFormations] = useState<Formation[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const categories = [
-    { id: 'all', name: 'Toutes les formations' },
-    { id: 'anglais', name: 'Anglais' },
-    { id: 'techniques', name: 'Compétences Techniques' },
-    { id: 'employabilite', name: 'Employabilité' },
-    { id: 'stem', name: 'STEM' },
-    { id: 'inclusion', name: 'Inclusion' },
-    { id: 'communaute', name: 'Éducation Communautaire' },
-    { id: 'ope', name: 'Programme OPE' },
-  ];
+  // Charger les catégories et formations au démarrage
+  useEffect(() => {
+    async function loadData() {
+      try {
+        setIsLoading(true);
+        setError(null);
+        
+        // Charger les catégories
+        const categoriesData = await categoriesApi.getAll(1, 20);
+        setCategories(categoriesData.data);
+        
+        // Charger toutes les formations
+        const formationsData = await formationsApi.getAll(1, 50);
+        setFormations(formationsData.data);
+      } catch (err) {
+        console.error('Erreur lors du chargement des données:', err);
+        setError('Impossible de charger les formations. Veuillez réessayer plus tard.');
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    
+    loadData();
+  }, []);
 
-  const formations = [
-    // ANGLAIS
-    {
-      id: 1,
-      title: 'Anglais : Les fondamentaux qui ouvrent les portes',
-      category: 'anglais',
-      subcategory: 'Anglais',
-      description: 'Compétences de base et fondamentaux en langue anglaise pour communiquer avec confiance.',
-      duration: '8 semaines',
-      durationType: 'moyenne',
-      students: 1250,
-      level: 'Débutant',
-      price: 25000,
-      isFree: false,
-      instructor: 'Équipe Wurami',
-      hasCertificate: true,
-      badge: 'La plus populaire',
-      objectives: [
-        'Maîtriser la grammaire essentielle simplifiée',
-        'Acquérir un vocabulaire professionnel',
-        'Développer l\'expression orale guidée',
-        'Utiliser les supports interactifs (quiz, audio, exercices)'
-      ],
-      skills: ['Grammaire', 'Vocabulaire professionnel', 'Expression orale', 'Anglais business'],
-      icon: Languages,
-      features: ['Grammaire essentielle simplifiée', 'Vocabulaire professionnel', 'Expression orale guidée', 'Supports interactifs', 'Anglais orienté carrière']
-    },
-    // COMPÉTENCES TECHNIQUES
-    {
-      id: 2,
-      title: 'Introduction au design & à la rédaction web',
-      category: 'techniques',
-      subcategory: 'Design & Web',
-      description: 'Bases du graphisme, création de visuels professionnels et rédaction web persuasive.',
-      duration: '6 semaines',
-      durationType: 'moyenne',
-      students: 850,
-      level: 'Débutant',
-      price: 20000,
-      isFree: false,
-      instructor: 'Équipe Wurami',
-      hasCertificate: true,
-      badge: 'Très demandée',
-      objectives: [
-        'Maîtriser les bases du graphisme',
-        'Créer des visuels professionnels',
-        'Rédiger pour le web de manière persuasive',
-        'Utiliser les outils digitaux modernes'
-      ],
-      skills: ['Graphisme', 'Canva', 'Rédaction web', 'Outils digitaux'],
-      icon: PenTool,
-      features: ['Bases du graphisme', 'Création de visuels professionnels', 'Rédaction web persuasive', 'Introduction aux outils digitaux']
-    },
-    {
-      id: 3,
-      title: 'Compétences numériques de base',
-      category: 'techniques',
-      subcategory: 'Bureautique',
-      description: 'Bureautique, navigation sécurisée et organisation numérique pour devenir opérationnel.',
-      duration: '4 semaines',
-      durationType: 'courte',
-      students: 1100,
-      level: 'Débutant',
-      price: 15000,
-      isFree: false,
-      instructor: 'Équipe Wurami',
-      hasCertificate: true,
-      badge: null,
-      objectives: [
-        'Maîtriser Word, Excel et PowerPoint',
-        'Naviguer en sécurité sur internet',
-        'Effectuer des recherches efficaces en ligne',
-        'S\'organiser numériquement'
-      ],
-      skills: ['Word', 'Excel', 'PowerPoint', 'Navigation sécurisée'],
-      icon: Laptop,
-      features: ['Bureautique (Word, Excel, PowerPoint)', 'Navigation sécurisée', 'Recherche efficace en ligne', 'Organisation numérique']
-    },
-    // EMPLOIABILITÉ
-    {
-      id: 4,
-      title: 'Métiers du numérique',
-      category: 'employabilite',
-      subcategory: 'Métiers numériques',
-      description: 'Introduction à l\'UX/UI, marketing digital et création de présence en ligne.',
-      duration: '10 semaines',
-      durationType: 'longue',
-      students: 720,
-      level: 'Intermédiaire',
-      price: 35000,
-      isFree: false,
-      instructor: 'Équipe Wurami',
-      hasCertificate: true,
-      badge: 'Nouvelle',
-      objectives: [
-        'Découvrir l\'UX/UI design',
-        'Maîtriser le marketing digital',
-        'Créer une présence en ligne professionnelle',
-        'Développer son réseau professionnel'
-      ],
-      skills: ['UX/UI', 'Marketing digital', 'Présence en ligne', 'Réseaux professionnels'],
-      icon: Code,
-      features: ['Introduction UX / UI', 'Marketing digital', 'Création de présence en ligne']
-    },
-    {
-      id: 5,
-      title: 'Développement professionnel',
-      category: 'employabilite',
-      subcategory: 'Développement pro',
-      description: 'Rédaction de CV stratégique, préparation aux entretiens et soft skills essentiels.',
-      duration: '4 semaines',
-      durationType: 'courte',
-      students: 950,
-      level: 'Tous niveaux',
-      price: 0,
-      isFree: true,
-      instructor: 'Équipe Wurami',
-      hasCertificate: true,
-      badge: 'Gratuite',
-      objectives: [
-        'Rédiger un CV stratégique',
-        'Se préparer aux entretiens d\'embauche',
-        'Développer les soft skills',
-        'Améliorer sa communication'
-      ],
-      skills: ['CV', 'Entretien', 'Communication', 'Leadership'],
-      icon: UserCheck,
-      features: ['Rédaction de CV stratégique', 'Préparation aux entretiens', 'Soft skills (communication, leadership, gestion du stress)']
-    },
-    {
-      id: 6,
-      title: 'Orientation carrière & entrepreneuriat',
-      category: 'employabilite',
-      subcategory: 'Carrière',
-      description: 'Identifier son profil, construire un plan de carrière et lancer un projet.',
-      duration: '6 semaines',
-      durationType: 'moyenne',
-      students: 680,
-      level: 'Tous niveaux',
-      price: 20000,
-      isFree: false,
-      instructor: 'Équipe Wurami',
-      hasCertificate: true,
-      badge: null,
-      objectives: [
-        'Identifier son profil professionnel',
-        'Construire un plan de carrière',
-        'Lancer un projet entrepreneurial',
-        'Développer son réseau'
-      ],
-      skills: ['Orientation', 'Plan de carrière', 'Entrepreneuriat', 'Réseau'],
-      icon: Target,
-      features: ['Identifier son profil', 'Construire un plan de carrière', 'Lancer un projet']
-    },
-    // STEM
-    {
-      id: 7,
-      title: 'STEM & Apprentissage innovant',
-      category: 'stem',
-      subcategory: 'STEM',
-      description: 'Modules interactifs en sciences, technologie, ingénierie et mathématiques pour développer l\'esprit critique.',
-      duration: '12 semaines',
-      durationType: 'longue',
-      students: 450,
-      level: 'Tous niveaux',
-      price: 30000,
-      isFree: false,
-      instructor: 'Équipe Wurami',
-      hasCertificate: true,
-      badge: 'Innovant',
-      objectives: [
-        'Découvrir les sciences et technologies',
-        'S\'initier à l\'ingénierie',
-        'Maîtriser les mathématiques appliquées',
-        'Développer l\'esprit critique et l\'innovation'
-      ],
-      skills: ['Sciences', 'Technologie', 'Ingénierie', 'Mathématiques'],
-      icon: Sparkles,
-      features: ['Modules interactifs en sciences, technologie, ingénierie et mathématiques', 'Simulations éducatives', 'Expérimentations virtuelles', 'Résolution de problèmes concrets']
-    },
-    // INCLUSION
-    {
-      id: 8,
-      title: 'Inclusion & accès élargi',
-      category: 'inclusion',
-      subcategory: 'Inclusion',
-      description: 'Cours accessibles aux personnes malentendantes et contenus adaptés aux zones à faible connectivité.',
-      duration: 'Flexible',
-      durationType: 'courte',
-      students: 320,
-      level: 'Tous niveaux',
-      price: 0,
-      isFree: true,
-      instructor: 'Équipe Wurami',
-      hasCertificate: true,
-      badge: 'Accessible',
-      objectives: [
-        'Accéder à des cours adaptés aux personnes malentendantes',
-        'Profiter de contenus en faible connectivité',
-        'Télécharger les supports',
-        'Combiner numérique et présentiel'
-      ],
-      skills: ['Accessibilité', 'Apprentissage hybride', 'Autoformation'],
-      icon: Accessibility,
-      features: ['Cours accessibles aux personnes malentendantes', 'Contenus adaptés aux zones à faible connectivité', 'Supports téléchargeables', 'Apprentissage hybride']
-    },
-    // ÉDUCATION COMMUNAUTAIRE
-    {
-      id: 9,
-      title: 'Formation pour adultes',
-      category: 'communaute',
-      subcategory: 'Adultes',
-      description: 'Finance personnelle et stratégies pour trouver un emploi.',
-      duration: '6 semaines',
-      durationType: 'moyenne',
-      students: 580,
-      level: 'Tous niveaux',
-      price: 15000,
-      isFree: false,
-      instructor: 'Équipe Wurami',
-      hasCertificate: true,
-      badge: null,
-      objectives: [
-        'Maîtriser la finance personnelle',
-        'Développer des stratégies de recherche d\'emploi',
-        'Gérer son budget',
-        'Planifier son avenir financier'
-      ],
-      skills: ['Finance', 'Budget', 'Recherche emploi', 'Planification'],
-      icon: PiggyBank,
-      features: ['Finance personnelle', 'Stratégies pour trouver un emploi']
-    },
-    {
-      id: 10,
-      title: 'Éducation financière & entrepreneuriale pour jeunes',
-      category: 'communaute',
-      subcategory: 'Jeunes',
-      description: 'Comprendre l\'argent, construire un projet et préparer une levée de fonds.',
-      duration: '8 semaines',
-      durationType: 'moyenne',
-      students: 420,
-      level: 'Débutant',
-      price: 20000,
-      isFree: false,
-      instructor: 'Équipe Wurami',
-      hasCertificate: true,
-      badge: 'Pour les jeunes',
-      objectives: [
-        'Comprendre le fonctionnement de l\'argent',
-        'Construire un projet entrepreneurial',
-        'Préparer une levée de fonds',
-        'Développer une mentalidad financière'
-      ],
-      skills: ['Finance', 'Entrepreneuriat', 'Levée de fonds', 'Gestion de projet'],
-      icon: TrendingUp,
-      features: ['Comprendre l\'argent', 'Construire un projet', 'Préparer une levée de fonds']
-    },
-    // PROGRAMME OPE
-    {
-      id: 11,
-      title: 'Programme OPE – Obtenir mon Premier Emploi',
-      category: 'ope',
-      subcategory: 'Programme OPE',
-      description: 'Un programme structuré pour décrocher son premier emploi.',
-      duration: '10 semaines',
-      durationType: 'longue',
-      students: 890,
-      level: 'Débutant',
-      price: 35000,
-      isFree: false,
-      instructor: 'Équipe Wurami',
-      hasCertificate: true,
-      badge: 'Le plus suivi',
-      objectives: [
-        'Clarifier son positionnement professionnel',
-        'Construire un CV stratégique',
-        'Maîtriser l\'entretien d\'embauche',
-        'Développer un réseau professionnel',
-        'Décrocher son premier contrat'
-      ],
-      skills: ['Positionnement', 'CV', 'Entretien', 'Réseau', 'Prospection'],
-      icon: Rocket,
-      features: ['Clarifier son positionnement', 'Construire un CV stratégique', 'Maîtriser l\'entretien', 'Développer un réseau', 'Décrocher son premier contrat']
-    },
-    // JE COMMUNIQUE PAR MAIL
-    {
-      id: 12,
-      title: 'Je communique par mail',
-      category: 'techniques',
-      subcategory: 'Communication',
-      description: 'Apprenez à utiliser efficacement votre boîte mail pour communiquer.',
-      duration: 'Variable',
-      durationType: 'courte',
-      students: 0,
-      level: 'Tous niveaux',
-      price: 0,
-      isFree: true,
-      instructor: 'EMMAUS CONNECT',
-      hasCertificate: false,
-      badge: 'Nouveau',
-      objectives: [
-        'Se repérer sur une boîte mail',
-        'Appliquer les règles de sécurité concernant les mails'
-      ],
-      skills: ['Boîte mail', 'Sécurité email', 'Communication'],
-      icon: Mail,
-      features: ['Cours PDF', 'Bien détaillé', 'Gratuit', 'Accessible à tous'],
-      pdfUrl: '/formations/je-communique-par-mail'
-    },
-  ];
-
-  const filteredFormations = formations.filter(formation => {
-    const matchesCategory = activeCategory === 'all' || formation.category === activeCategory;
-    const matchesSearch = searchQuery === '' || 
+  // Filtrer les formations
+  const filteredFormations = formations.filter((formation) => {
+    const matchesCategory = activeCategory === 'all' || 
+      formation.category?.name?.toLowerCase() === activeCategory.toLowerCase();
+    const matchesSearch =
+      searchQuery === '' ||
       formation.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      formation.description.toLowerCase().includes(searchQuery.toLowerCase());
+      (formation.shortDescription?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+       formation.fullDescription?.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesCategory && matchesSearch;
   });
+
+  // Préparer les catégories pour l'affichage
+  const displayCategories = [
+    { id: 'all', name: 'Toutes les formations' },
+    ...categories.map(cat => ({ id: cat.name.toLowerCase(), name: cat.name }))
+  ];
 
   return (
     <>
       <Navigation />
-      {/* Hero Section */}
-      <section className="pt-56 pb-16 bg-light">
-        <div className="container mx-auto px-4">
+
+      {/* Hero */}
+      <section className="pt-56 pb-24 relative overflow-hidden">
+        <div 
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+          style={{ 
+            backgroundImage: 'url("https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop")',
+            filter: 'brightness(0.4)'
+          }}
+        />
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold text-dark mb-6">
+            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
               Nos Formations
             </h1>
-            <p className="text-2xl text-gray-600 mb-8">
+            <p className="text-2xl text-white/90 mb-8 max-w-2xl mx-auto">
               Apprenez. Transformez-vous. Obtenez des résultats concrets.
             </p>
-            
+
             {/* Search */}
             <div className="relative max-w-xl mx-auto">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+              <Search
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
+                size={20}
+              />
               <input
                 type="text"
                 placeholder="Rechercher une formation..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                className="w-full pl-12 pr-4 py-4 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300 text-black placeholder:text-gray-500"
               />
             </div>
           </div>
@@ -413,7 +109,7 @@ export default function FormationsPage() {
       <section className="py-8 bg-white border-b">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap gap-3 justify-center">
-            {categories.map((cat) => (
+            {displayCategories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
@@ -433,97 +129,103 @@ export default function FormationsPage() {
       {/* Formations Grid */}
       <section className="py-16 bg-light">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredFormations.map((formation) => (
-              <div key={formation.id} className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all overflow-hidden group">
-                {/* Image placeholder with icon */}
-                <div className="h-48 bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center relative overflow-hidden">
-                  <formation.icon size={64} className="text-white/30 absolute" />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all" />
-                  {formation.badge && (
-                    <span className="absolute top-4 right-4 bg-white/90 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
-                      {formation.badge}
-                    </span>
-                  )}
-                  {formation.isFree && (
-                    <span className="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                      Gratuit
-                    </span>
-                  )}
+          {isLoading ? (
+            <div className="flex justify-center items-center py-24">
+              <Loader2 className="w-12 h-12 text-blue-600 animate-spin" />
+              <span className="ml-3 text-gray-600">Chargement des formations...</span>
+            </div>
+          ) : error ? (
+            <div className="text-center py-24">
+              <div className="flex justify-center mb-6">
+                <div className="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center">
+                  <BookOpen className="w-10 h-10 text-red-300" />
                 </div>
-                
-                <div className="p-6">
-                  <div className="flex items-center gap-2 text-lg font-medium text-blue-600 mb-3">
-                    <formation.icon size={20} />
-                    <span>{formation.subcategory}</span>
-                  </div>
-                  
-                  <h3 className="text-2xl font-bold text-dark mb-3 group-hover:text-blue-600 transition-colors">
-                    {formation.title}
-                  </h3>
-                  
-                  <p className="text-gray-600 text-lg mb-5 line-clamp-3">
-                    {formation.description}
-                  </p>
-                  
-                  {/* Features */}
-                  <div className="flex flex-wrap gap-2 mb-5">
-                    {formation.features.slice(0, 3).map((feature, idx) => (
-                      <span key={idx} className="text-sm bg-gray-100 text-gray-600 px-3 py-1.5 rounded-lg">
-                        {feature}
+              </div>
+              <h2 className="text-2xl font-bold text-red-500 mb-3">
+                Erreur de chargement
+              </h2>
+              <p className="text-gray-400 max-w-md mx-auto">
+                {error}
+              </p>
+            </div>
+          ) : filteredFormations.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredFormations.map((formation) => (
+                <div
+                  key={formation.id}
+                  className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all overflow-hidden group"
+                >
+                  <div className="h-48 bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center relative">
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all" />
+                    {formation.level && (
+                      <span className="absolute top-4 right-4 bg-white/90 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
+                        {formation.level}
                       </span>
-                    ))}
+                    )}
+                    {formation.price === 0 && (
+                      <span className="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                        Gratuit
+                      </span>
+                    )}
                   </div>
-                  
-                  {/* Meta */}
-                  <div className="flex items-center justify-between text-lg text-gray-500 mb-5 pt-4 border-t">
-                    <div className="flex items-center gap-2">
-                      <Clock size={20} />
-                      <span>{formation.duration}</span>
+
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold text-dark mb-3 group-hover:text-blue-600 transition-colors">
+                      {formation.title}
+                    </h3>
+                    <p className="text-gray-600 text-lg mb-5 line-clamp-3">
+                      {formation.shortDescription || formation.fullDescription}
+                    </p>
+
+                    <div className="flex items-center justify-between text-lg text-gray-500 mb-5 pt-4 border-t">
+                      <div className="flex items-center gap-2">
+                        <Clock size={20} />
+                        <span>{formation.duration} min</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Users size={20} />
+                        <span>{formation._count?.enrollments || 0}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Award size={20} />
+                        <span>{formation.level}</span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Users size={20} />
-                      <span>{formation.students} eleves</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Award size={20} />
-                      <span>{formation.level}</span>
-                    </div>
-                  </div>
-                  
-                  {/* Price & CTA */}
-                  <div className="flex items-center justify-between">
-                    <div>
-                      {formation.isFree ? (
-                        <span className="text-2xl font-bold text-green-600">Gratuit</span>
-                      ) : (
-                        <span className="text-2xl font-bold text-blue-600">{formation.price.toLocaleString()} XOF</span>
-                      )}
-                    </div>
-                    {formation.pdfUrl ? (
-                      <button 
-                        onClick={() => window.location.href = formation.pdfUrl}
-                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                      >
-                        Lire le PDF
-                      </button>
-                    ) : (
-                      <Link 
+
+                    <div className="flex items-center justify-between">
+                      <div>
+                        {formation.price === 0 ? (
+                          <span className="text-2xl font-bold text-green-600">Gratuit</span>
+                        ) : (
+                          <span className="text-2xl font-bold text-blue-600">
+                            {formation.price?.toLocaleString()} XOF
+                          </span>
+                        )}
+                      </div>
+                      <Link
                         href={`/formations/${formation.id}`}
                         className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                       >
                         Voir plus
                       </Link>
-                    )}
+                    </div>
                   </div>
                 </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-24">
+              <div className="flex justify-center mb-6">
+                <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center">
+                  <BookOpen className="w-10 h-10 text-blue-300" />
+                </div>
               </div>
-            ))}
-          </div>
-          
-          {filteredFormations.length === 0 && (
-            <div className="text-center py-16">
-              <p className="text-gray-500 text-lg">Aucune formation ne correspond a votre recherche.</p>
+              <h2 className="text-2xl font-bold text-gray-400 mb-3">
+                Aucune formation trouvée
+              </h2>
+              <p className="text-gray-400 max-w-md mx-auto">
+                Essayez avec d'autres critères de recherche.
+              </p>
             </div>
           )}
         </div>
@@ -538,11 +240,11 @@ export default function FormationsPage() {
               <p className="text-blue-100">Apprenants</p>
             </div>
             <div>
-              <p className="text-4xl font-bold mb-2">13</p>
+              <p className="text-4xl font-bold mb-2">{formations.length}</p>
               <p className="text-blue-100">Formations</p>
             </div>
             <div>
-              <p className="text-4xl font-bold mb-2">12</p>
+              <p className="text-4xl font-bold mb-2">10</p>
               <p className="text-blue-100">Certifications</p>
             </div>
             <div>
