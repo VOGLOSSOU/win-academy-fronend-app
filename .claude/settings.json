@@ -2,6 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(ls -lah /home/nathan-voglossou/win-academy/public/*.pdf)"
+    ],
+    "additionalDirectories": [
+      "/home/nathan-voglossou/win-academy/src/app/cours"
     ]
   }
 }

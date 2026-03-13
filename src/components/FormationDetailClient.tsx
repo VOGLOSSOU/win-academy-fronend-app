@@ -66,11 +66,7 @@ export default function FormationDetailClient({ formationId: propId }: Formation
     if (!formation) return;
 
     if (isEnrolled) {
-      // Déjà inscrit → rediriger vers le cours (premier contenu du premier module)
-      const firstContent = formation.modules?.[0]?.contents?.[0];
-      if (firstContent) {
-        window.location.href = `/cours/${firstContent.id}`;
-      }
+      window.location.href = `/cours/${formation.id}`;
       return;
     }
 
@@ -245,9 +241,14 @@ export default function FormationDetailClient({ formationId: propId }: Formation
                       <div className="border-t border-gray-100 bg-gray-50">
                         <ul className="py-2">
                           {module.contents.map((content) => (
-                            <li key={content.id} className="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-100 transition-colors">
-                              <Play size={13} className="text-blue-500 flex-shrink-0" />
-                              <span className="text-sm text-gray-700">{content.title}</span>
+                            <li key={content.id}>
+                              <a
+                                href={`/cours/${formation.id}?lecon=${content.id}`}
+                                className="flex items-center gap-3 px-6 py-2.5 hover:bg-blue-50 transition-colors group"
+                              >
+                                <Play size={13} className="text-blue-500 flex-shrink-0" />
+                                <span className="text-sm text-gray-700 group-hover:text-blue-700">{content.title}</span>
+                              </a>
                             </li>
                           ))}
                         </ul>
