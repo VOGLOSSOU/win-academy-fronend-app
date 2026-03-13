@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, useState, Suspense, useCallback } from 'react';
 import { useParams, useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
@@ -33,14 +33,111 @@ function getAllContents(formation: FormationDetail): Content[] {
   return formation.modules.flatMap(m => (m.contents || []) as Content[]);
 }
 
-// ─── Inner component (needs useSearchParams → wrapped in Suspense) ────────────
+// ─── Styles inline (bypasse tout CSS global) ─────────────────────────────────
+
+const S = {
+  root: {
+    display: 'flex' as const,
+    height: '100vh',
+    overflow: 'hidden',
+    backgroundColor: '#f3f4f6',
+    fontFamily: 'Poppins, sans-serif',
+  },
+  sidebar: {
+    width: '320px',
+    flexShrink: 0,
+    display: 'flex' as const,
+    flexDirection: 'column' as const,
+    backgroundColor: 'white',
+    borderRight: '1px solid #e5e7eb',
+    overflowY: 'auto' as const,
+    zIndex: 10,
+  },
+  sidebarMobileHidden: {
+    transform: 'translateX(-100%)',
+    position: 'fixed' as const,
+    inset: 0,
+    width: '320px',
+    display: 'flex' as const,
+    flexDirection: 'column' as const,
+    backgroundColor: 'white',
+    borderRight: '1px solid #e5e7eb',
+    overflowY: 'auto' as const,
+    zIndex: 30,
+    transition: 'transform 0.2s',
+  },
+  sidebarMobileVisible: {
+    transform: 'translateX(0)',
+    position: 'fixed' as const,
+    top: 0,
+    left: 0,
+    bottom: 0,
+    width: '320px',
+    display: 'flex' as const,
+    flexDirection: 'column' as const,
+    backgroundColor: 'white',
+    borderRight: '1px solid #e5e7eb',
+    overflowY: 'auto' as const,
+    zIndex: 30,
+    transition: 'transform 0.2s',
+  },
+  contentArea: {
+    flex: 1,
+    display: 'flex' as const,
+    flexDirection: 'column' as const,
+    minWidth: 0,
+    overflow: 'hidden',
+  },
+  topBar: {
+    height: '56px',
+    flexShrink: 0,
+    display: 'flex' as const,
+    alignItems: 'center' as const,
+    padding: '0 16px',
+    gap: '16px',
+    backgroundColor: 'white',
+    borderBottom: '1px solid #e5e7eb',
+  },
+  scrollArea: {
+    flex: 1,
+    overflowY: 'auto' as const,
+    minHeight: 0,
+  },
+  contentWrapper: {
+    maxWidth: '860px',
+    margin: '0 auto',
+    padding: '48px 40px',
+  },
+  lessonTitle: {
+    fontSize: '30px',
+    fontWeight: 700,
+    color: '#111827',
+    marginBottom: '32px',
+    lineHeight: 1.3,
+  },
+  card: {
+    backgroundColor: 'white',
+    borderRadius: '16px',
+    padding: '48px',
+    marginBottom: '40px',
+    boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
+  },
+  bodyText: {
+    fontSize: '18px',
+    lineHeight: 1.9,
+    color: '#1f2937',
+    whiteSpace: 'pre-wrap' as const,
+  },
+};
+
+// ─── Inner component ──────────────────────────────────────────────────────────
 
 function CoursPlayer() {
   const params = useParams();
   const searchParams = useSearchParams();
   const router = useRouter();
   const formationId = params.formationId as string;
-  const activeContentId = searchParams.get('lecon');
+  const initialContentId = searchParams.get('lecon');
 
   const { user } = useAuthStore();
   const [formation, setFormation] = useState<FormationDetail | null>(null);
@@ -51,25 +148,34 @@ function CoursPlayer() {
   const [loadingPage, setLoadingPage] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [expandedModules, setExpandedModules] = useState<Set<number>>(new Set([0]));
+  const [isDesktop, setIsDesktop] = useState(false);
 
-  // ── Charge la formation + l'inscription ──────────────────────────────────────
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 1024);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  const loadContent = useCallback(async (contentId: string) => {
+    try {
+      setLoadingContent(true);
+      const content = await contentsApi.getById(contentId);
+      setCurrentContent(content);
+    } catch {
+      toast.error('Erreur lors du chargement de la leçon');
+    } finally {
+      setLoadingContent(false);
+    }
+  }, []);
+
   useEffect(() => {
     if (!formationId) return;
-
-    // Si user est null, on vérifie s'il y a un token en localStorage.
-    // Si pas de token → non connecté → redirection login.
-    // Si token présent mais user encore null → store Zustand pas encore hydraté
-    // → on attend le prochain render (user dans les deps).
     if (!user) {
       const token = getAccessToken();
-      if (!token) {
-        setLoadingPage(false);
-        router.push('/connexion');
-      }
-      // Sinon on attend que user soit disponible, l'effet se re-déclenchera
+      if (!token) { setLoadingPage(false); router.push('/connexion'); }
       return;
     }
-
     const init = async () => {
       try {
         setLoadingPage(true);
@@ -77,9 +183,7 @@ function CoursPlayer() {
           formationsApi.getById(formationId),
           enrollmentsApi.getMine(),
         ]);
-
         setFormation(formationData);
-
         const found = enrollments.find(e => e.formationId === formationId);
         if (!found) {
           toast.error('Vous devez être inscrit pour accéder à ce cours');
@@ -87,16 +191,12 @@ function CoursPlayer() {
           return;
         }
         setEnrollment(found);
-
         const completed = getCompletedIds(found.id);
         setCompletedIds(completed);
-
-        // Choisir la leçon à afficher
         const allContents = getAllContents(formationData);
-        const targetId = activeContentId ?? allContents[0]?.id;
+        const targetId = initialContentId ?? allContents[0]?.id;
         if (targetId) {
           await loadContent(targetId);
-          // Ouvrir le module qui contient la leçon active
           formationData.modules.forEach((mod, idx) => {
             if (mod.contents?.some(c => c.id === targetId)) {
               setExpandedModules(prev => new Set([...prev, idx]));
@@ -109,33 +209,15 @@ function CoursPlayer() {
         setLoadingPage(false);
       }
     };
-
     init();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formationId, user]);
 
-  // ── Recharge le contenu quand le param URL change ────────────────────────────
-  useEffect(() => {
-    if (activeContentId) loadContent(activeContentId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeContentId]);
-
-  const loadContent = async (contentId: string) => {
-    try {
-      setLoadingContent(true);
-      const content = await contentsApi.getById(contentId);
-      setCurrentContent(content);
-    } catch {
-      toast.error('Erreur lors du chargement de la leçon');
-    } finally {
-      setLoadingContent(false);
-    }
-  };
-
-  const navigateTo = (contentId: string) => {
-    router.push(`/cours/${formationId}?lecon=${contentId}`);
+  const navigateTo = useCallback((contentId: string) => {
+    loadContent(contentId);
     setSidebarOpen(false);
-  };
+    window.history.replaceState(null, '', `/cours/${formationId}?lecon=${contentId}`);
+  }, [formationId, loadContent]);
 
   const toggleModule = (idx: number) => {
     setExpandedModules(prev => {
@@ -147,56 +229,33 @@ function CoursPlayer() {
 
   const markAsComplete = async () => {
     if (!currentContent || !enrollment || !formation) return;
-
     const contentId = currentContent.id;
     const allContents = getAllContents(formation);
-
-    // Si déjà terminé → juste passer à la suivante
     if (completedIds.includes(contentId)) {
-      goToNext();
+      const idx = allContents.findIndex(c => c.id === contentId);
+      if (idx < allContents.length - 1) navigateTo(allContents[idx + 1].id);
       return;
     }
-
     const newCompleted = [...completedIds, contentId];
     setCompletedIds(newCompleted);
     saveCompletedIds(enrollment.id, newCompleted);
-
     const percentage = Math.min(Math.round((newCompleted.length / allContents.length) * 100), 100);
-
-    try {
-      await enrollmentsApi.updateProgress(enrollment.id, percentage);
-      if (percentage >= 100) {
-        toast.success('Formation terminée ! Passez maintenant l\'évaluation 🎉');
-      } else {
-        toast.success('Leçon terminée !');
-        goToNext();
-      }
-    } catch {
-      toast.error('Erreur lors de la mise à jour de la progression');
+    if (percentage < 100) {
+      toast.success('Leçon terminée !');
+      const idx = allContents.findIndex(c => c.id === contentId);
+      if (idx < allContents.length - 1) navigateTo(allContents[idx + 1].id);
+    } else {
+      toast.success('Formation terminée ! Bravo 🎉');
     }
+    enrollmentsApi.updateProgress(enrollment.id, percentage).catch(() => {});
   };
 
-  const goToNext = () => {
-    if (!formation || !currentContent) return;
-    const all = getAllContents(formation);
-    const idx = all.findIndex(c => c.id === currentContent.id);
-    if (idx < all.length - 1) navigateTo(all[idx + 1].id);
-  };
-
-  const goToPrev = () => {
-    if (!formation || !currentContent) return;
-    const all = getAllContents(formation);
-    const idx = all.findIndex(c => c.id === currentContent.id);
-    if (idx > 0) navigateTo(all[idx - 1].id);
-  };
-
-  // ── Loading / guards ──────────────────────────────────────────────────────────
   if (loadingPage) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="flex flex-col items-center gap-4">
-          <Loader2 className="w-10 h-10 text-blue-600 animate-spin" />
-          <p className="text-gray-600 font-medium">Chargement du cours...</p>
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f9fafb' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
+          <Loader2 style={{ width: 40, height: 40, color: '#2563eb', animation: 'spin 1s linear infinite' }} />
+          <p style={{ color: '#4b5563', fontWeight: 500, fontSize: '16px' }}>Chargement du cours...</p>
         </div>
       </div>
     );
@@ -211,171 +270,200 @@ function CoursPlayer() {
   const currentIdx = currentContent ? allContents.findIndex(c => c.id === currentContent.id) : -1;
   const isLastLesson = currentIdx === allContents.length - 1;
   const isCurrentDone = currentContent ? completedIds.includes(currentContent.id) : false;
-  const allDone = completedCount >= totalLessons;
+  const allDone = completedCount >= totalLessons && totalLessons > 0;
 
-  // ── Render ───────────────────────────────────────────────────────────────────
+  // Sidebar style selon mobile/desktop
+  const sidebarStyle = isDesktop
+    ? S.sidebar
+    : sidebarOpen ? S.sidebarMobileVisible : S.sidebarMobileHidden;
+
   return (
-    <div className="h-screen flex flex-col bg-gray-100 overflow-hidden">
+    <div style={S.root}>
 
-      {/* ── Top bar ── */}
-      <header className="h-14 bg-white border-b border-gray-200 flex items-center px-4 gap-4 flex-shrink-0 z-10">
-        <button onClick={() => setSidebarOpen(true)} className="lg:hidden p-2 rounded-lg hover:bg-gray-100">
-          <Menu size={20} />
-        </button>
+      {/* Overlay mobile */}
+      {!isDesktop && sidebarOpen && (
+        <div
+          onClick={() => setSidebarOpen(false)}
+          style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.4)', zIndex: 20 }}
+        />
+      )}
 
-        <Link
-          href={`/formations/${formationId}`}
-          className="flex items-center gap-2 text-gray-500 hover:text-gray-800 text-sm transition-colors"
-        >
-          <ArrowLeft size={16} />
-          <span className="hidden sm:inline">Retour</span>
-        </Link>
+      {/* ── Sidebar ── */}
+      <div style={sidebarStyle}>
 
-        <div className="flex-1 min-w-0">
-          <h1 className="text-sm font-semibold text-gray-800 truncate">{formation.title}</h1>
+        {/* Haut sidebar */}
+        <div style={{ height: '56px', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px', borderBottom: '1px solid #f3f4f6' }}>
+          <Link
+            href={`/formations/${formationId}`}
+            style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#6b7280', fontSize: '14px', textDecoration: 'none' }}
+          >
+            <ArrowLeft size={16} />
+            Retour
+          </Link>
+          {!isDesktop && (
+            <button onClick={() => setSidebarOpen(false)} style={{ padding: '4px', background: 'none', border: 'none', cursor: 'pointer' }}>
+              <X size={16} />
+            </button>
+          )}
         </div>
 
-        <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-2">
-            <div className="w-28 h-2 bg-gray-200 rounded-full overflow-hidden">
-              <div className="h-full bg-blue-600 rounded-full transition-all" style={{ width: `${progressPercent}%` }} />
+        {/* Titre + progression */}
+        <div style={{ padding: '16px', borderBottom: '1px solid #f3f4f6', flexShrink: 0 }}>
+          <p style={{ fontSize: '12px', fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>
+            Formation
+          </p>
+          <p style={{ fontSize: '13px', fontWeight: 600, color: '#1f2937', lineHeight: 1.4, marginBottom: '12px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+            {formation.title}
+          </p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: '#6b7280' }}>
+            <span>{completedCount}/{totalLessons} leçons</span>
+            <div style={{ flex: 1, height: '6px', backgroundColor: '#e5e7eb', borderRadius: '3px', overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: `${progressPercent}%`, backgroundColor: '#2563eb', transition: 'width 0.5s', borderRadius: '3px' }} />
             </div>
-            <span className="text-xs font-semibold text-blue-600">{progressPercent}%</span>
+            <span style={{ fontWeight: 700, color: '#2563eb' }}>{progressPercent}%</span>
+          </div>
+        </div>
+
+        {/* Modules */}
+        <div style={{ flex: 1, overflowY: 'auto' }}>
+          {formation.modules.map((module, modIdx) => (
+            <div key={module.id || modIdx} style={{ borderBottom: '1px solid #f3f4f6' }}>
+              <button
+                onClick={() => toggleModule(modIdx)}
+                style={{ width: '100%', padding: '12px 16px', display: 'flex', alignItems: 'center', gap: '12px', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}
+              >
+                <span style={{ width: '24px', height: '24px', borderRadius: '50%', backgroundColor: '#dbeafe', color: '#1d4ed8', fontSize: '11px', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  {modIdx + 1}
+                </span>
+                <span style={{ flex: 1, fontSize: '13px', fontWeight: 500, color: '#1f2937', lineHeight: 1.3 }}>
+                  {module.title}
+                </span>
+                {expandedModules.has(modIdx)
+                  ? <ChevronUp size={14} color="#9ca3af" />
+                  : <ChevronDown size={14} color="#9ca3af" />}
+              </button>
+
+              {expandedModules.has(modIdx) && (
+                <div style={{ backgroundColor: '#f9fafb', paddingBottom: '4px' }}>
+                  {(module.contents || []).map(c => {
+                    const done = completedIds.includes(c.id);
+                    const active = currentContent?.id === c.id;
+                    return (
+                      <button
+                        key={c.id}
+                        onClick={() => navigateTo(c.id)}
+                        style={{
+                          width: '100%', padding: '10px 16px',
+                          display: 'flex', alignItems: 'center', gap: '12px',
+                          background: active ? '#eff6ff' : 'none',
+                          border: 'none',
+                          borderLeft: active ? '3px solid #2563eb' : '3px solid transparent',
+                          cursor: 'pointer', textAlign: 'left',
+                        }}
+                      >
+                        {done
+                          ? <CheckCircle size={14} color="#22c55e" style={{ flexShrink: 0 }} />
+                          : <Circle size={14} color={active ? '#3b82f6' : '#d1d5db'} style={{ flexShrink: 0 }} />
+                        }
+                        <span style={{
+                          fontSize: '13px', lineHeight: 1.3,
+                          color: active ? '#1d4ed8' : done ? '#9ca3af' : '#374151',
+                          fontWeight: active ? 600 : 400,
+                          textDecoration: done ? 'line-through' : 'none',
+                        }}>
+                          {c.title}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Zone principale ── */}
+      <div style={S.contentArea}>
+
+        {/* Top bar */}
+        <div style={S.topBar}>
+          {!isDesktop && (
+            <button
+              onClick={() => setSidebarOpen(true)}
+              style={{ padding: '8px', background: 'none', border: 'none', cursor: 'pointer', borderRadius: '8px' }}
+            >
+              <Menu size={20} />
+            </button>
+          )}
+
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <p style={{ fontSize: '14px', fontWeight: 600, color: '#374151', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              {currentContent?.title ?? formation.title}
+            </p>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+            <div style={{ width: '112px', height: '8px', backgroundColor: '#e5e7eb', borderRadius: '4px', overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: `${progressPercent}%`, backgroundColor: '#2563eb', transition: 'width 0.5s' }} />
+            </div>
+            <span style={{ fontSize: '12px', fontWeight: 700, color: '#2563eb', flexShrink: 0 }}>{progressPercent}%</span>
           </div>
 
           {allDone && formation.evaluation && (
             <Link
               href={`/evaluation/${formation.evaluation.id}?enrollmentId=${enrollment.id}&formationId=${formationId}`}
-              className="px-4 py-1.5 bg-green-600 text-white text-sm font-semibold rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2"
+              style={{ padding: '6px 16px', backgroundColor: '#16a34a', color: 'white', borderRadius: '8px', fontSize: '13px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px', textDecoration: 'none', flexShrink: 0 }}
             >
               <Award size={15} />
               Quiz final
             </Link>
           )}
         </div>
-      </header>
 
-      <div className="flex flex-1 overflow-hidden relative">
-
-        {/* ── Overlay mobile ── */}
-        {sidebarOpen && (
-          <div className="fixed inset-0 bg-black/40 z-20 lg:hidden" onClick={() => setSidebarOpen(false)} />
-        )}
-
-        {/* ── Sidebar ── */}
-        <aside className={`
-          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0
-          fixed lg:relative left-0 top-14 bottom-0 z-30
-          w-80 bg-white border-r border-gray-200 flex flex-col overflow-hidden
-          transition-transform duration-200
-        `}>
-          {/* Header sidebar */}
-          <div className="p-4 border-b border-gray-100 flex-shrink-0">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-bold text-gray-500 uppercase tracking-wide">Contenu</span>
-              <button onClick={() => setSidebarOpen(false)} className="lg:hidden p-1 hover:bg-gray-100 rounded">
-                <X size={16} />
-              </button>
-            </div>
-            <div className="flex items-center gap-2 text-sm">
-              <span className="text-gray-500">{completedCount}/{totalLessons} leçons</span>
-              <div className="flex-1 h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                <div className="h-full bg-blue-600 rounded-full transition-all" style={{ width: `${progressPercent}%` }} />
-              </div>
-              <span className="font-bold text-blue-600 text-xs">{progressPercent}%</span>
-            </div>
-          </div>
-
-          {/* Liste des modules */}
-          <div className="flex-1 overflow-y-auto">
-            {formation.modules.map((module, modIdx) => (
-              <div key={module.id || modIdx} className="border-b border-gray-100">
-                <button
-                  onClick={() => toggleModule(modIdx)}
-                  className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 transition-colors text-left"
-                >
-                  <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs font-bold flex items-center justify-center flex-shrink-0">
-                    {modIdx + 1}
-                  </span>
-                  <span className="flex-1 text-sm font-medium text-gray-800 leading-tight">{module.title}</span>
-                  {expandedModules.has(modIdx)
-                    ? <ChevronUp size={14} className="text-gray-400 flex-shrink-0" />
-                    : <ChevronDown size={14} className="text-gray-400 flex-shrink-0" />
-                  }
-                </button>
-
-                {expandedModules.has(modIdx) && (
-                  <div className="bg-gray-50 pb-1">
-                    {(module.contents || []).map(c => {
-                      const done = completedIds.includes(c.id);
-                      const active = currentContent?.id === c.id;
-                      return (
-                        <button
-                          key={c.id}
-                          onClick={() => navigateTo(c.id)}
-                          className={`w-full px-4 py-2.5 flex items-center gap-3 text-left transition-colors border-l-2
-                            ${active ? 'bg-blue-50 border-blue-600' : 'border-transparent hover:bg-gray-100'}
-                          `}
-                        >
-                          {done
-                            ? <CheckCircle size={14} className="text-green-500 flex-shrink-0" />
-                            : <Circle size={14} className={`flex-shrink-0 ${active ? 'text-blue-500' : 'text-gray-300'}`} />
-                          }
-                          <span className={`text-sm leading-tight ${active ? 'text-blue-700 font-semibold' : done ? 'text-gray-400 line-through' : 'text-gray-700'}`}>
-                            {c.title}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </aside>
-
-        {/* ── Zone principale ── */}
-        <main className="flex-1 min-h-0 overflow-y-auto">
+        {/* Zone scrollable */}
+        <div style={S.scrollArea}>
           {loadingContent ? (
-            <div className="flex-1 flex items-center justify-center h-full">
-              <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '300px' }}>
+              <Loader2 style={{ width: 32, height: 32, color: '#2563eb', animation: 'spin 1s linear infinite' }} />
             </div>
           ) : !currentContent ? (
-            <div className="flex items-center justify-center h-full text-gray-400">
-              <div className="text-center">
-                <BookOpen size={48} className="mx-auto mb-4 text-gray-300" />
-                <p>Sélectionnez une leçon dans le menu</p>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '300px', color: '#9ca3af' }}>
+              <div style={{ textAlign: 'center' }}>
+                <BookOpen size={48} color="#d1d5db" style={{ display: 'block', margin: '0 auto 16px' }} />
+                <p style={{ fontSize: '16px' }}>Sélectionnez une leçon dans le menu</p>
               </div>
             </div>
           ) : (
-            <div className="w-full max-w-4xl mx-auto px-8 py-10">
+            <div style={S.contentWrapper}>
 
-              {/* Fil d'Ariane */}
-              <p className="text-sm text-gray-400 mb-2">{currentContent.module?.title}</p>
+              {currentContent.module?.title && (
+                <p style={{ fontSize: '13px', color: '#9ca3af', fontWeight: 500, marginBottom: '8px' }}>
+                  {currentContent.module.title}
+                </p>
+              )}
 
-              {/* Titre de la leçon */}
-              <h2 className="text-3xl font-bold text-gray-900 mb-8 leading-snug">{currentContent.title}</h2>
+              <h2 style={S.lessonTitle}>{currentContent.title}</h2>
 
-              {/* Contenu */}
-              <div className="bg-white rounded-2xl shadow-sm p-10 mb-8">
+              <div style={S.card}>
                 {currentContent.type === 'TEXT' && (
-                  <div className="text-gray-800 text-lg leading-[1.9] whitespace-pre-wrap space-y-4">
+                  <div style={S.bodyText}>
                     {currentContent.body || 'Contenu non disponible pour le moment.'}
                   </div>
                 )}
                 {currentContent.type === 'VIDEO' && currentContent.url && (
-                  <div className="aspect-video rounded-xl overflow-hidden bg-black">
-                    <iframe src={currentContent.url} className="w-full h-full" allowFullScreen title={currentContent.title} />
+                  <div style={{ aspectRatio: '16/9', borderRadius: '12px', overflow: 'hidden', backgroundColor: 'black' }}>
+                    <iframe src={currentContent.url} style={{ width: '100%', height: '100%' }} allowFullScreen title={currentContent.title} />
                   </div>
                 )}
                 {currentContent.type === 'VIDEO' && !currentContent.url && (
-                  <p className="text-gray-400 text-center py-12">Vidéo non disponible.</p>
+                  <p style={{ textAlign: 'center', padding: '64px 0', color: '#9ca3af', fontSize: '16px' }}>Vidéo non disponible.</p>
                 )}
                 {currentContent.type === 'PDF' && currentContent.url && (
-                  <div className="space-y-4">
-                    <iframe src={currentContent.url} className="w-full h-[600px] rounded-xl border" title={currentContent.title} />
+                  <div>
+                    <iframe src={currentContent.url} style={{ width: '100%', height: '600px', borderRadius: '12px', border: '1px solid #e5e7eb' }} title={currentContent.title} />
                     <a href={currentContent.url} target="_blank" rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-blue-600 hover:underline text-sm">
+                      style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#2563eb', fontSize: '14px', marginTop: '12px', textDecoration: 'none' }}>
                       <FileText size={15} /> Ouvrir dans un nouvel onglet
                     </a>
                   </div>
@@ -383,52 +471,46 @@ function CoursPlayer() {
               </div>
 
               {/* Navigation */}
-              <div className="flex items-center gap-4">
+              <div style={{ display: 'flex', gap: '16px', marginBottom: '40px' }}>
                 <button
-                  onClick={goToPrev}
+                  onClick={() => { if (currentIdx > 0) navigateTo(allContents[currentIdx - 1].id); }}
                   disabled={currentIdx <= 0}
-                  className="px-6 py-3.5 border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed font-semibold text-base"
+                  style={{ padding: '14px 24px', border: '2px solid #e5e7eb', borderRadius: '12px', background: 'white', color: '#4b5563', fontWeight: 600, fontSize: '15px', cursor: currentIdx <= 0 ? 'not-allowed' : 'pointer', opacity: currentIdx <= 0 ? 0.4 : 1 }}
                 >
                   ← Précédent
                 </button>
-
                 <button
                   onClick={markAsComplete}
-                  className={`flex-1 py-3.5 rounded-xl font-bold text-base transition-colors ${
-                    isCurrentDone
-                      ? 'bg-green-50 text-green-700 border border-green-200 hover:bg-green-100'
-                      : 'bg-blue-600 text-white hover:bg-blue-700'
-                  }`}
+                  style={{
+                    flex: 1, padding: '14px', borderRadius: '12px', fontWeight: 700, fontSize: '15px', cursor: 'pointer', border: isCurrentDone ? '2px solid #bbf7d0' : 'none',
+                    backgroundColor: isCurrentDone ? '#f0fdf4' : '#2563eb',
+                    color: isCurrentDone ? '#15803d' : 'white',
+                  }}
                 >
                   {isCurrentDone
-                    ? isLastLesson ? '✓ Formation terminée' : '✓ Continuer →'
-                    : isLastLesson ? 'Terminer la formation' : 'Marquer comme terminé →'
-                  }
+                    ? (isLastLesson ? '✓ Formation terminée' : '✓ Continuer →')
+                    : (isLastLesson ? 'Terminer la formation' : 'Marquer comme terminé →')}
                 </button>
-
                 <button
-                  onClick={goToNext}
+                  onClick={() => { if (currentIdx < allContents.length - 1) navigateTo(allContents[currentIdx + 1].id); }}
                   disabled={currentIdx >= allContents.length - 1}
-                  className="px-5 py-3 border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed font-medium text-sm"
+                  style={{ padding: '14px 24px', border: '2px solid #e5e7eb', borderRadius: '12px', background: 'white', color: '#4b5563', fontWeight: 600, fontSize: '15px', cursor: currentIdx >= allContents.length - 1 ? 'not-allowed' : 'pointer', opacity: currentIdx >= allContents.length - 1 ? 0.4 : 1 }}
                 >
                   Suivant →
                 </button>
               </div>
 
-              {/* Bannière fin de formation */}
               {allDone && (
-                <div className="mt-8 p-6 bg-green-50 border border-green-200 rounded-2xl text-center">
-                  <Award className="w-12 h-12 text-green-500 mx-auto mb-3" />
-                  <h3 className="text-xl font-bold text-green-800 mb-2">Formation complétée !</h3>
-                  <p className="text-green-700 mb-5">
-                    Bravo ! Toutes les leçons sont terminées. Passez l'évaluation finale pour obtenir votre certificat.
-                  </p>
+                <div style={{ padding: '32px', backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '16px', textAlign: 'center' }}>
+                  <Award size={56} color="#22c55e" style={{ display: 'block', margin: '0 auto 16px' }} />
+                  <h3 style={{ fontSize: '22px', fontWeight: 700, color: '#166534', marginBottom: '8px' }}>Formation complétée !</h3>
+                  <p style={{ fontSize: '16px', color: '#15803d', marginBottom: '24px' }}>Bravo ! Toutes les leçons sont terminées.</p>
                   {formation.evaluation && (
                     <Link
                       href={`/evaluation/${formation.evaluation.id}?enrollmentId=${enrollment.id}&formationId=${formationId}`}
-                      className="inline-flex items-center gap-2 px-8 py-3 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition-colors"
+                      style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 32px', backgroundColor: '#16a34a', color: 'white', borderRadius: '12px', fontWeight: 700, fontSize: '16px', textDecoration: 'none' }}
                     >
-                      <Award size={20} />
+                      <Award size={22} />
                       Passer l'évaluation finale
                     </Link>
                   )}
@@ -436,18 +518,18 @@ function CoursPlayer() {
               )}
             </div>
           )}
-        </main>
+        </div>
       </div>
     </div>
   );
 }
 
-// ─── Page wrapper avec Suspense (requis par useSearchParams) ─────────────────
+// ─── Page wrapper ─────────────────────────────────────────────────────────────
 
 export default function CoursPlayerPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Loader2 className="w-10 h-10 text-blue-600 animate-spin" />
       </div>
     }>
