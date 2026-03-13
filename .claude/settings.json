@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(ls -lah /home/nathan-voglossou/win-academy/public/*.pdf)"
+      "Bash(ls -lah /home/nathan-voglossou/win-academy/public/*.pdf)",
+      "Bash(git diff:*)"
     ],
     "additionalDirectories": [
       "/home/nathan-voglossou/win-academy/src/app/cours"

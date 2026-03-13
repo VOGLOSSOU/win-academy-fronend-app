@@ -199,7 +199,7 @@ function CoursPlayer() {
           await loadContent(targetId);
           formationData.modules.forEach((mod, idx) => {
             if (mod.contents?.some(c => c.id === targetId)) {
-              setExpandedModules(prev => new Set([...prev, idx]));
+              setExpandedModules(prev => { const s = new Set(prev); s.add(idx); return s; });
             }
           });
         }
