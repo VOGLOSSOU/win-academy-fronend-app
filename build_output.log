@@ -1,0 +1,43 @@
+
+> wurami-e-learning@1.0.0 build
+> next build
+
+  ▲ Next.js 14.2.3
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/16) ...
+   Generating static pages (4/16) 
+   Generating static pages (8/16) 
+   Generating static pages (12/16) 
+ ✓ Generating static pages (16/16)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                             Size     First Load JS
+┌ ○ /                                                   4.95 kB         111 kB
+├ ○ /_not-found                                         871 B            88 kB
+├ ○ /a-propos                                           4.8 kB          111 kB
+├ ○ /certifications                                     3.65 kB         110 kB
+├ ○ /connexion                                          1.97 kB         108 kB
+├ ○ /dashboard                                          4.01 kB         114 kB
+├ ○ /formations                                         2.91 kB         109 kB
+├ ● /formations/[id]                                    4.5 kB          106 kB
+├   ├ /formations/b9b74424-d3c7-4cbb-85b0-ba52f12267de
+├   └ /formations/e2247f8a-2154-4419-8ad6-5c22bcaba0e2
+├ ○ /formations/je-communique-par-mail                  797 B           107 kB
+├ ○ /inscription                                        3.18 kB         110 kB
+├ ○ /mot-de-passe-oublie                                1.93 kB         108 kB
+├ ○ /partenaires                                        2.54 kB         109 kB
+└ ○ /ressources-gratuites                               2.19 kB         109 kB
++ First Load JS shared by all                           87.2 kB
+  ├ chunks/23-9004a86ba15a35f4.js                       31.6 kB
+  ├ chunks/fd9d1056-efb5da67be9f98f6.js                 53.6 kB
+  └ other shared chunks (total)                         1.96 kB
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses getStaticProps)
+

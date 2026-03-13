@@ -48,7 +48,7 @@ export default function RessourcesGratuitesPage() {
 
       {/* Contenu */}
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-14">
-        <p className="text-gray-400 text-base mb-8 font-medium">
+        <p className="text-gray-400 text-lg mb-8 font-medium">
           {ressources.length} ressource{ressources.length > 1 ? 's' : ''} disponible{ressources.length > 1 ? 's' : ''}
         </p>
 
@@ -68,23 +68,23 @@ export default function RessourcesGratuitesPage() {
               {/* Infos */}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="text-sm font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">
+                  <span className="text-base font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">
                     {ressource.categorie}
                   </span>
-                  <span className="text-sm font-semibold text-green-700 bg-green-50 px-3 py-1 rounded-full">
+                  <span className="text-base font-semibold text-green-700 bg-green-50 px-3 py-1 rounded-full">
                     Gratuit
                   </span>
-                  <span className="text-sm text-gray-400 uppercase tracking-wide font-medium">
+                  <span className="text-base text-gray-400 uppercase tracking-wide font-medium">
                     {ressource.format}
                   </span>
                 </div>
-                <h2 className="text-2xl font-bold text-dark mb-3">
+                <h2 className="text-3xl font-bold text-dark mb-3">
                   {ressource.titre}
                 </h2>
-                <p className="text-gray-500 text-base mb-3 leading-relaxed">
+                <p className="text-gray-500 text-lg mb-3 leading-relaxed">
                   {ressource.description}
                 </p>
-                <p className="text-sm text-gray-400">
+                <p className="text-base text-gray-400">
                   Par <span className="font-semibold text-gray-600">{ressource.auteur}</span>
                 </p>
               </div>
@@ -95,7 +95,7 @@ export default function RessourcesGratuitesPage() {
                   href={ressource.pdfUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-colors text-base"
+                  className="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-colors text-lg"
                 >
                   <ExternalLink className="w-5 h-5" />
                   Lire
@@ -103,7 +103,7 @@ export default function RessourcesGratuitesPage() {
                 <a
                   href={ressource.pdfUrl}
                   download
-                  className="flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-xl font-semibold hover:bg-primary/5 transition-colors text-base"
+                  className="flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-xl font-semibold hover:bg-primary/5 transition-colors text-lg"
                 >
                   <Download className="w-5 h-5" />
                   Télécharger
@@ -116,8 +116,8 @@ export default function RessourcesGratuitesPage() {
         {/* Placeholder futures ressources */}
         <div className="mt-14 text-center py-14 border-2 border-dashed border-gray-200 rounded-2xl">
           <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-          <p className="text-gray-500 text-lg font-semibold">D'autres ressources arrivent bientôt</p>
-          <p className="text-gray-400 text-base mt-2">
+          <p className="text-gray-500 text-xl font-semibold">D'autres ressources arrivent bientôt</p>
+          <p className="text-gray-400 text-lg mt-2">
             Revenez régulièrement pour découvrir de nouveaux contenus gratuits.
           </p>
         </div>
