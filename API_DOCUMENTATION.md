@@ -1,4 +1,4 @@
-# WURAMI INNOVATIVE HUB — Documentation API Flux Apprenant
+# WIN ACADEMY — Documentation API Flux Apprenant
 
 > **URL de base (production) :** `https://win-academy-backend.onrender.com`
 > **URL de base (local) :** `http://localhost:3000`
@@ -28,6 +28,7 @@ Voici l'ordre logique des appels API selon les écrans de l'application :
 11. [Page résultat]       (utiliser la réponse du POST /attempts directement)
 12. [Page certificats]    GET /certificates/mine       → voir mes certificats obtenus
 13. [Page vérification]   GET /certificates/verify/:code → vérifier un certificat (public)
+14. [Bouton "Se désinscrire"] DELETE /enrollments/:id   → se désinscrire d'une formation
 ```
 
 ---
@@ -48,6 +49,7 @@ Voici l'ordre logique des appels API selon les écrans de l'application :
 | `GET /enrollments/mine` | ✅ token valide | — |
 | `GET /enrollments/:id` | ✅ token valide | — |
 | `PATCH /enrollments/:id/progress` | ✅ token valide | — |
+| `DELETE /enrollments/:id` | ✅ token valide | Être propriétaire de l'inscription |
 | `GET /contents/:id` | ✅ token valide | Être inscrit à la formation |
 | `GET /evaluations/:id` | ✅ token valide | — |
 | `POST /attempts` | ✅ token valide | — |
@@ -534,6 +536,27 @@ Voici l'ordre logique des appels API selon les écrans de l'application :
 **Erreurs :**
 - `400` — progressPercentage hors de la plage 0–100
 - `404` — Inscription introuvable
+
+---
+
+### DELETE `/enrollments/:id` — Se désinscrire d'une formation
+**Accès :** token valide (propriétaire de l'inscription uniquement) | **Status :** ✅ 200 OK
+
+> Utiliser cette route pour le bouton **"Se désinscrire"** dans le dashboard ou la page formation. L'`id` est l'`enrollmentId` (récupéré depuis `GET /enrollments/mine` ou `GET /auth/dashboard`).
+>
+> Seul l'apprenant qui possède l'inscription peut la supprimer. Un admin peut supprimer n'importe quelle inscription.
+
+**Réponse 200 :**
+```json
+{ "message": "Inscription supprimée" }
+```
+
+**Erreurs :**
+- `401` — Token manquant ou invalide
+- `403` — L'inscription ne vous appartient pas
+- `404` — Inscription introuvable
+
+> **Important :** Après une désinscription, supprimer l'`enrollmentId` du state local et rediriger l'utilisateur hors du cours.
 
 ---
 

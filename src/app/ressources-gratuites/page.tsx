@@ -57,25 +57,20 @@ export default function RessourcesGratuitesPage() {
       <Navigation />
 
       {/* Hero */}
-      <section className="pt-56 pb-28 relative overflow-hidden">
-        <div 
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-          style={{ 
-            backgroundImage: 'url("https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=1973&auto=format&fit=crop")',
-            filter: 'brightness(0.5)'
-          }}
-        />
-        <div className="max-w-4xl mx-auto text-center relative z-10 text-white px-4">
+      <section className="pt-40 pb-20 bg-white border-b border-gray-100">
+        <div className="max-w-4xl mx-auto text-center px-4">
           <div className="flex justify-center mb-8">
-            <div className="bg-white/20 backdrop-blur-md p-6 rounded-full border border-white/30">
-              <BookOpen className="w-16 h-16 text-white" />
+            <div className="bg-blue-50 p-6 rounded-full border-2 border-blue-100">
+              <BookOpen className="w-16 h-16 text-blue-600" />
             </div>
           </div>
-          <h1 className="text-6xl md:text-7xl font-bold mb-6 drop-shadow-lg">
+          <h1 className="text-5xl md:text-6xl font-extrabold mb-6 text-gray-900 leading-tight">
             Ressources Gratuites
           </h1>
-          <p className="text-white/90 text-2xl md:text-3xl max-w-2xl mx-auto leading-relaxed drop-shadow-md">
-            Des guides et supports pédagogiques <span className="text-yellow-300 font-bold">100% gratuits</span> pour développer vos compétences.
+          <p className="text-gray-600 text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed">
+            Des guides et supports pédagogiques{' '}
+            <span className="text-blue-600 font-bold">100% gratuits</span>{' '}
+            pour développer vos compétences.
           </p>
         </div>
       </section>

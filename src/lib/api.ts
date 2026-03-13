@@ -245,6 +245,9 @@ export const enrollmentsApi = {
       method: 'PATCH',
       body: JSON.stringify({ progressPercentage }),
     }, true),
+
+  delete: (id: string): Promise<{ message: string }> =>
+    apiFetch(`/enrollments/${id}`, { method: 'DELETE' }, true),
 };
 
 // ─── Évaluations ─────────────────────────────────────────────────────────────

@@ -1,305 +1,171 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import { Search, Clock, Users, Award, CheckCircle, ArrowRight, X, Mail, Phone } from 'lucide-react';
-
-const certifications = [
-  {
-    id: 1,
-    title: 'Certification Anglais Professionnel',
-    category: 'anglais',
-    description: 'Maîtrisez l\'anglais professionnel pour communiquer avec confiance en milieu professionnel.',
-    duration: '8 semaines',
-    students: 850,
-    price: 35000,
-    skills: ['Grammaire professionnelle', 'Vocabulaire business', 'Expression orale', 'Anglais écrit']
-  },
-  {
-    id: 2,
-    title: 'Certification Compétences Numériques',
-    category: 'techniques',
-    description: 'Validez vos compétences en bureautique et outils numériques.',
-    duration: '4 semaines',
-    students: 1100,
-    price: 25000,
-    skills: ['Word', 'Excel', 'PowerPoint', 'Navigation sécurisée']
-  },
-  {
-    id: 3,
-    title: 'Certification Marketing Digital',
-    category: 'employabilite',
-    description: 'Devenez un expert du marketing digital et créez votre présence en ligne.',
-    duration: '10 semaines',
-    students: 720,
-    price: 45000,
-    skills: ['SEO', 'Google Ads', 'Analytics', 'Email Marketing']
-  },
-  {
-    id: 4,
-    title: 'Certification Développement Professionnel',
-    category: 'employabilite',
-    description: 'Maîtrisez les compétences transversales pour réussir votre carrière.',
-    duration: '4 semaines',
-    students: 950,
-    price: 15000,
-    skills: ['CV', 'Entretien', 'Soft skills', 'Communication']
-  },
-  {
-    id: 5,
-    title: 'Certification STEM',
-    category: 'stem',
-    description: 'Développez vos compétences en sciences, technologie, ingénierie et mathématiques.',
-    duration: '12 semaines',
-    students: 450,
-    price: 40000,
-    skills: ['Sciences', 'Technologie', 'Ingénierie', 'Mathématiques']
-  },
-  {
-    id: 6,
-    title: 'Certification Inclusion & Accessibilité',
-    category: 'inclusion',
-    description: 'Apprenez à rendre le numérique accessible à tous.',
-    duration: 'Flexible',
-    students: 320,
-    price: 0,
-    skills: ['Accessibilité', 'Adaptation', 'Inclusion', 'Apprentissage hybride']
-  },
-  {
-    id: 7,
-    title: 'Certification Finance Personnelle',
-    category: 'communaute',
-    description: 'Gérez vos finances personnelles et строите votre avenir financier.',
-    duration: '6 semaines',
-    students: 580,
-    price: 20000,
-    skills: ['Budget', 'Épargne', 'Investissement', 'Planification']
-  },
-  {
-    id: 8,
-    title: 'Certification Entrepreneuriat',
-    category: 'communaute',
-    description: 'Lancez et gérez votre propre entreprise avec succès.',
-    duration: '8 semaines',
-    students: 420,
-    price: 35000,
-    skills: ['Création d\'entreprise', 'Gestion de projet', 'Levée de fonds', 'Business plan']
-  },
-  {
-    id: 9,
-    title: 'Certification Programme OPE',
-    category: 'ope',
-    description: 'Obtenez votre premier emploi avec ce programme complet.',
-    duration: '10 semaines',
-    students: 890,
-    price: 45000,
-    skills: ['Positionnement', 'CV', 'Entretien', 'Réseau professionnel']
-  },
-  {
-    id: 10,
-    title: 'Certification Design & Rédaction Web',
-    category: 'techniques',
-    description: 'Créez des visuels professionnels et rédigez pour le web.',
-    duration: '6 semaines',
-    students: 680,
-    price: 30000,
-    skills: ['Graphisme', 'Canva', 'Rédaction web', 'Outils digitaux']
-  },
-  {
-    id: 11,
-    title: 'Certification UX/UI Design',
-    category: 'employabilite',
-    description: 'Maîtrisez les fondamentaux de l\'expérience utilisateur et du design d\'interface.',
-    duration: '8 semaines',
-    students: 540,
-    price: 40000,
-    skills: ['Figma', 'Recherche utilisateur', 'Wireframing', 'Prototypage']
-  },
-  {
-    id: 12,
-    title: 'Certification Leadership',
-    category: 'leadership',
-    description: 'Développez vos compétences de leader et管理的能力.',
-    duration: '6 semaines',
-    students: 380,
-    price: 25000,
-    skills: ['Management', 'Communication', 'Gestion d\'équipe', 'Prise de décision']
-  },
-];
+import { Award, CheckCircle, Users, Copy, ExternalLink, Loader2, Lock } from 'lucide-react';
+import { certificatesApi, type Certificate } from '@/lib/api';
+import { useAuthStore } from '@/store/authStore';
 
 export default function CertificationsPage() {
-  const [activeCategory, setActiveCategory] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [showModal, setShowModal] = useState(false);
+  const [certificates, setCertificates] = useState<Certificate[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const { isAuthenticated } = useAuthStore();
 
-  const categories = [
-    { id: 'all', name: 'Toutes les certifications' },
-    { id: 'anglais', name: 'Anglais' },
-    { id: 'techniques', name: 'Compétences Techniques' },
-    { id: 'employabilite', name: 'Employabilité' },
-    { id: 'stem', name: 'STEM' },
-    { id: 'inclusion', name: 'Inclusion' },
-    { id: 'communaute', name: 'Éducation Communautaire' },
-    { id: 'ope', name: 'Programme OPE' },
-    { id: 'leadership', name: 'Leadership' },
-  ];
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setLoading(false);
+      return;
+    }
+    certificatesApi.getMine()
+      .then(setCertificates)
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, [isAuthenticated]);
 
-  const filteredCertifications = certifications.filter(cert => {
-    const matchesCategory = activeCategory === 'all' || cert.category === activeCategory;
-    const matchesSearch = searchQuery === '' || 
-      cert.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      cert.description.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  const copyCode = (code: string) => {
+    navigator.clipboard.writeText(code);
+    setCopiedCode(code);
+    setTimeout(() => setCopiedCode(null), 2000);
+  };
+
+  const levelLabel = (level: string) => {
+    if (level === 'DEBUTANT') return 'Débutant';
+    if (level === 'INTERMEDIAIRE') return 'Intermédiaire';
+    if (level === 'AVANCE') return 'Avancé';
+    return level;
+  };
 
   return (
     <>
       <Navigation />
-      
+
       {/* Hero */}
       <section className="pt-56 pb-16 bg-light">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold text-dark mb-6">Nos Certifications</h1>
-            <p className="text-2xl text-gray-600 mb-8">
-              Validez vos compétences et booster votre carrière avec nos certifications reconnues
+            <h1 className="text-5xl md:text-6xl font-bold text-dark mb-6">Mes Certificats</h1>
+            <p className="text-2xl text-gray-600">
+              Vos certifications obtenues après avoir validé vos formations sur WIN Academy.
             </p>
-            
-            <div className="relative max-w-xl mx-auto">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-              <input
-                type="text"
-                placeholder="Rechercher une certification..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300"
-              />
+          </div>
+        </div>
+      </section>
+
+      {/* Certificates section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 max-w-5xl">
+          {loading ? (
+            <div className="flex justify-center items-center py-24">
+              <Loader2 className="w-10 h-10 text-primary animate-spin" />
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Categories */}
-      <section className="py-8 bg-white border-b">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap gap-3 justify-center">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`px-5 py-2 rounded-full font-medium transition-all ${
-                  activeCategory === cat.id
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-blue-50 hover:text-blue-600'
-                }`}
-              >
-                {cat.name}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Certifications Grid */}
-      <section className="py-16 bg-light">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredCertifications.map((cert) => (
-              <div key={cert.id} className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all overflow-hidden">
-                <div className="p-6">
-                  <div className="flex items-center gap-2 text-lg font-medium text-blue-600 mb-3">
-                    <Award size={20} />
-                    <span>{categories.find(c => c.id === cert.category)?.name}</span>
-                  </div>
-                  
-                  <h3 className="text-2xl font-bold text-dark mb-3">
-                    {cert.title}
-                  </h3>
-                  
-                  <p className="text-gray-600 text-lg mb-5">
-                    {cert.description}
-                  </p>
-                  
-                  {/* Skills */}
-                  <div className="flex flex-wrap gap-2 mb-5">
-                    {cert.skills.slice(0, 3).map((skill, idx) => (
-                      <span key={idx} className="text-sm bg-gray-100 text-gray-600 px-3 py-1.5 rounded-lg">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                  
-                  {/* Meta */}
-                  <div className="flex items-center justify-between text-lg text-gray-500 mb-5 pt-4 border-t">
-                    <div className="flex items-center gap-2">
-                      <Clock size={20} />
-                      <span>{cert.duration}</span>
+          ) : !isAuthenticated ? (
+            <div className="text-center py-20">
+              <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Lock className="w-10 h-10 text-gray-400" />
+              </div>
+              <h2 className="text-2xl font-bold text-dark mb-3">Connectez-vous pour voir vos certificats</h2>
+              <p className="text-gray-500 mb-8">Vous devez être connecté pour accéder à vos certificats obtenus.</p>
+              <Link href="/connexion" className="px-8 py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-colors">
+                Se connecter
+              </Link>
+            </div>
+          ) : certificates.length === 0 ? (
+            <div className="text-center py-20">
+              <div className="w-20 h-20 bg-yellow-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Award className="w-10 h-10 text-yellow-400" />
+              </div>
+              <h2 className="text-2xl font-bold text-dark mb-3">Aucun certificat pour le moment</h2>
+              <p className="text-gray-500 mb-8">Complétez une formation et réussissez l'évaluation pour obtenir votre premier certificat.</p>
+              <Link href="/formations" className="px-8 py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-colors">
+                Voir les formations
+              </Link>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-6">
+              {certificates.map((cert) => (
+                <div key={cert.id} className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl shadow-lg overflow-hidden text-white">
+                  {/* Card header */}
+                  <div className="p-6 border-b border-white/20">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-blue-200 text-sm font-medium uppercase tracking-wide">WIN Academy</span>
+                      <div className="bg-white/20 p-2 rounded-full">
+                        <Award className="w-5 h-5 text-white" />
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Users size={20} />
-                      <span>{cert.students}</span>
-                    </div>
+                    <h3 className="text-xl font-bold mb-1">{cert.formation?.title}</h3>
+                    <span className="inline-block bg-white/20 text-white text-sm px-3 py-1 rounded-full">
+                      Niveau {levelLabel(cert.formation?.level || '')}
+                    </span>
                   </div>
-                  
-                  {/* Price & CTA */}
-                  <div className="flex items-center justify-between">
+
+                  {/* Card body */}
+                  <div className="p-6 space-y-4">
                     <div>
-                      {cert.price === 0 ? (
-                        <span className="text-2xl font-bold text-green-600">Gratuit</span>
-                      ) : (
-                        <span className="text-2xl font-bold text-blue-600">{cert.price.toLocaleString()} XOF</span>
+                      <p className="text-blue-200 text-xs uppercase tracking-wide mb-1">Obtenu le</p>
+                      <p className="font-semibold">{new Date(cert.issuedAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                    </div>
+
+                    <div>
+                      <p className="text-blue-200 text-xs uppercase tracking-wide mb-1">Code de vérification</p>
+                      <div className="flex items-center gap-2">
+                        <code className="flex-1 bg-white/10 px-3 py-2 rounded-lg text-sm font-mono truncate">{cert.uniqueCode}</code>
+                        <button
+                          onClick={() => copyCode(cert.uniqueCode)}
+                          className="p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors"
+                          title="Copier le code"
+                        >
+                          <Copy className="w-4 h-4" />
+                        </button>
+                      </div>
+                      {copiedCode === cert.uniqueCode && (
+                        <p className="text-green-300 text-xs mt-1">Code copié !</p>
                       )}
                     </div>
-                    <button 
-                      onClick={() => setShowModal(true)}
-                      className="flex items-center gap-2 text-blue-600 font-medium hover:underline cursor-pointer"
+
+                    <Link
+                      href={`/certificats/verifier?code=${cert.uniqueCode}`}
+                      className="flex items-center justify-center gap-2 w-full py-3 bg-white text-blue-700 rounded-xl font-semibold hover:bg-blue-50 transition-colors"
                     >
-                      Détails <ArrowRight size={18} />
-                    </button>
+                      <ExternalLink className="w-4 h-4" />
+                      Voir le certificat
+                    </Link>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-          
-          {filteredCertifications.length === 0 && (
-            <div className="text-center py-16">
-              <p className="text-gray-500 text-lg">Aucune certification ne correspond a votre recherche.</p>
+              ))}
             </div>
           )}
         </div>
       </section>
 
       {/* Why Certify */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-light">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-12">Pourquoi obtenir une certification ?</h2>
-            
             <div className="grid md:grid-cols-3 gap-8">
               <div className="text-center">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Award className="text-blue-600" size={32} />
                 </div>
                 <h3 className="text-xl font-bold mb-2">Reconnaissance</h3>
-                <p className="text-gray-600">Nos certifications sont reconnues par les employeurs au Benin</p>
+                <p className="text-gray-600">Nos certifications sont reconnues par les employeurs au Bénin.</p>
               </div>
-              
               <div className="text-center">
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle className="text-green-600" size={32} />
                 </div>
                 <h3 className="text-xl font-bold mb-2">Compétences validées</h3>
-                <p className="text-gray-600">Démontrez vos compétences aux employeurs potentiels</p>
+                <p className="text-gray-600">Démontrez vos compétences aux employeurs potentiels.</p>
               </div>
-              
               <div className="text-center">
                 <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Users className="text-purple-600" size={32} />
                 </div>
-                <h3 className="text-xl font-bold mb-2">Carrière accelerée</h3>
-                <p className="text-gray-600">Augmentez vos chances d'embauche et d'évolution</p>
+                <h3 className="text-xl font-bold mb-2">Carrière accélérée</h3>
+                <p className="text-gray-600">Augmentez vos chances d'embauche et d'évolution.</p>
               </div>
             </div>
           </div>
@@ -307,68 +173,6 @@ export default function CertificationsPage() {
       </section>
 
       <Footer />
-
-      {/* Modal - Information */}
-      {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          {/* Overlay */}
-          <div 
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            onClick={() => setShowModal(false)}
-          />
-          
-          {/* Modal Content */}
-          <div className="relative bg-white rounded-3xl shadow-2xl max-w-lg w-full p-10 text-center">
-            <button 
-              onClick={() => setShowModal(false)}
-              className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
-            >
-              <X size={24} className="text-gray-500" />
-            </button>
-            
-            {/* Icon */}
-            <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Award className="w-12 h-12 text-blue-600" />
-            </div>
-            
-            <h2 className="text-3xl font-bold text-dark mb-4">
-              Certification Disponible
-            </h2>
-            
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Cette certification est disponible uniquement en <span className="font-bold text-blue-600">accompagnement personnalisé</span>.
-            </p>
-            
-            <div className="bg-blue-50 rounded-2xl p-6 mb-6">
-              <p className="text-lg text-gray-700 mb-4 font-semibold">
-                Contactez-nous pour plus d'informations :
-              </p>
-              
-              <div className="space-y-4">
-                <a 
-                  href="mailto:wuramiteam@gmail.com"
-                  className="flex items-center justify-center gap-3 text-xl text-blue-600 hover:text-blue-700 font-bold"
-                >
-                  <Mail className="w-6 h-6" />
-                  wuramiteam@gmail.com
-                </a>
-                
-                <a 
-                  href="tel:+2290160890808"
-                  className="flex items-center justify-center gap-3 text-xl text-blue-600 hover:text-blue-700 font-bold"
-                >
-                  <Phone className="w-6 h-6" />
-                  +229 01 60 89 08 08
-                </a>
-              </div>
-            </div>
-            
-            <p className="text-lg text-gray-500">
-              Notre équipe vous répondra dans les plus brefs délais !
-            </p>
-          </div>
-        </div>
-      )}
     </>
   );
 }

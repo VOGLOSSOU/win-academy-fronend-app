@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { useAuthStore } from '@/store/authStore';
-import { dashboardApi, DashboardData } from '@/lib/api';
+import { dashboardApi, enrollmentsApi, DashboardData } from '@/lib/api';
 import { toast } from 'react-hot-toast';
 import {
   BookOpen,
@@ -15,22 +15,38 @@ import {
   TrendingUp,
   Play,
   CheckCircle,
-  Calendar,
   ChevronRight,
-  Target,
   Zap,
-  Users,
   FileText,
   BarChart3,
   Settings,
-  Bell
+  Bell,
+  Trash2,
 } from 'lucide-react';
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState('overview');
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [unenrolling, setUnenrolling] = useState<string | null>(null);
   const { user } = useAuthStore();
+
+  const handleUnenroll = async (enrollmentId: string, formationTitle: string) => {
+    if (!confirm(`Se désinscrire de "${formationTitle}" ? Cette action est irréversible.`)) return;
+    try {
+      setUnenrolling(enrollmentId);
+      await enrollmentsApi.delete(enrollmentId);
+      setDashboardData((prev) => prev ? {
+        ...prev,
+        enrollments: prev.enrollments.filter((e) => e.id !== enrollmentId),
+      } : prev);
+      toast.success('Désinscription effectuée');
+    } catch {
+      toast.error('Erreur lors de la désinscription');
+    } finally {
+      setUnenrolling(null);
+    }
+  };
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -308,13 +324,23 @@ export default function DashboardPage() {
                             ></div>
                           </div>
                         </div>
-                        <Link
-                          href={`/formations/${enrollment.formationId}`}
-                          className="flex items-center justify-center gap-2 w-full py-3 bg-primary-light text-primary font-medium rounded-lg hover:bg-primary hover:text-white transition-colors"
-                        >
-                          {enrollment.progressPercentage === 0 ? 'Commencer' : enrollment.progressPercentage === 100 ? 'Revoir' : 'Continuer'}
-                          <ChevronRight size={18} />
-                        </Link>
+                        <div className="flex gap-2">
+                          <Link
+                            href={`/formations/${enrollment.formationId}`}
+                            className="flex-1 flex items-center justify-center gap-2 py-3 bg-primary-light text-primary font-medium rounded-lg hover:bg-primary hover:text-white transition-colors"
+                          >
+                            {enrollment.progressPercentage === 0 ? 'Commencer' : enrollment.progressPercentage === 100 ? 'Revoir' : 'Continuer'}
+                            <ChevronRight size={18} />
+                          </Link>
+                          <button
+                            onClick={() => handleUnenroll(enrollment.id, enrollment.formation?.title || 'cette formation')}
+                            disabled={unenrolling === enrollment.id}
+                            className="p-3 border border-red-200 text-red-500 rounded-lg hover:bg-red-50 transition-colors disabled:opacity-50"
+                            title="Se désinscrire"
+                          >
+                            <Trash2 size={18} />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   )) : (
