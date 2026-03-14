@@ -26,6 +26,8 @@ export default function FormationDetailClient({ formationId: propId }: Formation
   const [isFavorite, setIsFavorite] = useState(false);
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [enrollmentId, setEnrollmentId] = useState<string | null>(null);
+  const [showAlreadyEnrolledModal, setShowAlreadyEnrolledModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const { user } = useAuthStore();
 
   useEffect(() => {
@@ -66,7 +68,7 @@ export default function FormationDetailClient({ formationId: propId }: Formation
     if (!formation) return;
 
     if (isEnrolled) {
-      window.location.href = `/cours/${formation.id}`;
+      setShowAlreadyEnrolledModal(true);
       return;
     }
 
@@ -74,11 +76,11 @@ export default function FormationDetailClient({ formationId: propId }: Formation
       const enrollment = await enrollmentsApi.create(formation.id);
       setIsEnrolled(true);
       setEnrollmentId(enrollment.id);
-      toast.success('Inscription réussie ! Bonne formation 🎉');
+      setShowSuccessModal(true);
     } catch (error: any) {
       if (error.status === 409) {
         setIsEnrolled(true);
-        toast.success('Vous êtes déjà inscrit !');
+        setShowAlreadyEnrolledModal(true);
       } else {
         toast.error(error.message || "Erreur lors de l'inscription");
       }
@@ -304,6 +306,86 @@ export default function FormationDetailClient({ formationId: propId }: Formation
           </div>
         </div>
       </div>
+
+      {/* Modal : déjà inscrit */}
+      {showAlreadyEnrolledModal && formation && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+          onClick={() => setShowAlreadyEnrolledModal(false)}
+        >
+          <div
+            className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4"
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle size={32} className="text-blue-600" />
+              </div>
+              <h2 className="text-xl font-bold text-gray-900 mb-2">Tu es déjà inscrit !</h2>
+              <p className="text-gray-600">
+                Tu es déjà inscrit à <span className="font-semibold">"{formation.title}"</span>. Veux-tu reprendre le cours là où tu t'es arrêté ?
+              </p>
+            </div>
+            <div className="flex flex-col gap-3">
+              <Link
+                href={`/cours/${formation.id}`}
+                className="w-full py-3 bg-blue-600 text-white font-semibold rounded-xl text-center hover:bg-blue-700 transition-colors"
+              >
+                Continuer le cours →
+              </Link>
+              <button
+                onClick={() => setShowAlreadyEnrolledModal(false)}
+                className="w-full py-3 border border-gray-300 text-gray-700 font-medium rounded-xl hover:bg-gray-50 transition-colors"
+              >
+                Rester sur cette page
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal : inscription réussie */}
+      {showSuccessModal && formation && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+          onClick={() => setShowSuccessModal(false)}
+        >
+          <div
+            className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4"
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <GraduationCap size={32} className="text-green-600" />
+              </div>
+              <h2 className="text-xl font-bold text-gray-900 mb-2">Inscription réussie ! 🎉</h2>
+              <p className="text-gray-600">
+                Bienvenue dans <span className="font-semibold">"{formation.title}"</span> ! Tu peux commencer à apprendre dès maintenant.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3">
+              <Link
+                href={`/cours/${formation.id}`}
+                className="w-full py-3 bg-green-600 text-white font-semibold rounded-xl text-center hover:bg-green-700 transition-colors"
+              >
+                Commencer le cours maintenant →
+              </Link>
+              <Link
+                href="/dashboard"
+                className="w-full py-3 bg-blue-50 text-blue-700 font-semibold rounded-xl text-center hover:bg-blue-100 transition-colors"
+              >
+                Voir mon tableau de bord
+              </Link>
+              <button
+                onClick={() => setShowSuccessModal(false)}
+                className="w-full py-3 border border-gray-300 text-gray-700 font-medium rounded-xl hover:bg-gray-50 transition-colors"
+              >
+                Rester sur cette page
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
