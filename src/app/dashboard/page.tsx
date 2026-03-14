@@ -220,7 +220,7 @@ export default function DashboardPage() {
                           enrolledCourses.slice(0, 3).map((enrollment) => (
                             <Link
                               key={enrollment.id}
-                              href={`/formations/${enrollment.formationId}`}
+                              href={`/cours/${enrollment.formationId}`}
                               className="flex items-center gap-4 p-4 rounded-xl hover:bg-gray-50 transition-colors border border-gray-100"
                             >
                               <div className="w-16 h-16 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden flex-shrink-0">
@@ -326,7 +326,7 @@ export default function DashboardPage() {
                         </div>
                         <div className="flex gap-2">
                           <Link
-                            href={`/formations/${enrollment.formationId}`}
+                            href={`/cours/${enrollment.formationId}`}
                             className="flex-1 flex items-center justify-center gap-2 py-3 bg-primary-light text-primary font-medium rounded-lg hover:bg-primary hover:text-white transition-colors"
                           >
                             {enrollment.progressPercentage === 0 ? 'Commencer' : enrollment.progressPercentage === 100 ? 'Revoir' : 'Continuer'}
