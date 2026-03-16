@@ -139,7 +139,7 @@ function CoursPlayer() {
   const formationId = params.formationId as string;
   const initialContentId = searchParams.get('lecon');
 
-  const { user } = useAuthStore();
+  const { user, _hasHydrated } = useAuthStore();
   const [formation, setFormation] = useState<FormationDetail | null>(null);
   const [enrollment, setEnrollment] = useState<Enrollment | null>(null);
   const [currentContent, setCurrentContent] = useState<Content | null>(null);
@@ -170,7 +170,7 @@ function CoursPlayer() {
   }, []);
 
   useEffect(() => {
-    if (!formationId) return;
+    if (!formationId || !_hasHydrated) return;
     if (!user) {
       const token = getAccessToken();
       if (!token) { setLoadingPage(false); router.push('/connexion'); }
@@ -211,7 +211,7 @@ function CoursPlayer() {
     };
     init();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formationId, user]);
+  }, [formationId, user, _hasHydrated]);
 
   const navigateTo = useCallback((contentId: string) => {
     loadContent(contentId);

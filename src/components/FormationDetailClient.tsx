@@ -28,9 +28,11 @@ export default function FormationDetailClient({ formationId: propId }: Formation
   const [enrollmentId, setEnrollmentId] = useState<string | null>(null);
   const [showAlreadyEnrolledModal, setShowAlreadyEnrolledModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const { user } = useAuthStore();
+  const { user, _hasHydrated } = useAuthStore();
 
   useEffect(() => {
+    if (!_hasHydrated) return;
+
     const fetchData = async () => {
       try {
         setLoading(true);
@@ -57,7 +59,7 @@ export default function FormationDetailClient({ formationId: propId }: Formation
     if (formationId) {
       fetchData();
     }
-  }, [formationId, user]);
+  }, [formationId, user, _hasHydrated]);
 
   const handleEnroll = async () => {
     if (!user) {
