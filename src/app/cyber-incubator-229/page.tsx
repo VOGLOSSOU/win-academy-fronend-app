@@ -169,15 +169,19 @@ export default function CyberIncubator229Page() {
       <main className="min-h-screen">
 
         {/* ────────────────── HERO ────────────────── */}
-        <section className="pt-52 pb-28 bg-primary relative overflow-hidden">
+        <section className="pt-52 pb-28 relative overflow-hidden">
+          {/* Image de fond */}
           <div
-            className="absolute inset-0 opacity-5 pointer-events-none"
+            className="absolute inset-0 pointer-events-none"
             style={{
-              backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 40px, white 40px, white 41px),
-                repeating-linear-gradient(90deg, transparent, transparent 40px, white 40px, white 41px)`,
+              backgroundImage: `url('/images/cybersecurity-network-dark.jpg')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
             }}
           />
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-white/5 rounded-full -translate-y-1/3 translate-x-1/3 pointer-events-none" />
+          {/* Overlay bleu sombre pour lisibilité */}
+          <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(135deg, rgba(5,10,30,0.90) 0%, rgba(24,119,242,0.80) 100%)' }} />
 
           <div className="container mx-auto px-4 relative z-10">
             <div className="mx-auto text-center" style={{ maxWidth: '860px' }}>
