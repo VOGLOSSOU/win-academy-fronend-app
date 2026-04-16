@@ -252,23 +252,64 @@ export default function CyberIncubator229Page() {
 
                   {/* Image */}
                   <div className="flex-shrink-0 w-full lg:w-auto">
-                    <div className="relative rounded-3xl overflow-hidden shadow-2xl" style={{ width: '100%', maxWidth: '480px', margin: '0 auto' }}>
-                      <Image
-                        src="/images/229-cyber-incubator.jpg"
-                        alt="Cyber Incubator 229 — Wurami Innovative Hub"
-                        width={480}
-                        height={360}
-                        className="w-full h-auto object-cover"
-                        style={{ display: 'block' }}
-                      />
-                      {/* Badge flottant */}
-                      <div className="absolute bottom-4 left-4 right-4 bg-dark/80 backdrop-blur-sm rounded-2xl px-5 py-3 flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
-                          <Shield className="text-white" size={16} />
-                        </div>
-                        <div>
-                          <p className="text-white font-bold" style={{ fontSize: '13px' }}>Cyber Incubator 229</p>
-                          <p className="text-white/60" style={{ fontSize: '11px' }}>Wurami Innovative Hub · Bénin</p>
+                    <style>{`
+                      @keyframes float {
+                        0%, 100% { transform: translateY(0px); }
+                        50% { transform: translateY(-14px); }
+                      }
+                      @keyframes glow-pulse {
+                        0%, 100% { box-shadow: 0 0 0 0 rgba(24,119,242,0.35), 0 25px 50px rgba(0,0,0,0.25); }
+                        50% { box-shadow: 0 0 0 12px rgba(24,119,242,0), 0 25px 50px rgba(24,119,242,0.3); }
+                      }
+                      @keyframes ring-rotate {
+                        from { transform: rotate(0deg); }
+                        to { transform: rotate(360deg); }
+                      }
+                      .cyber-img-wrapper {
+                        animation: float 4s ease-in-out infinite, glow-pulse 3s ease-in-out infinite;
+                      }
+                      .cyber-img-wrapper:hover {
+                        animation-play-state: paused;
+                        transform: scale(1.03);
+                        transition: transform 0.4s ease;
+                      }
+                    `}</style>
+
+                    {/* Anneau décoratif rotatif */}
+                    <div className="relative" style={{ width: '100%', maxWidth: '480px', margin: '0 auto' }}>
+                      <div className="absolute -inset-3 rounded-3xl pointer-events-none" style={{
+                        background: 'conic-gradient(from 0deg, #1877F2, #29baf9, transparent, #1877F2)',
+                        animation: 'ring-rotate 6s linear infinite',
+                        opacity: 0.4,
+                        borderRadius: '28px',
+                      }} />
+
+                      {/* Image principale */}
+                      <div
+                        className="cyber-img-wrapper relative rounded-3xl overflow-hidden"
+                        style={{ cursor: 'pointer' }}
+                      >
+                        <Image
+                          src="/images/229-cyber-incubator.jpg"
+                          alt="Cyber Incubator 229 — Wurami Innovative Hub"
+                          width={480}
+                          height={360}
+                          className="w-full h-auto object-cover"
+                          style={{ display: 'block' }}
+                        />
+                        {/* Overlay dégradé subtil */}
+                        <div className="absolute inset-0 pointer-events-none" style={{
+                          background: 'linear-gradient(to top, rgba(5,10,30,0.6) 0%, transparent 50%)',
+                        }} />
+                        {/* Badge flottant */}
+                        <div className="absolute bottom-4 left-4 right-4 backdrop-blur-sm rounded-2xl px-5 py-3 flex items-center gap-3" style={{ background: 'rgba(5,10,30,0.75)' }}>
+                          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
+                            <Shield className="text-white" size={16} />
+                          </div>
+                          <div>
+                            <p className="text-white font-bold" style={{ fontSize: '13px' }}>Cyber Incubator 229</p>
+                            <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.55)' }}>Wurami Innovative Hub · Bénin</p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -404,29 +445,80 @@ export default function CyberIncubator229Page() {
         </section>
 
         {/* ────────────────── RÉSULTATS VISÉS ────────────────── */}
-        <section className="py-24 bg-primary">
-          <div className="container mx-auto px-4">
+        <section className="py-24 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #0a0f1e 0%, #0d1f4e 50%, #0a0f1e 100%)' }}>
+
+          {/* Fond décoratif */}
+          <div className="absolute inset-0 pointer-events-none" style={{
+            backgroundImage: `radial-gradient(circle at 20% 50%, rgba(24,119,242,0.12) 0%, transparent 50%),
+                              radial-gradient(circle at 80% 50%, rgba(41,186,249,0.08) 0%, transparent 50%)`,
+          }} />
+          <div className="absolute inset-0 opacity-5 pointer-events-none" style={{
+            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,1) 40px, rgba(255,255,255,1) 41px),
+                              repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,1) 40px, rgba(255,255,255,1) 41px)`,
+          }} />
+
+          <div className="container mx-auto px-4 relative z-10">
             <AnimatedSection>
               <div className="text-center mb-16">
-                <p className="text-sm font-bold uppercase tracking-widest text-white/50 mb-4">
+                <div className="inline-flex items-center gap-2 border border-primary/40 text-primary bg-primary/10 rounded-full px-5 py-2 mb-6" style={{ fontSize: '13px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                   Impact attendu
-                </p>
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Résultats visés</h2>
-                <p className="mx-auto font-medium text-white/85" style={{ fontSize: '20px', maxWidth: '700px' }}>
+                </div>
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-5">Résultats visés</h2>
+                <p className="mx-auto font-medium text-white/70" style={{ fontSize: '20px', maxWidth: '680px' }}>
                   Des impacts concrets et mesurables pour l&apos;écosystème béninois
                 </p>
               </div>
             </AnimatedSection>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mx-auto" style={{ maxWidth: '1100px' }}>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto" style={{ maxWidth: '1100px' }}>
               {results.map((result, index) => (
-                <AnimatedSection key={index} delay={index * 80}>
-                  <div className="bg-white/10 border border-white/15 rounded-2xl p-8 hover:bg-white/15 transition-colors">
-                    <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center mb-6">
-                      <result.icon className="text-white" size={28} />
+                <AnimatedSection key={index} delay={index * 100}>
+                  <div
+                    className="group relative rounded-2xl p-8 h-full flex flex-col"
+                    style={{
+                      background: 'rgba(255,255,255,0.04)',
+                      border: '1px solid rgba(255,255,255,0.08)',
+                      transition: 'transform 0.3s ease, background 0.3s ease',
+                    }}
+                    onMouseEnter={e => {
+                      (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-6px)';
+                      (e.currentTarget as HTMLDivElement).style.background = 'rgba(24,119,242,0.12)';
+                      (e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(24,119,242,0.4)';
+                    }}
+                    onMouseLeave={e => {
+                      (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)';
+                      (e.currentTarget as HTMLDivElement).style.background = 'rgba(255,255,255,0.04)';
+                      (e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(255,255,255,0.08)';
+                    }}
+                  >
+                    {/* Numéro décoratif */}
+                    <span className="absolute top-4 right-5 font-black text-white/5 select-none" style={{ fontSize: '72px', lineHeight: 1 }}>
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+
+                    {/* Icône avec glow */}
+                    <div className="relative mb-6">
+                      <div className="w-16 h-16 rounded-2xl flex items-center justify-center" style={{
+                        background: 'linear-gradient(135deg, rgba(24,119,242,0.3), rgba(41,186,249,0.15))',
+                        border: '1px solid rgba(24,119,242,0.4)',
+                        boxShadow: '0 0 20px rgba(24,119,242,0.2)',
+                      }}>
+                        <result.icon size={30} style={{ color: '#29baf9' }} />
+                      </div>
                     </div>
-                    <p className="text-white font-bold text-xl mb-2 leading-snug">{result.label}</p>
-                    <p className="text-white/80 leading-relaxed font-medium" style={{ fontSize: '17px' }}>{result.detail}</p>
+
+                    {/* Contenu */}
+                    <p className="text-white font-bold mb-3 leading-snug" style={{ fontSize: '20px' }}>
+                      {result.label}
+                    </p>
+                    <p className="text-white/55 leading-relaxed mt-auto" style={{ fontSize: '15px' }}>
+                      {result.detail}
+                    </p>
+
+                    {/* Ligne de bas */}
+                    <div className="absolute bottom-0 left-6 right-6 h-px" style={{
+                      background: 'linear-gradient(to right, transparent, rgba(24,119,242,0.5), transparent)',
+                    }} />
                   </div>
                 </AnimatedSection>
               ))}
