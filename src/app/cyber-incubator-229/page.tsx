@@ -192,7 +192,7 @@ export default function CyberIncubator229Page() {
               <p className="text-2xl md:text-3xl text-white/70 font-light mb-8 tracking-wide">
                 Securing Africa&apos;s Digital Future
               </p>
-              <p className="text-white/65 text-lg md:text-xl max-w-2xl mx-auto mb-14 leading-relaxed">
+              <p className="text-white/90 text-xl md:text-2xl max-w-2xl mx-auto mb-14 leading-relaxed font-medium">
                 Le programme dédié à l&apos;émergence d&apos;une filière locale de cybersécurité au Bénin,
                 conçu pour des porteurs de projets qui souhaitent bâtir des solutions
                 adaptées aux réalités du continent africain.
@@ -235,7 +235,7 @@ export default function CyberIncubator229Page() {
                     <h2 className="text-3xl md:text-5xl font-bold text-dark mb-6 leading-tight">
                       Qu&apos;est-ce que le Cyber Incubator 229 ?
                     </h2>
-                    <p className="text-gray-600 text-xl leading-relaxed">
+                    <p className="text-gray-800 text-2xl leading-relaxed font-medium">
                       Le <strong className="text-dark">Cyber Incubator 229</strong> est le programme phare de Wurami
                       dédié à l&apos;émergence d&apos;une filière locale de cybersécurité au Bénin.
                       Il s&apos;adresse à des porteurs de projets et jeunes entrepreneurs qui souhaitent
@@ -259,11 +259,11 @@ export default function CyberIncubator229Page() {
                 <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
                   Pourquoi ce programme est nécessaire
                 </h2>
-                <p className="text-white/60 text-xl leading-relaxed">
+                <p className="text-white/85 text-xl md:text-2xl leading-relaxed font-medium">
                   L&apos;Afrique connaît une digitalisation rapide et massive. Avec elle, les cybermenaces
                   se multiplient. Face à cette réalité, le Bénin — comme beaucoup de pays africains —
                   manque encore d&apos;une offre locale structurée en cybersécurité.{' '}
-                  <span className="text-white font-semibold">
+                  <span className="text-white font-bold">
                     Le Cyber Incubator 229 est une réponse concrète à ce besoin.
                   </span>
                 </p>
@@ -281,7 +281,7 @@ export default function CyberIncubator229Page() {
                       </div>
                       <div>
                         <h3 className="text-white font-bold text-xl mb-2">{threat.label}</h3>
-                        <p className="text-white/55 text-base leading-relaxed">{threat.desc}</p>
+                        <p className="text-white/80 text-lg leading-relaxed font-medium">{threat.desc}</p>
                       </div>
                     </div>
                   </div>
@@ -302,7 +302,7 @@ export default function CyberIncubator229Page() {
                 <h2 className="text-4xl md:text-5xl font-bold text-dark mb-5">
                   Ce que le programme propose
                 </h2>
-                <p className="text-gray-500 text-xl max-w-2xl mx-auto leading-relaxed">
+                <p className="text-gray-700 text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed font-medium">
                   Trois piliers complémentaires pour former les acteurs de la cybersécurité africaine
                 </p>
               </div>
@@ -354,8 +354,8 @@ export default function CyberIncubator229Page() {
                             size={18}
                           />
                           <span
-                            className={`text-base leading-snug ${
-                              pillar.accent ? 'text-white/80' : 'text-gray-600'
+                            className={`text-lg leading-snug font-medium ${
+                              pillar.accent ? 'text-white/90' : 'text-gray-700'
                             }`}
                           >
                             {item}
@@ -379,7 +379,7 @@ export default function CyberIncubator229Page() {
                   Impact attendu
                 </p>
                 <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Résultats visés</h2>
-                <p className="text-white/60 text-xl max-w-2xl mx-auto">
+                <p className="text-white/85 text-xl md:text-2xl max-w-2xl mx-auto font-medium">
                   Des impacts concrets et mesurables pour l&apos;écosystème béninois
                 </p>
               </div>
@@ -393,7 +393,7 @@ export default function CyberIncubator229Page() {
                       <result.icon className="text-white" size={28} />
                     </div>
                     <p className="text-white font-bold text-xl mb-2 leading-snug">{result.label}</p>
-                    <p className="text-white/55 text-base leading-relaxed">{result.detail}</p>
+                    <p className="text-white/80 text-lg leading-relaxed font-medium">{result.detail}</p>
                   </div>
                 </AnimatedSection>
               ))}
@@ -412,7 +412,7 @@ export default function CyberIncubator229Page() {
                 <h2 className="text-4xl md:text-5xl font-bold text-dark mb-5">
                   Partenaires recherchés
                 </h2>
-                <p className="text-gray-500 text-xl max-w-2xl mx-auto leading-relaxed">
+                <p className="text-gray-700 text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed font-medium">
                   Nous recherchons activement des partenaires internationaux pour renforcer
                   l&apos;écosystème cybersécurité en Afrique francophone
                 </p>
@@ -427,7 +427,7 @@ export default function CyberIncubator229Page() {
                       <partner.icon className="text-primary" size={28} />
                     </div>
                     <h3 className="text-xl font-bold text-dark mb-3">{partner.title}</h3>
-                    <p className="text-gray-500 text-base leading-relaxed">{partner.description}</p>
+                    <p className="text-gray-700 text-lg leading-relaxed font-medium">{partner.description}</p>
                   </div>
                 </AnimatedSection>
               ))}
@@ -442,7 +442,7 @@ export default function CyberIncubator229Page() {
                   </div>
                   <div className="text-center md:text-left flex-1">
                     <h3 className="text-2xl font-bold text-dark mb-3">Intéressé par un partenariat ?</h3>
-                    <p className="text-gray-500 text-lg mb-6 leading-relaxed">
+                    <p className="text-gray-700 text-xl mb-6 leading-relaxed font-medium">
                       Contactez-nous pour discuter des modalités de collaboration
                       et rejoindre le Cyber Incubator 229.
                     </p>
@@ -475,7 +475,7 @@ export default function CyberIncubator229Page() {
                   <h2 className="text-3xl md:text-4xl font-bold text-white leading-snug mb-4">
                     Ensemble, sécurisons l&apos;avenir numérique de l&apos;Afrique
                   </h2>
-                  <p className="text-white/45 text-lg leading-relaxed">
+                  <p className="text-white/80 text-xl leading-relaxed font-medium">
                     Le Cyber Incubator 229 est une opportunité unique de contribuer
                     à la souveraineté numérique du Bénin et du continent africain.
                   </p>
