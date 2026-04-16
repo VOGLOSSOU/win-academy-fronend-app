@@ -97,6 +97,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/cyber-incubator-229" className="text-gray-400 hover:text-primary transition-colors">
+                  Cyber Incubator 229
+                </Link>
+              </li>
+              <li>
                 <Link href="/partenaires" className="text-gray-400 hover:text-primary transition-colors">
                   Partenaires
                 </Link>
