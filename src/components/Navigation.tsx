@@ -7,7 +7,7 @@ import { Menu, X, User, LogOut } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
 
 const navLinks = [
-  { href: '/', label: 'Accueil' },
+  { href: '/plateforme', label: 'Notre Plateforme' },
   { href: '/formations', label: 'Formations' },
   { href: '/cyber-incubator-229', label: 'Cyber Incubator 229' },
   { href: '/ressources-gratuites', label: 'Ressources Gratuites' },

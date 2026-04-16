@@ -92,6 +92,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/plateforme" className="text-gray-400 hover:text-primary transition-colors">
+                  Notre Plateforme
+                </Link>
+              </li>
+              <li>
                 <Link href="/formations" className="text-gray-400 hover:text-primary transition-colors">
                   Formations
                 </Link>
