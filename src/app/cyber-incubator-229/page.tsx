@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import Image from 'next/image';
 import {
   Shield,
   ShieldCheck,
@@ -226,16 +227,18 @@ export default function CyberIncubator229Page() {
           <div className="container mx-auto px-4">
             <AnimatedSection>
               <div className="mx-auto" style={{ maxWidth: '1100px' }}>
-                <div className="flex flex-col md:flex-row items-start gap-10">
-                  <div className="flex-shrink-0">
-                    <div className="w-24 h-24 rounded-3xl bg-primary flex items-center justify-center shadow-xl">
-                      <Shield className="text-white" size={44} />
+                <div className="flex flex-col lg:flex-row items-center gap-14">
+
+                  {/* Texte */}
+                  <div className="flex-1">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center shadow-lg flex-shrink-0">
+                        <Shield className="text-white" size={32} />
+                      </div>
+                      <p className="text-sm font-bold uppercase tracking-widest text-primary">
+                        À propos du programme
+                      </p>
                     </div>
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold uppercase tracking-widest text-primary mb-4">
-                      À propos du programme
-                    </p>
                     <h2 className="text-3xl md:text-5xl font-bold text-dark mb-6 leading-tight">
                       Qu&apos;est-ce que le Cyber Incubator 229 ?
                     </h2>
@@ -246,6 +249,31 @@ export default function CyberIncubator229Page() {
                       créer des solutions de cybersécurité adaptées aux réalités africaines.
                     </p>
                   </div>
+
+                  {/* Image */}
+                  <div className="flex-shrink-0 w-full lg:w-auto">
+                    <div className="relative rounded-3xl overflow-hidden shadow-2xl" style={{ width: '100%', maxWidth: '480px', margin: '0 auto' }}>
+                      <Image
+                        src="/images/229-cyber-incubator.jpg"
+                        alt="Cyber Incubator 229 — Wurami Innovative Hub"
+                        width={480}
+                        height={360}
+                        className="w-full h-auto object-cover"
+                        style={{ display: 'block' }}
+                      />
+                      {/* Badge flottant */}
+                      <div className="absolute bottom-4 left-4 right-4 bg-dark/80 backdrop-blur-sm rounded-2xl px-5 py-3 flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
+                          <Shield className="text-white" size={16} />
+                        </div>
+                        <div>
+                          <p className="text-white font-bold" style={{ fontSize: '13px' }}>Cyber Incubator 229</p>
+                          <p className="text-white/60" style={{ fontSize: '11px' }}>Wurami Innovative Hub · Bénin</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </AnimatedSection>
