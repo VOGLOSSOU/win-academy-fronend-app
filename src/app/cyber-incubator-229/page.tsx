@@ -180,7 +180,7 @@ export default function CyberIncubator229Page() {
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-white/5 rounded-full -translate-y-1/3 translate-x-1/3 pointer-events-none" />
 
           <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-3xl mx-auto text-center">
+            <div className="mx-auto text-center" style={{ maxWidth: '860px' }}>
               <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white/90 text-sm font-semibold uppercase tracking-widest px-5 py-2.5 rounded-full mb-8">
                 <Shield size={16} />
                 Programme phare · Wurami Innovative Hub
@@ -192,7 +192,7 @@ export default function CyberIncubator229Page() {
               <p className="text-2xl md:text-3xl text-white/70 font-light mb-8 tracking-wide">
                 Securing Africa&apos;s Digital Future
               </p>
-              <p className="text-white/90 max-w-2xl mx-auto mb-14 leading-relaxed font-medium" style={{ fontSize: '20px' }}>
+              <p className="text-white/90 mx-auto mb-14 leading-relaxed font-medium" style={{ fontSize: '20px' }}>
                 Le programme dédié à l&apos;émergence d&apos;une filière locale de cybersécurité au Bénin,
                 conçu pour des porteurs de projets qui souhaitent bâtir des solutions
                 adaptées aux réalités du continent africain.
@@ -221,7 +221,7 @@ export default function CyberIncubator229Page() {
         <section className="py-24 bg-white" id="programme">
           <div className="container mx-auto px-4">
             <AnimatedSection>
-              <div className="max-w-4xl mx-auto">
+              <div className="mx-auto" style={{ maxWidth: '1100px' }}>
                 <div className="flex flex-col md:flex-row items-start gap-10">
                   <div className="flex-shrink-0">
                     <div className="w-24 h-24 rounded-3xl bg-primary flex items-center justify-center shadow-xl">
@@ -252,7 +252,7 @@ export default function CyberIncubator229Page() {
         <section className="py-24 bg-dark">
           <div className="container mx-auto px-4">
             <AnimatedSection>
-              <div className="max-w-3xl mx-auto text-center mb-16">
+              <div className="mx-auto text-center mb-16" style={{ maxWidth: '860px' }}>
                 <p className="text-sm font-bold uppercase tracking-widest text-primary mb-4">
                   Contexte
                 </p>
@@ -271,7 +271,7 @@ export default function CyberIncubator229Page() {
             </AnimatedSection>
 
             {/* Cartes des menaces — large, contrastées */}
-            <div className="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-5 mx-auto" style={{ maxWidth: '1100px' }}>
               {threats.map((threat, index) => (
                 <AnimatedSection key={index} delay={index * 100}>
                   <div className="group rounded-2xl bg-white/5 border border-white/10 p-8 hover:bg-white/10 transition-colors">
@@ -295,20 +295,20 @@ export default function CyberIncubator229Page() {
         <section className="py-24 bg-white">
           <div className="container mx-auto px-4">
             <AnimatedSection>
-              <div className="max-w-4xl mx-auto mb-16 text-center">
+              <div className="mx-auto mb-16 text-center" style={{ maxWidth: '1100px' }}>
                 <p className="text-sm font-bold uppercase tracking-widest text-primary mb-4">
                   Offre de programme
                 </p>
                 <h2 className="text-4xl md:text-5xl font-bold text-dark mb-5">
                   Ce que le programme propose
                 </h2>
-                <p className="text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium" style={{ fontSize: '20px' }}>
+                <p className="text-gray-700 mx-auto leading-relaxed font-medium" style={{ fontSize: '20px' }}>
                   Trois piliers complémentaires pour former les acteurs de la cybersécurité africaine
                 </p>
               </div>
             </AnimatedSection>
 
-            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-6 mx-auto" style={{ maxWidth: '1100px' }}>
               {pillars.map((pillar, index) => (
                 <AnimatedSection key={index} delay={index * 120}>
                   <div
@@ -380,13 +380,13 @@ export default function CyberIncubator229Page() {
                   Impact attendu
                 </p>
                 <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Résultats visés</h2>
-                <p className="text-white/85 max-w-2xl mx-auto font-medium" style={{ fontSize: '20px' }}>
+                <p className="mx-auto font-medium text-white/85" style={{ fontSize: '20px', maxWidth: '700px' }}>
                   Des impacts concrets et mesurables pour l&apos;écosystème béninois
                 </p>
               </div>
             </AnimatedSection>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-5xl mx-auto">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mx-auto" style={{ maxWidth: '1100px' }}>
               {results.map((result, index) => (
                 <AnimatedSection key={index} delay={index * 80}>
                   <div className="bg-white/10 border border-white/15 rounded-2xl p-8 hover:bg-white/15 transition-colors">
@@ -406,21 +406,21 @@ export default function CyberIncubator229Page() {
         <section className="py-24 bg-white" id="partenaires">
           <div className="container mx-auto px-4">
             <AnimatedSection>
-              <div className="max-w-4xl mx-auto mb-16 text-center">
+              <div className="mx-auto mb-16 text-center" style={{ maxWidth: '1100px' }}>
                 <p className="text-sm font-bold uppercase tracking-widest text-primary mb-4">
                   Appel à partenariat
                 </p>
                 <h2 className="text-4xl md:text-5xl font-bold text-dark mb-5">
                   Partenaires recherchés
                 </h2>
-                <p className="text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium" style={{ fontSize: '20px' }}>
+                <p className="text-gray-700 mx-auto leading-relaxed font-medium" style={{ fontSize: '20px' }}>
                   Nous recherchons activement des partenaires internationaux pour renforcer
                   l&apos;écosystème cybersécurité en Afrique francophone
                 </p>
               </div>
             </AnimatedSection>
 
-            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-14">
+            <div className="grid md:grid-cols-3 gap-6 mx-auto mb-14" style={{ maxWidth: '1100px' }}>
               {partners.map((partner, index) => (
                 <AnimatedSection key={index} delay={index * 120}>
                   <div className="rounded-2xl p-9 border border-gray-100 hover:border-primary/40 hover:shadow-lg transition-all h-full">
@@ -436,7 +436,7 @@ export default function CyberIncubator229Page() {
 
             {/* Bloc contact */}
             <AnimatedSection delay={200}>
-              <div className="bg-light rounded-3xl p-10 md:p-14 max-w-3xl mx-auto">
+              <div className="bg-light rounded-3xl p-10 md:p-14 mx-auto" style={{ maxWidth: '900px' }}>
                 <div className="flex flex-col md:flex-row items-center gap-8">
                   <div className="flex-shrink-0 w-20 h-20 rounded-3xl bg-primary flex items-center justify-center shadow-lg">
                     <Mail className="text-white" size={36} />
@@ -465,7 +465,7 @@ export default function CyberIncubator229Page() {
         <section className="py-20 bg-dark">
           <div className="container mx-auto px-4">
             <AnimatedSection>
-              <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
+              <div className="mx-auto flex flex-col md:flex-row items-center justify-between gap-10" style={{ maxWidth: '1100px' }}>
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <Target className="text-primary" size={24} />
