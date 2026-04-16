@@ -12,7 +12,6 @@ const navLinks = [
   { href: '/cyber-incubator-229', label: 'Cyber Incubator 229' },
   { href: '/ressources-gratuites', label: 'Ressources Gratuites' },
   { href: '/certifications', label: 'Certifications' },
-  { href: '/partenaires', label: 'Partenaires' },
   { href: '/a-propos', label: 'À propos' },
 ];
 
