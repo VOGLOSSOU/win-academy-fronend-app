@@ -526,64 +526,7 @@ export default function CyberIncubator229Page() {
           </div>
         </section>
 
-        {/* ────────────────── PARTENAIRES ────────────────── */}
-        <section className="py-24 bg-white" id="partenaires">
-          <div className="container mx-auto px-4">
-            <AnimatedSection>
-              <div className="mx-auto mb-16 text-center" style={{ maxWidth: '1100px' }}>
-                <p className="text-sm font-bold uppercase tracking-widest text-primary mb-4">
-                  Appel à partenariat
-                </p>
-                <h2 className="text-4xl md:text-5xl font-bold text-dark mb-5">
-                  Partenaires recherchés
-                </h2>
-                <p className="text-gray-700 mx-auto leading-relaxed font-medium" style={{ fontSize: '20px' }}>
-                  Nous recherchons activement des partenaires internationaux pour renforcer
-                  l&apos;écosystème cybersécurité en Afrique francophone
-                </p>
-              </div>
-            </AnimatedSection>
 
-            <div className="grid md:grid-cols-3 gap-6 mx-auto mb-14" style={{ maxWidth: '1100px' }}>
-              {partners.map((partner, index) => (
-                <AnimatedSection key={index} delay={index * 120}>
-                  <div className="rounded-2xl p-9 border border-gray-100 hover:border-primary/40 hover:shadow-lg transition-all h-full">
-                    <div className="w-14 h-14 rounded-2xl bg-primary-light flex items-center justify-center mb-6">
-                      <partner.icon className="text-primary" size={28} />
-                    </div>
-                    <h3 className="text-xl font-bold text-dark mb-3">{partner.title}</h3>
-                    <p className="text-gray-700 leading-relaxed font-medium" style={{ fontSize: '17px' }}>{partner.description}</p>
-                  </div>
-                </AnimatedSection>
-              ))}
-            </div>
-
-            {/* Bloc contact */}
-            <AnimatedSection delay={200}>
-              <div className="bg-light rounded-3xl p-10 md:p-14 mx-auto" style={{ maxWidth: '900px' }}>
-                <div className="flex flex-col md:flex-row items-center gap-8">
-                  <div className="flex-shrink-0 w-20 h-20 rounded-3xl bg-primary flex items-center justify-center shadow-lg">
-                    <Mail className="text-white" size={36} />
-                  </div>
-                  <div className="text-center md:text-left flex-1">
-                    <h3 className="text-2xl font-bold text-dark mb-3">Intéressé par un partenariat ?</h3>
-                    <p className="text-gray-700 mb-6 leading-relaxed font-medium" style={{ fontSize: '18px' }}>
-                      Contactez-nous pour discuter des modalités de collaboration
-                      et rejoindre le Cyber Incubator 229.
-                    </p>
-                    <a
-                      href="mailto:wuramiteam@gmail.com"
-                      className="inline-flex items-center gap-2 px-7 py-3.5 bg-primary text-white rounded-xl font-bold text-base hover:opacity-90 transition-opacity"
-                    >
-                      <Mail size={18} />
-                      wuramiteam@gmail.com
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </AnimatedSection>
-          </div>
-        </section>
 
         {/* ────────────────── CTA FINAL ────────────────── */}
         <section className="py-20 bg-dark">
