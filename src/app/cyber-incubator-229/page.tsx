@@ -264,11 +264,11 @@ export default function CyberIncubator229Page() {
                   Pourquoi ce programme est nécessaire
                 </h2>
                 <p className="text-white/85 leading-relaxed font-medium" style={{ fontSize: '20px' }}>
-                  L&apos;Afrique connaît une digitalisation rapide et massive. Avec elle, les cybermenaces
-                  se multiplient. Face à cette réalité, le Bénin — comme beaucoup de pays africains —
-                  manque encore d&apos;une offre locale structurée en cybersécurité.{' '}
+                  La digitalisation de l&apos;Afrique s&apos;accélère. Et avec elle, les cybermenaces
+                  progressent à un rythme que les pays du continent ne sont pas encore armés pour affronter.
+                  Au Bénin, il n&apos;existe pas encore de filière locale solide en cybersécurité.{' '}
                   <span className="text-white font-bold">
-                    Le Cyber Incubator 229 est une réponse concrète à ce besoin.
+                    Le Cyber Incubator 229 est né pour changer ça.
                   </span>
                 </p>
               </div>
