@@ -9,12 +9,10 @@ import {
   ShieldAlert,
   Lock,
   Server,
-  Globe,
   Users,
   Target,
   BarChart2,
   Award,
-  BookOpen,
   Briefcase,
   Layers,
   AlertOctagon,
@@ -38,7 +36,7 @@ function AnimatedSection({ children, delay = 0 }: { children: React.ReactNode; d
           setTimeout(() => setIsVisible(true), delay);
         }
       },
-      { threshold: 0.12 }
+      { threshold: 0.1 }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -70,6 +68,7 @@ export default function CyberIncubator229Page() {
         'Cryptographie appliquée',
         'Sécurité des systèmes d\'information',
       ],
+      accent: false,
     },
     {
       icon: Briefcase,
@@ -81,6 +80,7 @@ export default function CyberIncubator229Page() {
         'Préparation au pitch',
         'Accès au financement',
       ],
+      accent: true,
     },
     {
       icon: Layers,
@@ -92,6 +92,7 @@ export default function CyberIncubator229Page() {
         'Validation marché',
         'Accompagnement vers la commercialisation',
       ],
+      accent: false,
     },
   ];
 
@@ -140,10 +141,26 @@ export default function CyberIncubator229Page() {
   ];
 
   const threats = [
-    { icon: AlertOctagon, label: 'Fraudes en ligne' },
-    { icon: Server,        label: 'Piratage de systèmes bancaires' },
-    { icon: Lock,          label: 'Violations de données personnelles' },
-    { icon: ShieldAlert,   label: 'Attaques sur infrastructures critiques' },
+    {
+      icon: AlertOctagon,
+      label: 'Fraudes en ligne',
+      desc: 'Escroqueries financières, phishing et arnaques numériques qui paralysent les entreprises et particuliers.',
+    },
+    {
+      icon: Server,
+      label: 'Piratage de systèmes bancaires',
+      desc: 'Attaques ciblant les infrastructures financières, avec des pertes de millions de dollars chaque année.',
+    },
+    {
+      icon: Lock,
+      label: 'Violations de données personnelles',
+      desc: 'Fuite massive d\'informations sensibles exposant citoyens et organisations à des risques graves.',
+    },
+    {
+      icon: ShieldAlert,
+      label: 'Attaques sur infrastructures critiques',
+      desc: 'Menaces sur les réseaux d\'énergie, de santé et de communication essentiels à la stabilité nationale.',
+    },
   ];
 
   return (
@@ -152,50 +169,46 @@ export default function CyberIncubator229Page() {
       <main className="min-h-screen">
 
         {/* ────────────────── HERO ────────────────── */}
-        <section className="pt-52 pb-24 bg-primary relative overflow-hidden">
-          {/* motif géométrique fond */}
-          <div className="absolute inset-0 opacity-5 pointer-events-none"
+        <section className="pt-52 pb-28 bg-primary relative overflow-hidden">
+          <div
+            className="absolute inset-0 opacity-5 pointer-events-none"
             style={{
-              backgroundImage: `repeating-linear-gradient(
-                0deg, transparent, transparent 40px, white 40px, white 41px),
-                repeating-linear-gradient(
-                90deg, transparent, transparent 40px, white 40px, white 41px)`,
+              backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 40px, white 40px, white 41px),
+                repeating-linear-gradient(90deg, transparent, transparent 40px, white 40px, white 41px)`,
             }}
           />
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/5 rounded-full -translate-y-1/3 translate-x-1/3 pointer-events-none" />
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-white/5 rounded-full -translate-y-1/3 translate-x-1/3 pointer-events-none" />
 
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-3xl mx-auto text-center">
-
-              {/* badge */}
-              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white/90 text-xs font-semibold uppercase tracking-widest px-5 py-2 rounded-full mb-8">
-                <Shield size={14} />
+              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white/90 text-sm font-semibold uppercase tracking-widest px-5 py-2.5 rounded-full mb-8">
+                <Shield size={16} />
                 Programme phare · Wurami Innovative Hub
               </div>
 
-              <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 leading-tight tracking-tight">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-5 leading-tight tracking-tight">
                 Cyber Incubator 229
               </h1>
-              <p className="text-xl md:text-2xl text-white/75 font-light mb-8 tracking-wide">
+              <p className="text-2xl md:text-3xl text-white/70 font-light mb-8 tracking-wide">
                 Securing Africa&apos;s Digital Future
               </p>
-              <p className="text-white/65 text-base md:text-lg max-w-2xl mx-auto mb-12 leading-relaxed">
+              <p className="text-white/65 text-lg md:text-xl max-w-2xl mx-auto mb-14 leading-relaxed">
                 Le programme dédié à l&apos;émergence d&apos;une filière locale de cybersécurité au Bénin,
-                conçu pour des porteurs de projets qui souhaitent bâtir des solutions adaptées
-                aux réalités du continent africain.
+                conçu pour des porteurs de projets qui souhaitent bâtir des solutions
+                adaptées aux réalités du continent africain.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
                   href="#programme"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white text-primary rounded-lg font-semibold text-sm hover:bg-gray-50 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-primary rounded-xl font-bold text-base hover:bg-gray-50 transition-colors"
                 >
                   Découvrir le programme
-                  <ArrowRight size={16} />
+                  <ArrowRight size={18} />
                 </a>
                 <a
                   href="#partenaires"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-3.5 border border-white/30 text-white rounded-lg font-semibold text-sm hover:bg-white/10 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white/30 text-white rounded-xl font-bold text-base hover:bg-white/10 transition-colors"
                 >
                   Devenir partenaire
                 </a>
@@ -205,24 +218,24 @@ export default function CyberIncubator229Page() {
         </section>
 
         {/* ────────────────── DÉFINITION ────────────────── */}
-        <section className="py-20 bg-white" id="programme">
+        <section className="py-24 bg-white" id="programme">
           <div className="container mx-auto px-4">
             <AnimatedSection>
               <div className="max-w-4xl mx-auto">
                 <div className="flex flex-col md:flex-row items-start gap-10">
                   <div className="flex-shrink-0">
-                    <div className="w-20 h-20 rounded-2xl bg-primary flex items-center justify-center shadow-lg">
-                      <Shield className="text-white" size={36} />
+                    <div className="w-24 h-24 rounded-3xl bg-primary flex items-center justify-center shadow-xl">
+                      <Shield className="text-white" size={44} />
                     </div>
                   </div>
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">
+                    <p className="text-sm font-bold uppercase tracking-widest text-primary mb-4">
                       À propos du programme
                     </p>
-                    <h2 className="text-3xl md:text-4xl font-bold text-dark mb-5 leading-snug">
+                    <h2 className="text-3xl md:text-5xl font-bold text-dark mb-6 leading-tight">
                       Qu&apos;est-ce que le Cyber Incubator 229 ?
                     </h2>
-                    <p className="text-gray-600 text-lg leading-relaxed">
+                    <p className="text-gray-600 text-xl leading-relaxed">
                       Le <strong className="text-dark">Cyber Incubator 229</strong> est le programme phare de Wurami
                       dédié à l&apos;émergence d&apos;une filière locale de cybersécurité au Bénin.
                       Il s&apos;adresse à des porteurs de projets et jeunes entrepreneurs qui souhaitent
@@ -235,34 +248,42 @@ export default function CyberIncubator229Page() {
           </div>
         </section>
 
-        {/* ────────────────── CONTEXTE & ENJEUX ────────────────── */}
-        <section className="py-20 bg-light">
+        {/* ────────────────── CONTEXTE ────────────────── */}
+        <section className="py-24 bg-dark">
           <div className="container mx-auto px-4">
             <AnimatedSection>
-              <div className="max-w-4xl mx-auto">
-                <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3 text-center">
+              <div className="max-w-3xl mx-auto text-center mb-16">
+                <p className="text-sm font-bold uppercase tracking-widest text-primary mb-4">
                   Contexte
                 </p>
-                <h2 className="text-3xl md:text-4xl font-bold text-dark text-center mb-5">
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
                   Pourquoi ce programme est nécessaire
                 </h2>
-                <p className="text-gray-600 text-lg text-center mb-14 max-w-3xl mx-auto leading-relaxed">
+                <p className="text-white/60 text-xl leading-relaxed">
                   L&apos;Afrique connaît une digitalisation rapide et massive. Avec elle, les cybermenaces
                   se multiplient. Face à cette réalité, le Bénin — comme beaucoup de pays africains —
                   manque encore d&apos;une offre locale structurée en cybersécurité.{' '}
-                  <strong className="text-dark">Le Cyber Incubator 229 est une réponse concrète à ce besoin.</strong>
+                  <span className="text-white font-semibold">
+                    Le Cyber Incubator 229 est une réponse concrète à ce besoin.
+                  </span>
                 </p>
               </div>
             </AnimatedSection>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-5xl mx-auto">
+            {/* Cartes des menaces — large, contrastées */}
+            <div className="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto">
               {threats.map((threat, index) => (
-                <AnimatedSection key={index} delay={index * 80 + 100}>
-                  <div className="bg-white rounded-xl p-6 border-l-4 border-red-500 shadow-sm">
-                    <div className="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center mb-4">
-                      <threat.icon className="text-red-500" size={20} />
+                <AnimatedSection key={index} delay={index * 100}>
+                  <div className="group rounded-2xl bg-white/5 border border-white/10 p-8 hover:bg-white/10 transition-colors">
+                    <div className="flex items-start gap-5">
+                      <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-red-500/15 border border-red-500/20 flex items-center justify-center">
+                        <threat.icon className="text-red-400" size={28} />
+                      </div>
+                      <div>
+                        <h3 className="text-white font-bold text-xl mb-2">{threat.label}</h3>
+                        <p className="text-white/55 text-base leading-relaxed">{threat.desc}</p>
+                      </div>
                     </div>
-                    <p className="text-sm font-semibold text-gray-800">{threat.label}</p>
                   </div>
                 </AnimatedSection>
               ))}
@@ -271,17 +292,17 @@ export default function CyberIncubator229Page() {
         </section>
 
         {/* ────────────────── 3 PILIERS ────────────────── */}
-        <section className="py-20 bg-white">
+        <section className="py-24 bg-white">
           <div className="container mx-auto px-4">
             <AnimatedSection>
-              <div className="max-w-4xl mx-auto mb-14 text-center">
-                <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">
+              <div className="max-w-4xl mx-auto mb-16 text-center">
+                <p className="text-sm font-bold uppercase tracking-widest text-primary mb-4">
                   Offre de programme
                 </p>
-                <h2 className="text-3xl md:text-4xl font-bold text-dark mb-4">
+                <h2 className="text-4xl md:text-5xl font-bold text-dark mb-5">
                   Ce que le programme propose
                 </h2>
-                <p className="text-gray-500 text-lg">
+                <p className="text-gray-500 text-xl max-w-2xl mx-auto leading-relaxed">
                   Trois piliers complémentaires pour former les acteurs de la cybersécurité africaine
                 </p>
               </div>
@@ -290,22 +311,55 @@ export default function CyberIncubator229Page() {
             <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {pillars.map((pillar, index) => (
                 <AnimatedSection key={index} delay={index * 120}>
-                  <div className="border border-gray-100 rounded-2xl p-8 h-full hover:shadow-lg transition-shadow">
-                    {/* numéro + icône */}
-                    <div className="flex items-center gap-3 mb-6">
-                      <span className="text-4xl font-black text-gray-100 leading-none select-none">
+                  <div
+                    className={`rounded-2xl p-10 h-full ${
+                      pillar.accent
+                        ? 'bg-primary text-white'
+                        : 'bg-light border border-gray-100'
+                    }`}
+                  >
+                    <div className="flex items-center gap-4 mb-7">
+                      <span
+                        className={`text-5xl font-black leading-none select-none ${
+                          pillar.accent ? 'text-white/20' : 'text-gray-200'
+                        }`}
+                      >
                         {pillar.number}
                       </span>
-                      <div className="w-11 h-11 rounded-xl bg-primary-light flex items-center justify-center">
-                        <pillar.icon className="text-primary" size={22} />
+                      <div
+                        className={`w-13 h-13 w-12 h-12 rounded-xl flex items-center justify-center ${
+                          pillar.accent ? 'bg-white/20' : 'bg-primary-light'
+                        }`}
+                      >
+                        <pillar.icon
+                          className={pillar.accent ? 'text-white' : 'text-primary'}
+                          size={24}
+                        />
                       </div>
                     </div>
-                    <h3 className="text-lg font-bold text-dark mb-5">{pillar.title}</h3>
-                    <ul className="space-y-2.5">
+                    <h3
+                      className={`text-xl font-bold mb-6 leading-snug ${
+                        pillar.accent ? 'text-white' : 'text-dark'
+                      }`}
+                    >
+                      {pillar.title}
+                    </h3>
+                    <ul className="space-y-3.5">
                       {pillar.items.map((item, i) => (
-                        <li key={i} className="flex items-start gap-2.5">
-                          <CheckCircle2 className="text-primary flex-shrink-0 mt-0.5" size={16} />
-                          <span className="text-gray-600 text-sm leading-snug">{item}</span>
+                        <li key={i} className="flex items-start gap-3">
+                          <CheckCircle2
+                            className={`flex-shrink-0 mt-0.5 ${
+                              pillar.accent ? 'text-white/70' : 'text-primary'
+                            }`}
+                            size={18}
+                          />
+                          <span
+                            className={`text-base leading-snug ${
+                              pillar.accent ? 'text-white/80' : 'text-gray-600'
+                            }`}
+                          >
+                            {item}
+                          </span>
                         </li>
                       ))}
                     </ul>
@@ -317,15 +371,15 @@ export default function CyberIncubator229Page() {
         </section>
 
         {/* ────────────────── RÉSULTATS VISÉS ────────────────── */}
-        <section className="py-20 bg-primary">
+        <section className="py-24 bg-primary">
           <div className="container mx-auto px-4">
             <AnimatedSection>
-              <div className="text-center mb-14">
-                <p className="text-xs font-bold uppercase tracking-widest text-white/50 mb-3">
+              <div className="text-center mb-16">
+                <p className="text-sm font-bold uppercase tracking-widest text-white/50 mb-4">
                   Impact attendu
                 </p>
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">Résultats visés</h2>
-                <p className="text-white/60 text-lg">
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Résultats visés</h2>
+                <p className="text-white/60 text-xl max-w-2xl mx-auto">
                   Des impacts concrets et mesurables pour l&apos;écosystème béninois
                 </p>
               </div>
@@ -334,12 +388,12 @@ export default function CyberIncubator229Page() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-5xl mx-auto">
               {results.map((result, index) => (
                 <AnimatedSection key={index} delay={index * 80}>
-                  <div className="bg-white/10 border border-white/15 rounded-2xl p-7">
-                    <div className="w-11 h-11 rounded-xl bg-white/15 flex items-center justify-center mb-5">
-                      <result.icon className="text-white" size={22} />
+                  <div className="bg-white/10 border border-white/15 rounded-2xl p-8 hover:bg-white/15 transition-colors">
+                    <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center mb-6">
+                      <result.icon className="text-white" size={28} />
                     </div>
-                    <p className="text-white font-bold text-base mb-1 leading-snug">{result.label}</p>
-                    <p className="text-white/50 text-xs leading-relaxed">{result.detail}</p>
+                    <p className="text-white font-bold text-xl mb-2 leading-snug">{result.label}</p>
+                    <p className="text-white/55 text-base leading-relaxed">{result.detail}</p>
                   </div>
                 </AnimatedSection>
               ))}
@@ -348,17 +402,17 @@ export default function CyberIncubator229Page() {
         </section>
 
         {/* ────────────────── PARTENAIRES ────────────────── */}
-        <section className="py-20 bg-white" id="partenaires">
+        <section className="py-24 bg-white" id="partenaires">
           <div className="container mx-auto px-4">
             <AnimatedSection>
-              <div className="max-w-4xl mx-auto mb-14 text-center">
-                <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">
+              <div className="max-w-4xl mx-auto mb-16 text-center">
+                <p className="text-sm font-bold uppercase tracking-widest text-primary mb-4">
                   Appel à partenariat
                 </p>
-                <h2 className="text-3xl md:text-4xl font-bold text-dark mb-4">
+                <h2 className="text-4xl md:text-5xl font-bold text-dark mb-5">
                   Partenaires recherchés
                 </h2>
-                <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+                <p className="text-gray-500 text-xl max-w-2xl mx-auto leading-relaxed">
                   Nous recherchons activement des partenaires internationaux pour renforcer
                   l&apos;écosystème cybersécurité en Afrique francophone
                 </p>
@@ -368,12 +422,12 @@ export default function CyberIncubator229Page() {
             <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-14">
               {partners.map((partner, index) => (
                 <AnimatedSection key={index} delay={index * 120}>
-                  <div className="rounded-2xl p-8 border border-gray-100 hover:border-primary/30 hover:shadow-md transition-all h-full">
-                    <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center mb-5">
-                      <partner.icon className="text-primary" size={24} />
+                  <div className="rounded-2xl p-9 border border-gray-100 hover:border-primary/40 hover:shadow-lg transition-all h-full">
+                    <div className="w-14 h-14 rounded-2xl bg-primary-light flex items-center justify-center mb-6">
+                      <partner.icon className="text-primary" size={28} />
                     </div>
-                    <h3 className="text-lg font-bold text-dark mb-3">{partner.title}</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed">{partner.description}</p>
+                    <h3 className="text-xl font-bold text-dark mb-3">{partner.title}</h3>
+                    <p className="text-gray-500 text-base leading-relaxed">{partner.description}</p>
                   </div>
                 </AnimatedSection>
               ))}
@@ -381,22 +435,22 @@ export default function CyberIncubator229Page() {
 
             {/* Bloc contact */}
             <AnimatedSection delay={200}>
-              <div className="bg-light rounded-2xl p-10 md:p-14 max-w-3xl mx-auto">
+              <div className="bg-light rounded-3xl p-10 md:p-14 max-w-3xl mx-auto">
                 <div className="flex flex-col md:flex-row items-center gap-8">
-                  <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-primary flex items-center justify-center shadow">
-                    <Mail className="text-white" size={28} />
+                  <div className="flex-shrink-0 w-20 h-20 rounded-3xl bg-primary flex items-center justify-center shadow-lg">
+                    <Mail className="text-white" size={36} />
                   </div>
                   <div className="text-center md:text-left flex-1">
-                    <h3 className="text-xl font-bold text-dark mb-2">Intéressé par un partenariat ?</h3>
-                    <p className="text-gray-500 text-sm mb-5">
+                    <h3 className="text-2xl font-bold text-dark mb-3">Intéressé par un partenariat ?</h3>
+                    <p className="text-gray-500 text-lg mb-6 leading-relaxed">
                       Contactez-nous pour discuter des modalités de collaboration
                       et rejoindre le Cyber Incubator 229.
                     </p>
                     <a
                       href="mailto:wuramiteam@gmail.com"
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold text-sm hover:opacity-90 transition-opacity"
+                      className="inline-flex items-center gap-2 px-7 py-3.5 bg-primary text-white rounded-xl font-bold text-base hover:opacity-90 transition-opacity"
                     >
-                      <Mail size={16} />
+                      <Mail size={18} />
                       wuramiteam@gmail.com
                     </a>
                   </div>
@@ -407,36 +461,36 @@ export default function CyberIncubator229Page() {
         </section>
 
         {/* ────────────────── CTA FINAL ────────────────── */}
-        <section className="py-16 bg-dark">
+        <section className="py-20 bg-dark">
           <div className="container mx-auto px-4">
             <AnimatedSection>
-              <div className="max-w-3xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+              <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
                 <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <Target className="text-primary" size={22} />
-                    <span className="text-white/50 text-xs uppercase tracking-widest font-semibold">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Target className="text-primary" size={24} />
+                    <span className="text-white/50 text-sm uppercase tracking-widest font-bold">
                       Mission Wurami
                     </span>
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-white leading-snug">
+                  <h2 className="text-3xl md:text-4xl font-bold text-white leading-snug mb-4">
                     Ensemble, sécurisons l&apos;avenir numérique de l&apos;Afrique
                   </h2>
-                  <p className="text-white/40 text-sm mt-3 leading-relaxed">
-                    Le Cyber Incubator 229 est une opportunité unique de contribuer à la souveraineté
-                    numérique du Bénin et du continent africain.
+                  <p className="text-white/45 text-lg leading-relaxed">
+                    Le Cyber Incubator 229 est une opportunité unique de contribuer
+                    à la souveraineté numérique du Bénin et du continent africain.
                   </p>
                 </div>
-                <div className="flex flex-col gap-3 flex-shrink-0">
+                <div className="flex flex-col gap-4 flex-shrink-0">
                   <a
                     href="/a-propos"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold text-sm hover:opacity-90 transition-opacity whitespace-nowrap"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white rounded-xl font-bold text-base hover:opacity-90 transition-opacity whitespace-nowrap"
                   >
                     En savoir plus sur Wurami
-                    <ArrowRight size={15} />
+                    <ArrowRight size={18} />
                   </a>
                   <a
                     href="/formations"
-                    className="inline-flex items-center justify-center px-6 py-3 border border-white/20 text-white/70 rounded-lg font-semibold text-sm hover:border-white/50 hover:text-white transition-colors whitespace-nowrap"
+                    className="inline-flex items-center justify-center px-8 py-4 border border-white/20 text-white/70 rounded-xl font-bold text-base hover:border-white/50 hover:text-white transition-colors whitespace-nowrap"
                   >
                     Voir nos formations
                   </a>
