@@ -25,7 +25,7 @@ export default function ConnexionPage() {
     const result = await login(email, password);
     
     if (result.success) {
-      router.push('/');
+      router.push('/dashboard');
     } else {
       setError(result.error || 'Email ou mot de passe incorrect');
     }

@@ -2,10 +2,14 @@
   "permissions": {
     "allow": [
       "Bash(ls -lah /home/nathan-voglossou/win-academy/public/*.pdf)",
-      "Bash(git diff:*)"
+      "Bash(git diff:*)",
+      "Bash(rm -f /home/nathan-voglossou/win-academy/build_output.log \\\\ *)",
+      "Read(//home/nathan-voglossou/**)",
+      "Bash(zip -r win-academy.zip win-academy/ --exclude win-academy/node_modules/* --exclude win-academy/.next/* --exclude win-academy/.git/* --exclude win-academy/.claude/*)"
     ],
     "additionalDirectories": [
-      "/home/nathan-voglossou/win-academy/src/app/cours"
+      "/home/nathan-voglossou/win-academy/src/app/cours",
+      "/home/nathan-voglossou/win-academy"
     ]
   }
 }

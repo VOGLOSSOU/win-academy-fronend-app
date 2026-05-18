@@ -1,38 +1,23 @@
-# WIN Academy — Rapport d'avancement
+# WIN Academy — Bilan général du projet
 
-**C'est quoi ?**
-Une plateforme e-learning pensée pour les élèves du Bénin (zones rurales/Nord), optimisée pour les faibles connexions et les mobiles.
+## Le projet
 
----
-
-## Ce qu'on a construit
-
-**1. Système d'inscription et connexion**
-Les utilisateurs peuvent créer un compte avec leurs infos personnelles (nom, date de naissance, département/commune au Bénin) et se connecter de manière sécurisée.
-
-**2. Catalogue de formations**
-Une page listant toutes les formations disponibles, avec recherche et filtres par catégorie. Chaque formation a sa propre page détaillée (description, niveau, durée, modules).
-
-**3. Inscription aux formations**
-Un utilisateur connecté peut s'inscrire à une formation en un clic, et également se désinscrire si besoin.
-
-**4. Lecteur de cours**
-Une fois inscrit, l'apprenant accède au contenu de la formation : les modules s'ouvrent/se ferment, les leçons s'affichent (texte, vidéo, PDF), et la progression est sauvegardée automatiquement.
-
-**5. Tableau de bord personnel**
-Chaque utilisateur a son espace perso qui affiche ses formations en cours, son pourcentage de progression, les formations terminées et ses certificats.
-
-**6. Système de certifications**
-Quand un apprenant termine une formation, il reçoit un certificat avec un code de vérification unique. Une page dédiée permet d'afficher et de vérifier ces certificats.
-
-**7. Ressources gratuites**
-Une section accessible sans compte avec des PDFs téléchargeables (anglais, informatique de base, communication email).
-
-**8. Contact & à propos**
-Les utilisateurs peuvent contacter l'équipe Wurami directement depuis le site. Une page présente la mission, les valeurs et l'équipe.
+**WIN Academy** est la plateforme e-learning de **Wurami Innovative Hub**, une organisation béninoise dédiée à la formation digitale. La plateforme cible les jeunes du Bénin, y compris les zones rurales et reculées, avec une expérience optimisée pour les faibles connexions et les appareils mobiles. Elle est déployée en production sur Hostinger sous forme de site statique (Next.js 14).
 
 ---
 
-## État actuel
+## Ce qui a été réalisé
 
-Le cœur de la plateforme est fonctionnel (inscription, cours, progression, certificats). Les prochaines étapes naturelles sont : le système de quiz/évaluation, la réinitialisation de mot de passe, et le lecteur vidéo intégré.
+**Authentification & comptes** — Inscription avec profil complet (nom, département/commune au Bénin), connexion sécurisée avec JWT, tableau de bord personnel.
+
+**Catalogue de formations** — Liste complète des formations avec recherche et filtres par catégorie. Chaque formation dispose d'une page détaillée (description, niveau, durée, modules).
+
+**Lecteur de cours** — Accès au contenu après inscription : modules dépliables, leçons en texte, vidéo ou PDF, progression sauvegardée automatiquement.
+
+**Certifications** — À la fin d'une formation, l'apprenant reçoit un certificat avec un code de vérification unique consultable en ligne.
+
+**Ressources gratuites** — Section publique avec des PDFs téléchargeables (anglais, informatique, communication).
+
+**Page Cyber Incubator 229** — Page dédiée au programme phare de cybersécurité de Wurami, conçue dans le cadre de la candidature OIF : présentation du programme, contexte des cybermenaces en Afrique, 3 piliers, résultats visés, appel à partenariat. Cette page est également la page d'accueil du site.
+
+**Infrastructure & déploiement** — Build statique (`output: export`) compatible Hostinger, routes dynamiques avec pré-génération, pipeline de déploiement via dossier `out/`.
